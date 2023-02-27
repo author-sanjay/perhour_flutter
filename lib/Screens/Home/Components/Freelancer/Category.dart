@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perhour_flutter/Screens/Category/Projects.dart';
 
 class Category extends StatelessWidget {
   const Category({
@@ -21,42 +22,73 @@ class Category extends StatelessWidget {
             padding: EdgeInsets.only(top: 20, bottom: 20),
             child: Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      Image(image: AssetImage("assets/images/editing.png")),
-                      Text("Software")
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            Projects(categoryname: "Software"),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Image(image: AssetImage("assets/images/editing.png")),
+                        Text("Software")
+                      ],
+                    ),
                   ),
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      Image(image: AssetImage("assets/images/software.png")),
-                      Text("Editing")
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Projects(categoryname: "Editing"),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Image(image: AssetImage("assets/images/software.png")),
+                        Text("Editing")
+                      ],
+                    ),
                   ),
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      Image(image: AssetImage("assets/images/writing.png")),
-                      Text("Writing")
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Projects(categoryname: "Writing"),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Image(image: AssetImage("assets/images/writing.png")),
+                        Text("Writing")
+                      ],
+                    ),
                   ),
                 )
               ],
