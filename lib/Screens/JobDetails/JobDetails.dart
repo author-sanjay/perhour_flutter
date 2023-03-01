@@ -11,64 +11,69 @@ class JobDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.1,
-                color: kblue,
-                padding: EdgeInsets.only(top: 20),
-                child: Center(
-                    child: Text(
-                  "Job Details",
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300),
-                )),
-              ),
-              Container(
-                padding: EdgeInsets.all(20),
-                //main container
-                child: Column(
-                  children: [
-                    Pricings(),
-                    Description(),
-                    Deadlines(),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 18.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ApplyJob(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: kblue,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(10),
-                          child: Center(
-                              child: Text(
-                            "Apply",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300),
-                          )),
-                        ),
-                      ),
-                    )
-                  ],
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Container(
+            color: backgroundwhite,
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  color: kblue,
+                  padding: EdgeInsets.only(top: 20),
+                  child: Center(
+                      child: Text(
+                    "Job Details",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300),
+                  )),
                 ),
-              )
-            ],
+                Container(
+                  padding: EdgeInsets.all(20),
+                  //main container
+                  child: Column(
+                    children: [
+                      Pricings(),
+                      Description(),
+                      Deadlines(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ApplyJob(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: kblue,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.all(10),
+                            child: Center(
+                                child: Text(
+                              "Apply",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
+                            )),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

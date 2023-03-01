@@ -20,6 +20,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
         body: SingleChildScrollView(
       child: SafeArea(
+          child: ConstrainedBox(
+        constraints:
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         child: Container(
           color: backgroundwhite,
           child: Expanded(
@@ -28,7 +31,7 @@ class _HomeState extends State<Home> {
                 children: [SearchBar(), Category(), LatestJobs()]),
           ),
         ),
-      ),
+      )),
     ));
   }
 }
