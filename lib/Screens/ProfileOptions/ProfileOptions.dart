@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
 
 class ProfileOptions extends StatelessWidget {
   const ProfileOptions({super.key});
@@ -112,24 +113,34 @@ class ProfileOptions extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 30),
-                          child: Row(
-                            children: [
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Briefing1.png"))),
-                              Spacer(),
-                              Text(
-                                "Projects",
-                                style: TextStyle(fontSize: 18),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PostedProjects(),
                               ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Briefing1.png"))),
+                                Spacer(),
+                                Text(
+                                  "Projects",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         ),
                         Container(
