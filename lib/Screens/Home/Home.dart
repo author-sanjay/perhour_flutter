@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
+import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Iconss.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/LatestJobs.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/SearchBar.dart';
 
@@ -26,9 +27,13 @@ class _HomeState extends State<Home> {
         child: Container(
           color: backgroundwhite,
           child: Expanded(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [SearchBar(), Category(), LatestJobs()]),
+            child: Iconss.work
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [SearchBar(), Category(), LatestJobs()])
+                : Center(
+                    child: Text("Hello"),
+                  ),
           ),
         ),
       )),
