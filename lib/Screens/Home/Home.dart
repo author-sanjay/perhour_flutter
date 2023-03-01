@@ -4,10 +4,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
+import 'package:perhour_flutter/Screens/FreelancerProfile/SelfProfile.dart';
 import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/LatestJobs.dart';
+import 'package:perhour_flutter/Screens/ProfileOptions/ProfileOptions.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -56,10 +59,31 @@ class _HomeState extends State<Home> {
                                         left: 10, right: 10, top: 10),
                                     child: Row(
                                       children: [
-                                        const Icon(
-                                          Icons.menu,
-                                          color: Colors.white,
-                                          size: 30,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Drawer(),
+                                              ),
+                                            );
+                                          },
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProfileOptions(),
+                                                ),
+                                              );
+                                            },
+                                            child: const Icon(
+                                              Icons.menu,
+                                              color: Colors.white,
+                                              size: 30,
+                                            ),
+                                          ),
                                         ),
                                         const Spacer(),
                                         GestureDetector(
@@ -127,10 +151,20 @@ class _HomeState extends State<Home> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        const Icon(
-                                          Icons.person,
-                                          color: Colors.white,
-                                          size: 30,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SelfProfile()),
+                                            );
+                                          },
+                                          child: const Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                            size: 30,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -339,8 +373,8 @@ class _HomeState extends State<Home> {
                             )),
                         SwipeCards(colorss: colorss, random: random),
                         const Padding(
-                          padding: EdgeInsets.only(
-                              top: 18.0, left: 20, bottom: 20),
+                          padding:
+                              EdgeInsets.only(top: 18.0, left: 20, bottom: 20),
                           child: Text(
                             "Our Recommendation",
                             style: TextStyle(fontSize: 18),
