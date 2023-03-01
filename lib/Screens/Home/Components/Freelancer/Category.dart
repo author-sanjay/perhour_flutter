@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Screens/Category/Projects.dart';
 
@@ -14,12 +16,12 @@ class Category extends StatelessWidget {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Popular",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20, bottom: 20),
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
             child: Row(
               children: [
                 GestureDetector(
@@ -33,19 +35,19 @@ class Category extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
-                      children: [
+                      children: const [
                         Image(image: AssetImage("assets/images/editing.png")),
                         Text("Software")
                       ],
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -56,19 +58,19 @@ class Category extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
-                      children: [
+                      children: const [
                         Image(image: AssetImage("assets/images/software.png")),
                         Text("Editing")
                       ],
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -79,12 +81,12 @@ class Category extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
-                      children: [
+                      children: const [
                         Image(image: AssetImage("assets/images/writing.png")),
                         Text("Writing")
                       ],

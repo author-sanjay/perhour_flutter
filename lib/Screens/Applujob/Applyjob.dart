@@ -1,8 +1,6 @@
-import 'dart:math';
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 
@@ -25,10 +23,10 @@ class ApplyJob extends StatelessWidget {
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.1,
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   width: MediaQuery.of(context).size.width,
                   color: kblue,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Submit Proposal",
                       style: TextStyle(
@@ -39,13 +37,13 @@ class ApplyJob extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: const Text(
                           "Job Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -53,18 +51,18 @@ class ApplyJob extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: const Text(
                           "Job Title",
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: const Text(
                             "hghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgj"),
                       ),
-                      BidInputs()
+                      const BidInputs()
                     ],
                   ),
                 )
@@ -86,11 +84,11 @@ class BidInputs extends StatelessWidget {
         child: Column(
       children: [
         Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Proposed Price",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
@@ -98,7 +96,7 @@ class BidInputs extends StatelessWidget {
                   // color: kblue,
                   height: MediaQuery.of(context).size.height * 0.05,
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Rs 500",
                     ),
                   ),
@@ -106,18 +104,18 @@ class BidInputs extends StatelessWidget {
               ],
             )),
         Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Cover Letter",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
                 Container(
                   // color: kblue,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: TextField(
+                  child: const TextField(
                     // style: TextStyle(height: 300),
                     minLines: 5,
                     maxLines: 100,
@@ -131,11 +129,11 @@ class BidInputs extends StatelessWidget {
               ],
             )),
         Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Proposed Time",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
@@ -143,7 +141,7 @@ class BidInputs extends StatelessWidget {
                   // color: kblue,
 
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "20 Days",
                     ),
                   ),
@@ -151,11 +149,11 @@ class BidInputs extends StatelessWidget {
               ],
             )),
         Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Revision",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
@@ -163,7 +161,7 @@ class BidInputs extends StatelessWidget {
                   // color: kblue,
 
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "5",
                     ),
                   ),
@@ -177,7 +175,7 @@ class BidInputs extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Home(),
+                  builder: (context) => const Home(),
                 ),
               );
             },
@@ -187,7 +185,7 @@ class BidInputs extends StatelessWidget {
               // color: kblue,
               height: MediaQuery.of(context).size.height * 0.06,
               // padding: EdgeInsets.only(top: 20),
-              child: Center(
+              child: const Center(
                   child: Text(
                 "Propose Bid",
                 style: TextStyle(

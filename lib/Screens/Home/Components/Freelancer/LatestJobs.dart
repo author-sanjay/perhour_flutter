@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Screens/Home/Components/ListProjects.dart';
 
@@ -15,16 +17,16 @@ class LatestJobs extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Latest Jobs",
                     style: TextStyle(
                       fontSize: 15,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  ListProjects(),
+                  const ListProjects(),
                 ]),
           ),
         ));

@@ -1,5 +1,6 @@
+// ignore_for_file: file_names, unused_import, implementation_imports, must_be_immutable, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Components/ListProjects.dart';
@@ -22,24 +23,24 @@ class _ProjectsState extends State<Projects> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 color: kblue,
                 child: Center(
                     child: Text(
                   widget.categoryname,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.w300),
                 )),
               ),
               Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
-                  child: Text(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
+                  child: const Text(
                     "Latest Jobs",
                     style: TextStyle(fontSize: 16),
                   )),
-              ListProjects()
+              const ListProjects()
             ],
           )),
         ),

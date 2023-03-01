@@ -1,4 +1,7 @@
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
+import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 
 class FreelancersList extends StatelessWidget {
   const FreelancersList({
@@ -10,20 +13,27 @@ class FreelancersList extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       itemCount: 20,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       separatorBuilder: (_, __) => const Divider(),
       itemBuilder: (context, int index) {
         return Padding(
           padding: const EdgeInsets.only(left: 18.0, right: 20),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FreelancerProfile(),
+                ),
+              );
+            },
             child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 // color: Colors.white,
                 child: Row(
                   children: [
@@ -33,7 +43,7 @@ class FreelancersList extends StatelessWidget {
                         width: 60,
                         height: 60,
                         child:
-                            Image(image: AssetImage("assets/images/Man2.png")),
+                            const Image(image: AssetImage("assets/images/Man2.png")),
                       ),
                     ),
                     Padding(
@@ -41,7 +51,7 @@ class FreelancersList extends StatelessWidget {
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               "Sanjay Kumar",
                               style: TextStyle(fontSize: 18),
@@ -54,10 +64,10 @@ class FreelancersList extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Container(
                       child: Column(
-                        children: [
+                        children: const [
                           Text(
                             "Price",
                             style: TextStyle(fontSize: 12),

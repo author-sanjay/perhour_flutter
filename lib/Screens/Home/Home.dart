@@ -1,16 +1,13 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unnecessary_new
 
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
-import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Iconss.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/LatestJobs.dart';
-import 'package:perhour_flutter/Screens/Home/Components/Freelancer/SearchBar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,9 +19,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List colorss = [
-    Color.fromRGBO(137, 65, 237, 1),
-    Color.fromRGBO(211, 56, 35, 1),
-    Color.fromRGBO(208, 4, 212, 1),
+    const Color.fromRGBO(137, 65, 237, 1),
+    const Color.fromRGBO(211, 56, 35, 1),
+    const Color.fromRGBO(208, 4, 212, 1),
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,12 +56,12 @@ class _HomeState extends State<Home> {
                                         left: 10, right: 10, top: 10),
                                     child: Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.menu,
                                           color: Colors.white,
                                           size: 30,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         GestureDetector(
                                           onTap: () {
                                             if (!Home.work) {
@@ -81,7 +78,7 @@ class _HomeState extends State<Home> {
                                                   ? Colors.white
                                                   : kblue,
                                             ),
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 15,
                                                 right: 15,
                                                 top: 5,
@@ -113,7 +110,7 @@ class _HomeState extends State<Home> {
                                                   ? kblue
                                                   : Colors.white,
                                             ),
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 15,
                                                 right: 15,
                                                 top: 5,
@@ -129,8 +126,8 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                         ),
-                                        Spacer(),
-                                        Icon(
+                                        const Spacer(),
+                                        const Icon(
                                           Icons.person,
                                           color: Colors.white,
                                           size: 30,
@@ -189,8 +186,8 @@ class _HomeState extends State<Home> {
                                   )
                                 ],
                               )),
-                          Category(),
-                          LatestJobs()
+                          const Category(),
+                          const LatestJobs()
                         ])
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,12 +209,12 @@ class _HomeState extends State<Home> {
                                       left: 10, right: 10, top: 10),
                                   child: Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.menu,
                                         color: Colors.white,
                                         size: 30,
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       GestureDetector(
                                         onTap: () {
                                           if (!Home.work) {
@@ -234,7 +231,7 @@ class _HomeState extends State<Home> {
                                                 ? Colors.white
                                                 : kblue,
                                           ),
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 15,
                                               right: 15,
                                               top: 5,
@@ -266,7 +263,7 @@ class _HomeState extends State<Home> {
                                                 ? kblue
                                                 : Colors.white,
                                           ),
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 15,
                                               right: 15,
                                               top: 5,
@@ -282,8 +279,8 @@ class _HomeState extends State<Home> {
                                           ),
                                         ),
                                       ),
-                                      Spacer(),
-                                      Icon(
+                                      const Spacer(),
+                                      const Icon(
                                         Icons.person,
                                         color: Colors.white,
                                         size: 30,
@@ -341,15 +338,15 @@ class _HomeState extends State<Home> {
                               ],
                             )),
                         SwipeCards(colorss: colorss, random: random),
-                        Padding(
-                          padding: const EdgeInsets.only(
+                        const Padding(
+                          padding: EdgeInsets.only(
                               top: 18.0, left: 20, bottom: 20),
                           child: Text(
                             "Our Recommendation",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        FreelancersList(),
+                        const FreelancersList(),
                       ],
                     )),
         ),

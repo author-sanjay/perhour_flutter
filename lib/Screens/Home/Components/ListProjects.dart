@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Screens/JobDetails/JobDetails.dart';
 
@@ -12,7 +14,7 @@ class ListProjects extends StatelessWidget {
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: 20,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         separatorBuilder: (_, __) => const Divider(),
         itemBuilder: (context, int index) {
@@ -23,15 +25,15 @@ class ListProjects extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => JobDetails(),
+                    builder: (context) => const JobDetails(),
                   ),
                 );
               },
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
                           color: Colors.grey,
                           offset: Offset(
@@ -49,7 +51,7 @@ class ListProjects extends StatelessWidget {
                         ), //BoxShadow
                       ],
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   // color: Colors.white,
                   child: Row(
                     children: [
@@ -72,7 +74,7 @@ class ListProjects extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
                         child: Column(

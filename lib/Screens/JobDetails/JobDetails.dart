@@ -1,6 +1,6 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Applujob/Applyjob.dart';
 
@@ -22,8 +22,8 @@ class JobDetails extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.1,
                   color: kblue,
-                  padding: EdgeInsets.only(top: 20),
-                  child: Center(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: const Center(
                       child: Text(
                     "Job Details",
                     style: TextStyle(
@@ -33,13 +33,13 @@ class JobDetails extends StatelessWidget {
                   )),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   //main container
                   child: Column(
                     children: [
-                      Pricings(),
-                      Description(),
-                      Deadlines(),
+                      const Pricings(),
+                      const Description(),
+                      const Deadlines(),
                       Padding(
                         padding: const EdgeInsets.only(top: 18.0),
                         child: GestureDetector(
@@ -47,18 +47,18 @@ class JobDetails extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ApplyJob(),
+                                builder: (context) => const ApplyJob(),
                               ),
                             );
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: kblue,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.all(10),
-                            child: Center(
+                            padding: const EdgeInsets.all(10),
+                            child: const Center(
                                 child: Text(
                               "Apply",
                               style: TextStyle(
@@ -93,9 +93,9 @@ class Deadlines extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: Row(
-              children: [
+              children: const [
                 Text(
                   "Deadline: 4 Days",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
@@ -107,8 +107,8 @@ class Deadlines extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20),
-            child: Text(
+            padding: const EdgeInsets.only(top: 20),
+            child: const Text(
               "Experience: Intermediate",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             ),
@@ -127,17 +127,17 @@ class Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Details",
             style: TextStyle(fontSize: 18),
           ),
           Container(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
+            padding: const EdgeInsets.only(top: 10),
+            child: const Text(
               "BudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudget",
               style: TextStyle(fontSize: 12),
             ),
@@ -163,7 +163,7 @@ class Pricings extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Text(
                   "App Development",
                   style: TextStyle(
@@ -177,12 +177,12 @@ class Pricings extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Container(
             width: MediaQuery.of(context).size.width * 0.4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+              children: const [
                 Text(
                   "Budget",
                   style: TextStyle(
