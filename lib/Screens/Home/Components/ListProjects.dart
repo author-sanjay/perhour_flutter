@@ -19,7 +19,7 @@ class ListProjects extends StatelessWidget {
         separatorBuilder: (_, __) => const Divider(),
         itemBuilder: (context, int index) {
           return Padding(
-            padding: const EdgeInsets.only(left: 18.0, right: 20),
+            padding: const EdgeInsets.only(left: 10.0, right: 10),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -33,25 +33,9 @@ class ListProjects extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.8,
                   decoration: const BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(
-                            2.0,
-                            2.0,
-                          ),
-                          blurRadius: 5.0,
-                          spreadRadius: 2.0,
-                        ), //BoxShadow
-                        BoxShadow(
-                          color: Colors.white,
-                          offset: Offset(0.0, 0.0),
-                          blurRadius: 0.0,
-                          spreadRadius: 0.0,
-                        ), //BoxShadow
-                      ],
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 10, bottom: 10),
                   // color: Colors.white,
                   child: Row(
                     children: [

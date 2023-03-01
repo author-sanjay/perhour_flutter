@@ -42,8 +42,8 @@ class FreelancersList extends StatelessWidget {
                       child: Container(
                         width: 60,
                         height: 60,
-                        child:
-                            const Image(image: AssetImage("assets/images/Man2.png")),
+                        child: const Image(
+                            image: AssetImage("assets/images/Man2.png")),
                       ),
                     ),
                     Padding(

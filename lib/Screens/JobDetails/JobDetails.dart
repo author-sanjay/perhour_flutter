@@ -44,7 +44,7 @@ class JobDetails extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 18.0),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const ApplyJob(),
