@@ -215,6 +215,25 @@ class _PostJobState extends State<PostJob> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20, top: 20, bottom: 10),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                        color: kblue, borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        "Post",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
