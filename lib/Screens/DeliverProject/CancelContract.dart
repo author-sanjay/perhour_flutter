@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, empty_statements
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
@@ -22,10 +24,10 @@ class CancelContract extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: 35, bottom: 15),
+                  padding: const EdgeInsets.only(top: 35, bottom: 15),
                   color: kblue,
                   width: MediaQuery.of(context).size.width,
-                  child: Text(
+                  child: const Text(
                     "Cancel Contract",
                     style: TextStyle(
                         fontWeight: FontWeight.w300,
@@ -38,23 +40,23 @@ class CancelContract extends StatelessWidget {
                     Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(top: 20, left: 20),
-                          child: Text(
+                          padding: const EdgeInsets.only(top: 20, left: 20),
+                          child: const Text(
                             "Job Title",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
                         Container(
                           padding:
-                              EdgeInsets.only(top: 10, bottom: 10, left: 20),
-                          child: Text(
+                              const EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                          child: const Text(
                             "Deadline",
                             style: TextStyle(fontSize: 13),
                           ),
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(right: 18.0),
                       child: GestureDetector(
@@ -62,13 +64,13 @@ class CancelContract extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FreelancerProfile(),
+                              builder: (context) => const FreelancerProfile(),
                             ),
                           );
                         },
                         child: Container(
                             width: MediaQuery.of(context).size.width * 0.2,
-                            child: Image(
+                            child: const Image(
                                 image: AssetImage("assets/images/Man2.png"))),
                       ),
                     )
@@ -76,8 +78,8 @@ class CancelContract extends StatelessWidget {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  padding: EdgeInsets.only(top: 20, left: 20),
-                  child: Text(
+                  padding: const EdgeInsets.only(top: 20, left: 20),
+                  child: const Text(
                     "Job Description",
                     style: TextStyle(fontSize: 15),
                   ),
@@ -88,8 +90,8 @@ class CancelContract extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Text(
                             "Reaseon Of Cancelling",
                             style: TextStyle(fontSize: 16),
@@ -97,12 +99,12 @@ class CancelContract extends StatelessWidget {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.9,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText:
                                     "I am cancelling this contract because"),
                           ),
@@ -110,12 +112,12 @@ class CancelContract extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 color: kblue,
                                 borderRadius: BorderRadius.circular(10)),
                             width: MediaQuery.of(context).size.width * 0.9,
-                            child: Center(
+                            child: const Center(
                                 child: Text(
                               "Cancel Contract",
                               style:
@@ -133,6 +135,6 @@ class CancelContract extends StatelessWidget {
         ),
       ),
     );
-    ;
+    
   }
 }

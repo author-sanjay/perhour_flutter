@@ -1,10 +1,9 @@
-// ignore_for_file: file_names, unnecessary_new
+// ignore_for_file: file_names, unnecessary_new, prefer_const_constructors
 
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/SelfProfile.dart';
 import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';

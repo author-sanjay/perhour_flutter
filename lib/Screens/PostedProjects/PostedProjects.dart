@@ -1,6 +1,6 @@
+// ignore_for_file: file_names, unnecessary_import, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/DeliverProject.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
@@ -30,7 +30,7 @@ class _PostedProjectsState extends State<PostedProjects> {
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.center,
                     color: kblue,
-                    padding: EdgeInsets.only(top: 45, bottom: 20),
+                    padding: const EdgeInsets.only(top: 45, bottom: 20),
                     child: Container(
                       padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.22),
@@ -52,8 +52,8 @@ class _PostedProjectsState extends State<PostedProjects> {
                                         ? Colors.white
                                         : kblue,
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                padding: EdgeInsets.only(right: 10, left: 10),
+                                        const BorderRadius.all(Radius.circular(10))),
+                                padding: const EdgeInsets.only(right: 10, left: 10),
                                 child: Text(
                                   "Assigned",
                                   style: TextStyle(
@@ -79,7 +79,7 @@ class _PostedProjectsState extends State<PostedProjects> {
                                         ? kblue
                                         : Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(left: 10, right: 10),
+                                padding: const EdgeInsets.only(left: 10, right: 10),
                                 child: Text(
                                   "Posted",
                                   style: TextStyle(
@@ -102,12 +102,12 @@ class _PostedProjectsState extends State<PostedProjects> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Projects"),
+                        const Text("Projects"),
                         !PostedProjects.assigned
                             ? Container(
-                                padding: EdgeInsets.only(top: 20),
+                                padding: const EdgeInsets.only(top: 20),
                                 child: Column(
-                                  children: [
+                                  children: const [
                                     SimplePlaced(),
                                     Checkdelivery(),
                                     Feedback()
@@ -116,7 +116,7 @@ class _PostedProjectsState extends State<PostedProjects> {
                               )
                             : Container(
                                 child: Column(
-                                  children: [Deliver()],
+                                  children: const [Deliver()],
                                 ),
                               )
                       ],
@@ -145,7 +145,7 @@ class Deliver extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: Row(
           children: [
             Column(
@@ -153,7 +153,7 @@ class Deliver extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
+                    child: const Text(
                       "App Development",
                       style: TextStyle(fontSize: 18),
                     )),
@@ -164,7 +164,7 @@ class Deliver extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DeliverProject(),
+                            builder: (context) => const DeliverProject(),
                           ),
                         );
                       },
@@ -172,9 +172,9 @@ class Deliver extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: kblue),
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 15, right: 15, top: 8, bottom: 8),
-                        child: Text(
+                        child: const Text(
                           "Deliver",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
@@ -182,13 +182,13 @@ class Deliver extends StatelessWidget {
                     ))
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
+                    child: const Text(
                       "Assigned",
                       style: TextStyle(fontSize: 14, color: Colors.red),
                     )),
@@ -196,16 +196,16 @@ class Deliver extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
+                    child: const Text(
                       "\$5000",
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
+                    child: const Text(
                       "Deadline: 23-10-2001",
                       style: TextStyle(fontSize: 12),
                     ))
@@ -231,7 +231,7 @@ class AssignedProject extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: Row(
           children: [
             Column(
@@ -239,12 +239,12 @@ class AssignedProject extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
+                    child: const Text(
                       "App Development",
                       style: TextStyle(fontSize: 18),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
                   child: Text(
                     "DeadLine: 23/10/2001",
                     style: TextStyle(fontSize: 12),
@@ -252,18 +252,18 @@ class AssignedProject extends StatelessWidget {
                 )
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
+                    child: const Text(
                       "Assigned",
                       style: TextStyle(fontSize: 14, color: Colors.red),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 18.0),
                   child: Text(
                     "\$5000",
                     style: TextStyle(fontSize: 20, color: Colors.green),
@@ -289,7 +289,7 @@ class Feedback extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         color: Colors.white,
         child: Row(
           children: [
@@ -298,7 +298,7 @@ class Feedback extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    child: Text(
+                    child: const Text(
                       "App Development",
                       style: TextStyle(fontSize: 18),
                     )),
@@ -308,27 +308,27 @@ class Feedback extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: kblue),
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           left: 15, right: 15, top: 8, bottom: 8),
-                      child: Text(
+                      child: const Text(
                         "Send Feedback",
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ))
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
+                    child: const Text(
                       "Placed",
                       style: TextStyle(fontSize: 14, color: Colors.red),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 18.0),
                   child: Text(
                     "\$5000",
                     style: TextStyle(fontSize: 20, color: Colors.green),
@@ -354,7 +354,7 @@ class Checkdelivery extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         color: Colors.white,
         child: Row(
           children: [
@@ -363,7 +363,7 @@ class Checkdelivery extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    child: Text(
+                    child: const Text(
                       "App Development",
                       style: TextStyle(fontSize: 18),
                     )),
@@ -374,7 +374,7 @@ class Checkdelivery extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GetDelivery(),
+                            builder: (context) => const GetDelivery(),
                           ),
                         );
                       },
@@ -382,9 +382,9 @@ class Checkdelivery extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: kblue),
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 15, right: 15, top: 8, bottom: 8),
-                        child: Text(
+                        child: const Text(
                           "Check Delivery",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
@@ -392,18 +392,18 @@ class Checkdelivery extends StatelessWidget {
                     ))
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
+                    child: const Text(
                       "Placed",
                       style: TextStyle(fontSize: 14, color: Colors.red),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 18.0),
                   child: Text(
                     "\$5000",
                     style: TextStyle(fontSize: 20, color: Colors.green),
@@ -429,7 +429,7 @@ class SimplePlaced extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       width: MediaQuery.of(context).size.width * 0.9,
-      padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: Row(
         children: [
           Column(
@@ -437,12 +437,12 @@ class SimplePlaced extends StatelessWidget {
             children: [
               Container(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  child: Text(
+                  child: const Text(
                     "App Development",
                     style: TextStyle(fontSize: 18),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+              const Padding(
+                padding: EdgeInsets.only(top: 8.0),
                 child: Text(
                   "Bids Placed:10",
                   style: TextStyle(fontSize: 15),
@@ -450,18 +450,18 @@ class SimplePlaced extends StatelessWidget {
               )
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                   width: MediaQuery.of(context).size.width * 0.2,
-                  child: Text(
+                  child: const Text(
                     "Placed",
                     style: TextStyle(fontSize: 14, color: Colors.red),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
+              const Padding(
+                padding: EdgeInsets.only(top: 18.0),
                 child: Text(
                   "\$5000",
                   style: TextStyle(fontSize: 20, color: Colors.green),
