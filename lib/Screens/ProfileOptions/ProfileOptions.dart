@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
 
 class ProfileOptions extends StatelessWidget {
@@ -93,24 +94,34 @@ class ProfileOptions extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Row(
-                            children: [
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Membershipcard1.png"))),
-                              Spacer(),
-                              Text(
-                                "Membership",
-                                style: TextStyle(fontSize: 18),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Membership(),
                               ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Membershipcard1.png"))),
+                                Spacer(),
+                                Text(
+                                  "Membership",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         ),
                         GestureDetector(
