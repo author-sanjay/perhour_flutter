@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/DeliverProject/DeliverProject.dart';
+import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
 
 class PostedProjects extends StatefulWidget {
   const PostedProjects({super.key});
@@ -114,7 +116,7 @@ class _PostedProjectsState extends State<PostedProjects> {
                               )
                             : Container(
                                 child: Column(
-                                  children: [AssignedProject(), Deliver()],
+                                  children: [Deliver()],
                                 ),
                               )
                       ],
@@ -157,15 +159,25 @@ class Deliver extends StatelessWidget {
                     )),
                 Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kblue),
-                      padding: EdgeInsets.only(
-                          left: 15, right: 15, top: 8, bottom: 8),
-                      child: Text(
-                        "Deliver",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DeliverProject(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: kblue),
+                        padding: EdgeInsets.only(
+                            left: 15, right: 15, top: 8, bottom: 8),
+                        child: Text(
+                          "Deliver",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
                       ),
                     ))
               ],
@@ -182,11 +194,21 @@ class Deliver extends StatelessWidget {
                     )),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Text(
-                    "\$5000",
-                    style: TextStyle(fontSize: 20, color: Colors.green),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: Text(
+                      "\$5000",
+                      style: TextStyle(fontSize: 20, color: Colors.green),
+                    ),
                   ),
-                )
+                ),
+                Container(
+                    padding: EdgeInsets.only(top: 10),
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: Text(
+                      "Deadline: 23-10-2001",
+                      style: TextStyle(fontSize: 12),
+                    ))
               ],
             )
           ],
@@ -347,15 +369,25 @@ class Checkdelivery extends StatelessWidget {
                     )),
                 Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kblue),
-                      padding: EdgeInsets.only(
-                          left: 15, right: 15, top: 8, bottom: 8),
-                      child: Text(
-                        "Check Delivery",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GetDelivery(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: kblue),
+                        padding: EdgeInsets.only(
+                            left: 15, right: 15, top: 8, bottom: 8),
+                        child: Text(
+                          "Check Delivery",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
                       ),
                     ))
               ],
