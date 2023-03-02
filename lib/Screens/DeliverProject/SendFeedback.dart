@@ -129,6 +129,35 @@ class SendFeedBack extends StatelessWidget {
                             ),
                           ),
                         ),
+                        Container(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Your Feedback",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                Container(
+                                  // color: kblue,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  child: const TextField(
+                                    // style: TextStyle(height: 300),
+                                    minLines: 5,
+                                    maxLines: 100,
+                                    decoration: InputDecoration(
+                                      hintText:
+                                          "Overall I rate this freelancer as...",
+                                      contentPadding: EdgeInsets.all(8),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
                           child: Container(
