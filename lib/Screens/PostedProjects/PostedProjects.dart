@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/DeliverProject.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
+import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
 
 class PostedProjects extends StatefulWidget {
   const PostedProjects({super.key});
@@ -51,9 +52,10 @@ class _PostedProjectsState extends State<PostedProjects> {
                                     color: PostedProjects.assigned
                                         ? Colors.white
                                         : kblue,
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(10))),
-                                padding: const EdgeInsets.only(right: 10, left: 10),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 10),
                                 child: Text(
                                   "Assigned",
                                   style: TextStyle(
@@ -79,7 +81,8 @@ class _PostedProjectsState extends State<PostedProjects> {
                                         ? kblue
                                         : Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
-                                padding: const EdgeInsets.only(left: 10, right: 10),
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
                                 child: Text(
                                   "Posted",
                                   style: TextStyle(
@@ -145,7 +148,8 @@ class Deliver extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: Row(
           children: [
             Column(
@@ -231,7 +235,8 @@ class AssignedProject extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: Row(
           children: [
             Column(
@@ -287,56 +292,67 @@ class Feedback extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-        color: Colors.white,
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: const Text(
-                      "App Development",
-                      style: TextStyle(fontSize: 18),
-                    )),
-                Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kblue),
-                      padding: const EdgeInsets.only(
-                          left: 15, right: 15, top: 8, bottom: 8),
-                      child: const Text(
-                        "Send Feedback",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-                    ))
-              ],
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SendFeedBack(),
             ),
-            const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: const Text(
-                      "Placed",
-                      style: TextStyle(fontSize: 14, color: Colors.red),
-                    )),
-                const Padding(
-                  padding: EdgeInsets.only(top: 18.0),
-                  child: Text(
-                    "\$5000",
-                    style: TextStyle(fontSize: 20, color: Colors.green),
-                  ),
-                )
-              ],
-            )
-          ],
+          );
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          padding:
+              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+          color: Colors.white,
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: const Text(
+                        "App Development",
+                        style: TextStyle(fontSize: 18),
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: kblue),
+                        padding: const EdgeInsets.only(
+                            left: 15, right: 15, top: 8, bottom: 8),
+                        child: const Text(
+                          "Send Feedback",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ))
+                ],
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: const Text(
+                        "Placed",
+                        style: TextStyle(fontSize: 14, color: Colors.red),
+                      )),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 18.0),
+                    child: Text(
+                      "\$5000",
+                      style: TextStyle(fontSize: 20, color: Colors.green),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -354,7 +370,8 @@ class Checkdelivery extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         color: Colors.white,
         child: Row(
           children: [

@@ -1,13 +1,12 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/DeliverProject/CancelContract.dart';
-import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 
-class GetDelivery extends StatelessWidget {
-  const GetDelivery({super.key});
+class SendFeedBack extends StatelessWidget {
+  const SendFeedBack({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class GetDelivery extends StatelessWidget {
                   color: kblue,
                   width: MediaQuery.of(context).size.width,
                   child: const Text(
-                    "Delivery",
+                    "FeedBack",
                     style: TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 18,
@@ -110,6 +109,29 @@ class GetDelivery extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
                           child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            alignment: Alignment.topCenter,
+                            child: RatingBar.builder(
+                              initialRating: 3,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 color: kblue,
@@ -117,62 +139,10 @@ class GetDelivery extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.9,
                             child: const Center(
                                 child: Text(
-                              "Request Review",
+                              "Submit",
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
                             )),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SendFeedBack(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: kblue,
-                                  borderRadius: BorderRadius.circular(10)),
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: const Center(
-                                  child: Text(
-                                "Accpet Project",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              )),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const CancelContract(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: kblue,
-                                  borderRadius: BorderRadius.circular(10)),
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: const Center(
-                                  child: Text(
-                                "Cancel Contract",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              )),
-                            ),
                           ),
                         )
                       ],
