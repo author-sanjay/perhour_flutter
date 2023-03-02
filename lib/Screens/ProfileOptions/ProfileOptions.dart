@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
+import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
 
 class ProfileOptions extends StatelessWidget {
@@ -154,24 +155,34 @@ class ProfileOptions extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 30),
-                          child: Row(
-                            children: [
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Bill1.png"))),
-                              Spacer(),
-                              Text(
-                                "Post Job",
-                                style: TextStyle(fontSize: 18),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PostJob(),
                               ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Bill1.png"))),
+                                Spacer(),
+                                Text(
+                                  "Post Job",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         ),
                         Container(

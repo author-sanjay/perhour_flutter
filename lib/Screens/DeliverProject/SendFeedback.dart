@@ -140,19 +140,22 @@ class SendFeedBack extends StatelessWidget {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                Container(
-                                  // color: kblue,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  child: const TextField(
-                                    // style: TextStyle(height: 300),
-                                    minLines: 5,
-                                    maxLines: 100,
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          "Overall I rate this freelancer as...",
-                                      contentPadding: EdgeInsets.all(8),
-                                      border: OutlineInputBorder(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Container(
+                                    // color: kblue,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.1,
+                                    child: const TextField(
+                                      // style: TextStyle(height: 300),
+                                      minLines: 5,
+                                      maxLines: 100,
+                                      decoration: InputDecoration(
+                                        hintText:
+                                            "Overall I rate this freelancer as...",
+                                        contentPadding: EdgeInsets.all(8),
+                                        border: OutlineInputBorder(),
+                                      ),
                                     ),
                                   ),
                                 ),

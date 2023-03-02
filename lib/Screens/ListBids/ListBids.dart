@@ -21,7 +21,7 @@ class ListBids extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Topbar(),
+                Topbar(title: "Bids"),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 20.0, right: 20, top: 20),
@@ -129,10 +129,11 @@ class ListBids extends StatelessWidget {
 }
 
 class Topbar extends StatelessWidget {
-  const Topbar({
+  Topbar({
+    required this.title,
     super.key,
   });
-
+  String title;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -141,7 +142,7 @@ class Topbar extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Center(
         child: Text(
-          "Bids",
+          "$title",
           style: TextStyle(
               fontWeight: FontWeight.w300, fontSize: 18, color: Colors.white),
         ),
