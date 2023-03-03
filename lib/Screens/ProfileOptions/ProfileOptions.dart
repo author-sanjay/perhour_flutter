@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/EditProfile/EditProfile.dart';
 import 'package:perhour_flutter/Screens/Help&Support/HelpAndSupport.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
+import 'package:perhour_flutter/Screens/Wallet/Wallet.dart';
 
 class ProfileOptions extends StatelessWidget {
   const ProfileOptions({super.key});
@@ -77,23 +79,33 @@ class ProfileOptions extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: Column(children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Edit1.png"))),
-                              Spacer(),
-                              Text(
-                                "Edit Profile",
-                                style: TextStyle(fontSize: 18),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(),
                               ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                            );
+                          },
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Edit1.png"))),
+                                Spacer(),
+                                Text(
+                                  "Edit Profile",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         ),
                         GestureDetector(
@@ -186,24 +198,34 @@ class ProfileOptions extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 30),
-                          child: Row(
-                            children: [
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Wallet1.png"))),
-                              Spacer(),
-                              Text(
-                                "Payments",
-                                style: TextStyle(fontSize: 18),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Wallet(),
                               ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Wallet1.png"))),
+                                Spacer(),
+                                Text(
+                                  "Payments",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         ),
                         GestureDetector(
