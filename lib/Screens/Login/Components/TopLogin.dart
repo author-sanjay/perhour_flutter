@@ -3,11 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 
-class TopLogin extends StatelessWidget {
+class TopLogin extends StatefulWidget {
   const TopLogin({
     super.key,
   });
 
+
+  @override
+  State<TopLogin> createState() => _TopLoginState();
+}
+
+class _TopLoginState extends State<TopLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,12 +24,44 @@ class TopLogin extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 60),
-            child: Image(
-              image: const AssetImage("assets/images/login.png"),
-              fit: BoxFit.contain,
-              height: MediaQuery.of(context).size.height * 0.4,
-              width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(top: 45),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.27),
+                  // width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
+                        color: Colors.white,
+                        child: Text(
+                          "Login",
+                          style: TextStyle(fontSize: 15, color: Colors.white),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
+                        child: Text(
+                          "Register",
+                          style: TextStyle(fontSize: 15, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Image(
+                  image: const AssetImage("assets/images/login.png"),
+                  fit: BoxFit.contain,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ],
             ),
           ),
           const Spacer(),
