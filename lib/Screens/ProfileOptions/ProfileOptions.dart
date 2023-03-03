@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/Help&Support/HelpAndSupport.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
@@ -205,24 +206,34 @@ class ProfileOptions extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 30),
-                          child: Row(
-                            children: [
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Help1.png"))),
-                              Spacer(),
-                              Text(
-                                "Help & Support",
-                                style: TextStyle(fontSize: 18),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Help(),
                               ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Help1.png"))),
+                                Spacer(),
+                                Text(
+                                  "Help & Support",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -235,7 +246,7 @@ class ProfileOptions extends StatelessWidget {
                               ),
                               Spacer(),
                               Text(
-                                "Membership",
+                                "Log Out",
                                 style: TextStyle(fontSize: 18),
                               ),
                               Spacer(),

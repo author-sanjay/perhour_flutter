@@ -242,10 +242,21 @@ class _HomeState extends State<Home> {
                                       left: 10, right: 10, top: 10),
                                   child: Row(
                                     children: [
-                                      const Icon(
-                                        Icons.menu,
-                                        color: Colors.white,
-                                        size: 30,
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfileOptions(),
+                                            ),
+                                          );
+                                        },
+                                        child: const Icon(
+                                          Icons.menu,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
                                       ),
                                       const Spacer(),
                                       GestureDetector(
