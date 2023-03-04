@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Login/Components/BottomInputs.dart';
 import 'package:perhour_flutter/Screens/Login/Components/TopLogin.dart';
+import 'package:perhour_flutter/Screens/Register/Components/RegisterBottom.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -43,34 +44,54 @@ class _LoginState extends State<Login> {
                             alignment: Alignment.center,
                             child: Row(
                               children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:
-                                          Login.login ? Colors.white : kblue),
-                                  padding: EdgeInsets.only(
-                                      left: 10, right: 10, top: 5, bottom: 5),
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color:
-                                            Login.login ? kblue : Colors.white),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:
-                                          Login.login ? kblue : Colors.white),
-                                  padding: EdgeInsets.only(
-                                      left: 10, right: 10, top: 5, bottom: 5),
-                                  child: Text(
-                                    "Register",
-                                    style: TextStyle(
-                                        fontSize: 15,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (!Login.login) {
+                                        Login.login = true;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
                                         color:
                                             Login.login ? Colors.white : kblue),
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, top: 5, bottom: 5),
+                                    child: Text(
+                                      "Login",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Login.login
+                                              ? kblue
+                                              : Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (Login.login) {
+                                        Login.login = false;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color:
+                                            Login.login ? kblue : Colors.white),
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, top: 5, bottom: 5),
+                                    child: Text(
+                                      "Register",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Login.login
+                                              ? Colors.white
+                                              : kblue),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -86,20 +107,28 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     const Spacer(),
-                    const Text(
-                      "Login",
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
+                    Login.login
+                        ? Text(
+                            "Login",
+                            style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300),
+                          )
+                        : Text(
+                            "Register",
+                            style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300),
+                          ),
                     const SizedBox(
                       height: 30,
                     )
                   ],
                 ),
               ),
-              const BottomInputs()
+              Login.login ? BottomInputs() : RegisterBottom()
             ],
           ),
         ),

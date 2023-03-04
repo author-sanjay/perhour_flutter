@@ -1,13 +1,11 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 
 class RegisterBottom extends StatelessWidget {
-  const RegisterBottom({
-    super.key,
-  });
+  const RegisterBottom({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +38,11 @@ class RegisterBottom extends StatelessWidget {
             padding: const EdgeInsets.only(top: 28.0),
             child: GestureDetector(
               onTap: () {
+                print("j");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RegisterDetails(),
+                    builder: (context) => const RegisterDetails(),
                   ),
                 );
               },
@@ -54,7 +53,7 @@ class RegisterBottom extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: const Center(
                       child: Text(
-                    "Register",
+                    "Registerr",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
