@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Modals/JobsModel.dart';
@@ -33,7 +33,14 @@ class _ListProjectsState extends State<ListProjects> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const JobDetails(),
+                    builder: (context) => JobDetails(
+                        budget: widget.getjobs[index].price,
+                        description: widget.getjobs[index].fulldesc,
+                        name: widget.getjobs[index].title,
+                        time: widget.getjobs[index].time,
+                        type: widget.getjobs[index].fixed ? "Fixed" : "Hourly",
+                        category: widget.getjobs[index].category,
+                        exp: widget.getjobs[index].experience),
                   ),
                 );
               },

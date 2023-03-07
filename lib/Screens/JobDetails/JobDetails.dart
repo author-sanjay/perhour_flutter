@@ -1,12 +1,32 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Applujob/Applyjob.dart';
 
-class JobDetails extends StatelessWidget {
-  const JobDetails({super.key});
+class JobDetails extends StatefulWidget {
+  JobDetails(
+      {required this.budget,
+      required this.description,
+      required this.name,
+      required this.time,
+      required this.type,
+      required this.category,
+      required this.exp,
+      super.key});
+  String name;
+  int budget;
+  String description;
+  String time;
+  String type;
+  String category;
+  String exp;
 
+  @override
+  State<JobDetails> createState() => _JobDetailsState();
+}
+
+class _JobDetailsState extends State<JobDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +57,15 @@ class JobDetails extends StatelessWidget {
                   //main container
                   child: Column(
                     children: [
-                      const Pricings(),
-                      const Description(),
-                      const Deadlines(),
+                      Pricings(
+                          title: widget.name,
+                          category: widget.category,
+                          price: widget.budget),
+                      Description(getDescription: widget.description),
+                      Deadlines(
+                          exp: widget.exp,
+                          time: widget.time,
+                          type: widget.type),
                       Padding(
                         padding: const EdgeInsets.only(top: 18.0),
                         child: GestureDetector(
@@ -81,11 +107,22 @@ class JobDetails extends StatelessWidget {
   }
 }
 
-class Deadlines extends StatelessWidget {
-  const Deadlines({
+class Deadlines extends StatefulWidget {
+  Deadlines({
+    required this.exp,
+    required this.time,
+    required this.type,
     super.key,
   });
+  String time;
+  String type;
+  String exp;
 
+  @override
+  State<Deadlines> createState() => _DeadlinesState();
+}
+
+class _DeadlinesState extends State<Deadlines> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,21 +132,21 @@ class Deadlines extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 20),
             child: Row(
-              children: const [
+              children: [
                 Text(
-                  "Deadline: 4 Days",
+                  "Deadline: ${widget.time} Days",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
                 ),
                 Spacer(),
-                Text("Project Type: One Time",
+                Text("Project Type: ${widget.type}",
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300))
               ],
             ),
           ),
           Container(
             padding: const EdgeInsets.only(top: 20),
-            child: const Text(
-              "Experience: Intermediate",
+            child: Text(
+              "Experience: ${widget.exp}",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             ),
           )
@@ -119,11 +156,18 @@ class Deadlines extends StatelessWidget {
   }
 }
 
-class Description extends StatelessWidget {
-  const Description({
+class Description extends StatefulWidget {
+  Description({
+    required this.getDescription,
     super.key,
   });
+  String getDescription;
 
+  @override
+  State<Description> createState() => _DescriptionState();
+}
+
+class _DescriptionState extends State<Description> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,8 +181,8 @@ class Description extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.only(top: 10),
-            child: const Text(
-              "BudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudgetBudget",
+            child: Text(
+              widget.getDescription,
               style: TextStyle(fontSize: 12),
             ),
           )
@@ -148,11 +192,22 @@ class Description extends StatelessWidget {
   }
 }
 
-class Pricings extends StatelessWidget {
-  const Pricings({
+class Pricings extends StatefulWidget {
+  Pricings({
+    required this.title,
+    required this.category,
+    required this.price,
     super.key,
   });
+  String title;
+  String category;
+  int price;
 
+  @override
+  State<Pricings> createState() => _PricingsState();
+}
+
+class _PricingsState extends State<Pricings> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -163,15 +218,15 @@ class Pricings extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "App Development",
+                  widget.title,
                   style: TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 Text(
-                  "Category",
+                  widget.category,
                   style: TextStyle(fontSize: 12),
                 ),
               ],
@@ -182,7 +237,7 @@ class Pricings extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: const [
+              children: [
                 Text(
                   "Budget",
                   style: TextStyle(
@@ -190,7 +245,7 @@ class Pricings extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Rs 5000",
+                  "Rs ${widget.price}",
                   style: TextStyle(fontSize: 20, color: Colors.green),
                 ),
               ],
