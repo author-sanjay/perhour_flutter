@@ -1,13 +1,39 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/Home/Home.dart';
+import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/api.dart';
 
-class RegisterDetails extends StatelessWidget {
-  const RegisterDetails({super.key});
+class RegisterDetails extends StatefulWidget {
+  RegisterDetails({required this.email, required this.password, super.key});
+  String email;
+  String password;
+  static bool available = false;
+  @override
+  State<RegisterDetails> createState() => _RegisterDetailsState();
+}
+
+class _RegisterDetailsState extends State<RegisterDetails> {
+  static String firstname = "";
+  static String lastname = "";
+  static String dob = "";
+  static String address = "";
+  static String country = "";
+  static String username = "";
+  @override
+  void initState() {
+    super.initState();
+    print(widget.email);
+  }
 
   @override
   Widget build(BuildContext context) {
+    const snakbar = SnackBar(content: Text("Username Not available"));
+
     return Scaffold(
       body: SingleChildScrollView(
         child: ConstrainedBox(
@@ -33,7 +59,13 @@ class RegisterDetails extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8, bottom: 20),
                           child: TextFormField(
-                            decoration: const InputDecoration(hintText: "First Name"),
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.firstname = value;
+                              });
+                            },
+                            decoration:
+                                const InputDecoration(hintText: "First Name"),
                           ),
                         ),
                         const Padding(
@@ -44,7 +76,13 @@ class RegisterDetails extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8, bottom: 20),
                           child: TextFormField(
-                            decoration: const InputDecoration(hintText: "Last Name"),
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.lastname = value;
+                              });
+                            },
+                            decoration:
+                                const InputDecoration(hintText: "Last Name"),
                           ),
                         ),
                         const Padding(
@@ -55,7 +93,13 @@ class RegisterDetails extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8, bottom: 20),
                           child: TextFormField(
-                            decoration: const InputDecoration(hintText: "DD/MM/YYYY"),
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.dob = value;
+                              });
+                            },
+                            decoration:
+                                const InputDecoration(hintText: "DD/MM/YYYY"),
                           ),
                         ),
                         const Padding(
@@ -66,7 +110,13 @@ class RegisterDetails extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8, bottom: 20),
                           child: TextFormField(
-                            decoration: const InputDecoration(hintText: "Address"),
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.address = value;
+                              });
+                            },
+                            decoration:
+                                const InputDecoration(hintText: "Address"),
                           ),
                         ),
                         const Padding(
@@ -77,7 +127,13 @@ class RegisterDetails extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8, bottom: 20),
                           child: TextFormField(
-                            decoration: const InputDecoration(hintText: "Country"),
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.country = value;
+                              });
+                            },
+                            decoration:
+                                const InputDecoration(hintText: "Country"),
                           ),
                         ),
                         const Padding(
@@ -92,20 +148,31 @@ class RegisterDetails extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.6,
                                   child: TextFormField(
-                                    decoration:
-                                        const InputDecoration(hintText: "Username"),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _RegisterDetailsState.username = value;
+                                      });
+                                    },
+                                    decoration: const InputDecoration(
+                                        hintText: "Username"),
                                   ),
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: kblue,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  // width: MediaQuery.of(context).size.width * 0.3,
-                                  child: const Text(
-                                    "Available?",
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.white),
+                                GestureDetector(
+                                  onTap: () {
+                                    verifyusername();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        color: kblue,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    // width: MediaQuery.of(context).size.width * 0.3,
+                                    child: const Text(
+                                      "Available?",
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -117,14 +184,23 @@ class RegisterDetails extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: kblue,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text(
-                        "Start Earnig",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (RegisterDetails.available) {
+                          postuser();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(snakbar);
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: kblue,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text(
+                          "Start Earnig",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
                       ),
                     ),
                   )
@@ -135,10 +211,38 @@ class RegisterDetails extends StatelessWidget {
     );
   }
 
-  // First name
-  // Last Name
-  //dob
-  //address
-  //country
-  //username
+  verifyusername() async {
+    print(_RegisterDetailsState.username);
+
+    var res = await http.post(
+        Uri.parse(
+            api + 'users/verifyusername/' + _RegisterDetailsState.username),
+        headers: headers);
+    var result = res.body;
+    print(result);
+    if (result.toString() == "true") {
+      print("kjh");
+      setState(() {
+        RegisterDetails.available = true;
+        print(RegisterDetails.available);
+      });
+    }
+  }
+
+  Future postuser() async {
+    final json = jsonEncode({
+      "firstname": _RegisterDetailsState.firstname,
+      "lastname": _RegisterDetailsState.lastname,
+      "dateofbirth": _RegisterDetailsState.dob,
+      "address": _RegisterDetailsState.address,
+      "country": _RegisterDetailsState.country,
+      "email": widget.email,
+      "username": _RegisterDetailsState.username,
+      "password": widget.password
+    });
+    var res = await http.post(Uri.parse(api + 'users/add'),
+        headers: headers, body: json);
+    var result = res.body;
+    print(res.body);
+  }
 }

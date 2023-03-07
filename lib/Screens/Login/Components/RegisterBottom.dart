@@ -39,12 +39,12 @@ class RegisterBottom extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 print("j");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RegisterDetails(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => RegisterDetails(),
+                //   ),
+                // );
               },
               child: Container(
                   decoration: BoxDecoration(
