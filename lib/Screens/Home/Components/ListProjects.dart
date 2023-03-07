@@ -1,13 +1,21 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:perhour_flutter/Modals/JobsModel.dart';
 import 'package:perhour_flutter/Screens/JobDetails/JobDetails.dart';
 
-class ListProjects extends StatelessWidget {
-  const ListProjects({
+class ListProjects extends StatefulWidget {
+  ListProjects({
+    required this.getjobs,
     super.key,
   });
+  List<Jobs> getjobs;
 
+  @override
+  State<ListProjects> createState() => _ListProjectsState();
+}
+
+class _ListProjectsState extends State<ListProjects> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

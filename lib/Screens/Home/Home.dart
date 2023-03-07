@@ -9,6 +9,7 @@ import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/LatestJobs.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/ProfileOptions/ProfileOptions.dart';
 
 class Home extends StatefulWidget {
@@ -25,6 +26,13 @@ class _HomeState extends State<Home> {
     const Color.fromRGBO(211, 56, 35, 1),
     const Color.fromRGBO(208, 4, 212, 1),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    print(user.firstname);
+  }
+
   @override
   Widget build(BuildContext context) {
     Random random = new Random();
@@ -176,11 +184,11 @@ class _HomeState extends State<Home> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Padding(
+                                        Padding(
                                           padding: EdgeInsets.only(
                                               left: 30.0, top: 20),
                                           child: Text(
-                                            "Good Morning, Sanjay",
+                                            "Good Morning, ${user.firstname.toUpperCase()}",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.white,

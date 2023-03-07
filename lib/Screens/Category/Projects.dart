@@ -40,7 +40,9 @@ class _ProjectsState extends State<Projects> {
                     "Latest Jobs",
                     style: TextStyle(fontSize: 16),
                   )),
-              const ListProjects()
+              ListProjects(
+                getjobs: [],
+              )
             ],
           )),
         ),
