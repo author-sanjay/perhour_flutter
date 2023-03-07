@@ -21,7 +21,7 @@ class _ListProjectsState extends State<ListProjects> {
     return SingleChildScrollView(
       child: ListView.separated(
         shrinkWrap: true,
-        itemCount: 20,
+        itemCount: widget.getjobs.length,
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         separatorBuilder: (_, __) => const Divider(),
@@ -50,9 +50,9 @@ class _ListProjectsState extends State<ListProjects> {
                       Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
-                              "App Development",
+                              widget.getjobs[index].title,
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
@@ -60,7 +60,8 @@ class _ListProjectsState extends State<ListProjects> {
                               height: 10,
                             ),
                             Text(
-                              "Bids Placed: 10",
+                              "Bids Placed:" +
+                                  widget.getjobs[index].bids.toString(),
                               style: TextStyle(fontSize: 12),
                             )
                           ],
@@ -71,7 +72,7 @@ class _ListProjectsState extends State<ListProjects> {
                         width: MediaQuery.of(context).size.width * 0.2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "Budget",
                               style: TextStyle(fontSize: 10),
@@ -80,7 +81,7 @@ class _ListProjectsState extends State<ListProjects> {
                               height: 10,
                             ),
                             Text(
-                              "Rs 10000",
+                              widget.getjobs[index].price.toString(),
                               style:
                                   TextStyle(fontSize: 16, color: Colors.green),
                             ),

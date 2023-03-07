@@ -1,8 +1,13 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/api.dart';
+import 'package:http/http.dart' as http;
 
 class PostJob extends StatefulWidget {
   const PostJob({super.key});
@@ -13,6 +18,11 @@ class PostJob extends StatefulWidget {
 }
 
 class _PostJobState extends State<PostJob> {
+  static String title = "";
+  static String budget = "";
+  static String timelimit = "";
+  static bool hourly = true;
+  static String fulldescription = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,8 +57,13 @@ class _PostJobState extends State<PostJob> {
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration:
-                              const InputDecoration(hintText: "App Development"),
+                          onChanged: (value) {
+                            setState(() {
+                              _PostJobState.title = value;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                              hintText: "App Development"),
                         ),
                       ],
                     ),
@@ -66,7 +81,13 @@ class _PostJobState extends State<PostJob> {
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: const InputDecoration(hintText: "\$500"),
+                          onChanged: (value) {
+                            setState(() {
+                              _PostJobState.budget = value;
+                            });
+                          },
+                          decoration:
+                              const InputDecoration(hintText: "Rs 5000"),
                         ),
                       ],
                     ),
@@ -84,7 +105,13 @@ class _PostJobState extends State<PostJob> {
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: const InputDecoration(hintText: "30 Days"),
+                          onChanged: (value) {
+                            setState(() {
+                              _PostJobState.timelimit = value;
+                            });
+                          },
+                          decoration:
+                              const InputDecoration(hintText: "30 Days"),
                         ),
                       ],
                     ),
@@ -112,6 +139,7 @@ class _PostJobState extends State<PostJob> {
                                     setState(() {
                                       if (!PostJob.hourly) {
                                         PostJob.hourly = true;
+                                        _PostJobState.hourly = true;
                                       }
                                     });
                                   },
@@ -147,6 +175,7 @@ class _PostJobState extends State<PostJob> {
                                     setState(() {
                                       if (PostJob.hourly) {
                                         PostJob.hourly = false;
+                                        _PostJobState.hourly = false;
                                       }
                                     });
                                   },
@@ -198,13 +227,17 @@ class _PostJobState extends State<PostJob> {
                           child: Container(
                             // color: kblue,
                             height: MediaQuery.of(context).size.height * 0.1,
-                            child: const TextField(
+                            child: TextField(
                               // style: TextStyle(height: 300),
+                              onChanged: (value) {
+                                setState(() {
+                                  _PostJobState.fulldescription = value;
+                                });
+                              },
                               minLines: 5,
                               maxLines: 100,
-                              decoration: InputDecoration(
-                                hintText:
-                                    "Overall I rate this freelancer as...",
+                              decoration: const InputDecoration(
+                                hintText: "I want an app to be built...",
                                 contentPadding: EdgeInsets.all(8),
                                 border: OutlineInputBorder(),
                               ),
@@ -218,18 +251,24 @@ class _PostJobState extends State<PostJob> {
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 20.0, right: 20, top: 20, bottom: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: BoxDecoration(
-                        color: kblue, borderRadius: BorderRadius.circular(10)),
-                    child: const Center(
-                      child: Text(
-                        "Post",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white),
+                  child: GestureDetector(
+                    onTap: () {
+                      postjob();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: BoxDecoration(
+                          color: kblue,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text(
+                          "Post",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
@@ -240,5 +279,23 @@ class _PostJobState extends State<PostJob> {
         ),
       ),
     );
+  }
+
+  void postjob() async {
+    final json = jsonEncode({
+      "title": _PostJobState.title,
+      "fulldescription": _PostJobState.fulldescription,
+      "price": int.parse(_PostJobState.budget),
+      "type": int.parse(_PostJobState.timelimit),
+      "fixed": !_PostJobState.hourly,
+    });
+
+    var res = await http.post(Uri.parse(api + 'projects/add/' + user.id),
+        headers: headers, body: json);
+    var result = jsonDecode(res.body);
+    print(result);
+    if (res.statusCode == 200) {
+      Navigator.pop(context);
+    }
   }
 }
