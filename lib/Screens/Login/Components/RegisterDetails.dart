@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/Screens/Login/Login.dart';
+import 'package:perhour_flutter/User.dart';
 import 'package:perhour_flutter/api.dart';
+
+Users user = Users();
 
 class RegisterDetails extends StatefulWidget {
   RegisterDetails({required this.email, required this.password, super.key});
@@ -218,15 +222,16 @@ class _RegisterDetailsState extends State<RegisterDetails> {
         Uri.parse(
             api + 'users/verifyusername/' + _RegisterDetailsState.username),
         headers: headers);
-    var result = res.body;
-    print(result);
-    if (result.toString() == "true") {
-      print("kjh");
-      setState(() {
-        RegisterDetails.available = true;
-        print(RegisterDetails.available);
-      });
-    }
+
+    // var result = res.body;
+    // print(result);
+    // if (result.toString() == "true") {
+    //   print("kjh");
+    //   setState(() {
+    //     RegisterDetails.available = true;
+    //     print(RegisterDetails.available);
+    //   });
+    // }
   }
 
   Future postuser() async {
@@ -243,6 +248,13 @@ class _RegisterDetailsState extends State<RegisterDetails> {
     var res = await http.post(Uri.parse(api + 'users/add'),
         headers: headers, body: json);
     var result = res.body;
-    print(res.body);
+    if (res.statusCode == 200) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
   }
 }

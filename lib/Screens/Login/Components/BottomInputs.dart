@@ -1,14 +1,32 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Screens/Home/Home.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class BottomInputs extends StatelessWidget {
+class BottomInputs extends StatefulWidget {
   const BottomInputs({
     super.key,
   });
 
+  @override
+  State<BottomInputs> createState() => _BottomInputsState();
+}
+
+class _BottomInputsState extends State<BottomInputs> {
+  static String email = "";
+  static String password = "";
+  final snackbar = SnackBar(content: Text("Email cant be null"));
+  final passwordsnackbar = SnackBar(content: Text("Password cant be null"));
+  final invalidemail = SnackBar(content: Text("Invalid Email"));
+  final invalidepassword =
+      SnackBar(content: Text("Please Create a strong password"));
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,12 +36,23 @@ class BottomInputs extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 30, left: 50, right: 50),
             child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  _BottomInputsState.email = value;
+                });
+              },
               decoration: const InputDecoration(hintText: "Email"),
             ),
           ),
           Container(
             padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
             child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  _BottomInputsState.password = value;
+                });
+              },
+              obscureText: true,
               keyboardType: TextInputType.visiblePassword,
               decoration: const InputDecoration(hintText: "Password"),
             ),
@@ -40,12 +69,13 @@ class BottomInputs extends StatelessWidget {
             padding: const EdgeInsets.only(top: 28.0),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Home(),
-                  ),
-                );
+                validateandnavigate();
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const Home(),
+                //   ),
+                // );
               },
               child: Container(
                   decoration: BoxDecoration(
@@ -65,5 +95,61 @@ class BottomInputs extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool isemail(String val) {
+    return RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(val);
+  }
+
+  RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+  //A function that validate user entered password
+  bool validatePassword(String pass) {
+    String password = pass.trim();
+    if (pass_valid.hasMatch(password)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void validateandnavigate() async {
+    if (_BottomInputsState.email.length == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    } else if (_BottomInputsState.password.length == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(passwordsnackbar);
+    } else if (!isemail(_BottomInputsState.email)) {
+      ScaffoldMessenger.of(context).showSnackBar(invalidemail);
+    } else if (!validatePassword(_BottomInputsState.password)) {
+      ScaffoldMessenger.of(context).showSnackBar(invalidepassword);
+    } else {
+      var res = await http.post(
+          Uri.parse(
+              "${api}users/login/${_BottomInputsState.email}/${_BottomInputsState.password}"),
+          headers: headers);
+      var result = jsonDecode(res.body);
+      print(result);
+
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString("uid", result["id"].toString());
+      sharedPreferences.setString(
+          "name", result["firstname"] + result["lastname"]);
+      sharedPreferences.setString("email", result["email"]);
+      user.email = result["email"];
+      user.id = result["id"].toString();
+      user.country = result["country"].toString();
+      user.address = result["address"].toString();
+      user.firstname = result["firstname"].toString();
+      user.lastname = result["lastname"].toString();
+      user.username = result["username"].toString();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    }
   }
 }
