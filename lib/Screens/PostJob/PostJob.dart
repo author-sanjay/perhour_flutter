@@ -1,6 +1,6 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
 
@@ -28,8 +28,8 @@ class _PostJobState extends State<PostJob> {
                 Topbar(
                   title: "Post Job",
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 30),
                   child: Text(
                     "Job Details",
                     style: TextStyle(fontSize: 18),
@@ -42,13 +42,13 @@ class _PostJobState extends State<PostJob> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Title",
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
                           decoration:
-                              InputDecoration(hintText: "App Development"),
+                              const InputDecoration(hintText: "App Development"),
                         ),
                       ],
                     ),
@@ -61,12 +61,12 @@ class _PostJobState extends State<PostJob> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Budget",
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: InputDecoration(hintText: "\$500"),
+                          decoration: const InputDecoration(hintText: "\$500"),
                         ),
                       ],
                     ),
@@ -79,12 +79,12 @@ class _PostJobState extends State<PostJob> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Deadline",
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: InputDecoration(hintText: "30 Days"),
+                          decoration: const InputDecoration(hintText: "30 Days"),
                         ),
                       ],
                     ),
@@ -97,7 +97,7 @@ class _PostJobState extends State<PostJob> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Type",
                           style: TextStyle(fontSize: 16),
                         ),
@@ -122,7 +122,7 @@ class _PostJobState extends State<PostJob> {
                                             : backgroundwhite,
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         left: 20,
                                         right: 20,
                                         top: 10,
@@ -157,7 +157,7 @@ class _PostJobState extends State<PostJob> {
                                           color: PostJob.hourly
                                               ? backgroundwhite
                                               : kblue),
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                           left: 20,
                                           right: 20,
                                           top: 10,
@@ -219,11 +219,11 @@ class _PostJobState extends State<PostJob> {
                   padding: const EdgeInsets.only(
                       left: 20.0, right: 20, top: 20, bottom: 10),
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
                         color: kblue, borderRadius: BorderRadius.circular(10)),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "Post",
                         style: TextStyle(

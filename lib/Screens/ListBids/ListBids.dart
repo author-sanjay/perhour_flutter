@@ -1,8 +1,7 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/JobDetails/JobDetails.dart';
 import 'package:perhour_flutter/Screens/ListBids/BidDetails.dart';
 
 class ListBids extends StatelessWidget {
@@ -22,9 +21,9 @@ class ListBids extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Topbar(title: "Bids"),
-                Padding(
+                const Padding(
                   padding:
-                      const EdgeInsets.only(left: 20.0, right: 20, top: 20),
+                      EdgeInsets.only(left: 20.0, right: 20, top: 20),
                   child: Text(
                     "Bids",
                     style: TextStyle(fontSize: 18),
@@ -66,13 +65,13 @@ class ListBids extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Sanjay Kumar",
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w500),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         Container(
@@ -80,7 +79,7 @@ class ListBids extends StatelessWidget {
                                                   .size
                                                   .width *
                                               0.5,
-                                          child: Text(
+                                          child: const Text(
                                             "Bids Placed: 10 Bids Placed: 10Bids Placed: 10Bids Placed: 10 Bids Placed: 10",
                                             style: TextStyle(fontSize: 12),
                                           ),
@@ -137,13 +136,13 @@ class Topbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 30, bottom: 10),
+      padding: const EdgeInsets.only(top: 30, bottom: 10),
       color: kblue,
       width: MediaQuery.of(context).size.width,
       child: Center(
         child: Text(
-          "$title",
-          style: TextStyle(
+          title,
+          style: const TextStyle(
               fontWeight: FontWeight.w300, fontSize: 18, color: Colors.white),
         ),
       ),

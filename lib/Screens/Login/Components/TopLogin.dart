@@ -36,18 +36,18 @@ class _TopLoginState extends State<TopLogin> {
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
                         color: Colors.white,
-                        child: Text(
+                        child: const Text(
                           "Login",
                           style: TextStyle(fontSize: 15, color: Colors.white),
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
-                        child: Text(
+                        child: const Text(
                           "Register",
                           style: TextStyle(fontSize: 15, color: Colors.white),
                         ),

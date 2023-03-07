@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -14,13 +16,13 @@ class Membership extends StatefulWidget {
 class _MembershipState extends State<Membership> {
   @override
   Widget build(BuildContext context) {
-    Random random = new Random();
+    Random random = Random();
     List coolors = [
-      Color(0xFFFFC0C0),
-      Color(0xFFB9F8AE),
-      Color(0xFFAED0F8),
-      Color(0xFFD7AEF8),
-      Color(0xFFF8AEF1)
+      const Color(0xFFFFC0C0),
+      const Color(0xFFB9F8AE),
+      const Color(0xFFAED0F8),
+      const Color(0xFFD7AEF8),
+      const Color(0xFFF8AEF1)
     ];
     return Scaffold(
       body: SingleChildScrollView(
@@ -38,19 +40,19 @@ class _MembershipState extends State<Membership> {
                     child: Container(
                         width: MediaQuery.of(context).size.width * 0.3,
                         child:
-                            Image(image: AssetImage("assets/images/vip.png"))),
+                            const Image(image: AssetImage("assets/images/vip.png"))),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 18.0),
                     child: Text(
                       "Get VIP",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding:
-                        const EdgeInsets.only(top: 18.0, left: 20, right: 20),
+                        EdgeInsets.only(top: 18.0, left: 20, right: 20),
                     child: Text(
                       "Designed to maximise your freelancer success and earnings!",
                       style:
@@ -61,7 +63,7 @@ class _MembershipState extends State<Membership> {
                       ? Padding(
                           padding: const EdgeInsets.only(top: 28.0, bottom: 10),
                           child: Container(
-                            child: Text(
+                            child: const Text(
                               "Your Memership",
                               style: TextStyle(fontSize: 16),
                             ),
@@ -90,7 +92,7 @@ class _MembershipState extends State<Membership> {
                                             : backgroundwhite,
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         right: 10, left: 10, top: 5, bottom: 5),
                                     child: Text(
                                       "Monthly",
@@ -116,7 +118,7 @@ class _MembershipState extends State<Membership> {
                                             : kblue,
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         right: 10, left: 10, top: 5, bottom: 5),
                                     child: Text(
                                       "Yearly",
@@ -147,8 +149,8 @@ class _MembershipState extends State<Membership> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 38.0, left: 20, right: 20),
                                       child: Text(
                                         "Basic",
@@ -157,8 +159,8 @@ class _MembershipState extends State<Membership> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 5.0, left: 20, right: 20),
                                       child: Text(
                                         "@3999",
@@ -167,8 +169,8 @@ class _MembershipState extends State<Membership> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 10.0, left: 20, right: 20),
                                       child: Text(
                                         "Stats",
@@ -180,9 +182,9 @@ class _MembershipState extends State<Membership> {
                                     Column(
                                       children: [
                                         for (int i = 0; i < 4; i++)
-                                          Padding(
+                                          const Padding(
                                             padding:
-                                                const EdgeInsets.only(top: 8.0),
+                                                EdgeInsets.only(top: 8.0),
                                             child: Text("Bids Left: 4/10"),
                                           )
                                       ],
@@ -202,12 +204,12 @@ class _MembershipState extends State<Membership> {
                               });
                             },
                             child: Container(
-                                padding: EdgeInsets.only(top: 8, bottom: 8),
+                                padding: const EdgeInsets.only(top: 8, bottom: 8),
                                 decoration: BoxDecoration(
                                     color: kblue,
                                     borderRadius: BorderRadius.circular(10)),
                                 width: MediaQuery.of(context).size.width * 0.9,
-                                child: Center(
+                                child: const Center(
                                     child: Text(
                                   "Extend Membership",
                                   style: TextStyle(
@@ -264,8 +266,8 @@ class Yearly extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 38.0, left: 20, right: 20),
                             child: Text(
                               "Basic",
@@ -274,8 +276,8 @@ class Yearly extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 5.0, left: 20, right: 20),
                             child: Text(
                               "@3999",
@@ -284,8 +286,8 @@ class Yearly extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 10.0, left: 20, right: 20),
                             child: Text(
                               "Benefits",
@@ -297,8 +299,8 @@ class Yearly extends StatelessWidget {
                           Column(
                             children: [
                               for (int i = 0; i < 4; i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 8.0),
                                   child: Text("data"),
                                 )
                             ],
@@ -349,8 +351,8 @@ class Monthly extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 38.0, left: 20, right: 20),
                             child: Text(
                               "Basic",
@@ -359,8 +361,8 @@ class Monthly extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 5.0, left: 20, right: 20),
                             child: Text(
                               "@399",
@@ -369,8 +371,8 @@ class Monthly extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 10.0, left: 20, right: 20),
                             child: Text(
                               "Benefits",
@@ -382,8 +384,8 @@ class Monthly extends StatelessWidget {
                           Column(
                             children: [
                               for (int i = 0; i < 4; i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 8.0),
                                   child: Text("data"),
                                 )
                             ],

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 
 import 'package:perhour_flutter/Colors.dart';
@@ -34,12 +36,12 @@ class _Help extends State<Help> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Name",
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: InputDecoration(hintText: "Alex"),
+                          decoration: const InputDecoration(hintText: "Alex"),
                         ),
                       ],
                     ),
@@ -52,12 +54,12 @@ class _Help extends State<Help> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "\$alexsomething@gmail.com"),
                         ),
                       ],
@@ -71,12 +73,12 @@ class _Help extends State<Help> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Contact Number",
                           style: TextStyle(fontSize: 16),
                         ),
                         TextFormField(
-                          decoration: InputDecoration(hintText: "+157******89"),
+                          decoration: const InputDecoration(hintText: "+157******89"),
                           keyboardType: TextInputType.phone,
                         ),
                       ],
@@ -120,11 +122,11 @@ class _Help extends State<Help> {
                   padding: const EdgeInsets.only(
                       left: 20.0, right: 20, top: 20, bottom: 10),
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
                         color: kblue, borderRadius: BorderRadius.circular(10)),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "Post",
                         style: TextStyle(

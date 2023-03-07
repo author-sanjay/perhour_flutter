@@ -1,8 +1,7 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
 
 class EditProfile extends StatelessWidget {
   const EditProfile({super.key});
@@ -22,28 +21,28 @@ class EditProfile extends StatelessWidget {
                   color: kblue,
                   width: MediaQuery.of(context).size.width,
                   padding:
-                      EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
+                      const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                       ),
-                      Spacer(),
-                      SizedBox(
+                      const Spacer(),
+                      const SizedBox(
                         width: 20,
                       ),
-                      Text(
+                      const Text(
                         "Profile",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
                             color: Colors.white),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       GestureDetector(
                         onTap: () {},
-                        child: Text(
+                        child: const Text(
                           "Save",
                           style: TextStyle(
                               fontSize: 16,
@@ -55,14 +54,14 @@ class EditProfile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 10.0),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.92,
-                  decoration: BoxDecoration(color: kblue),
+                  decoration: const BoxDecoration(color: kblue),
                   child: Column(
-                    children: [
+                    children: const [
                       Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
+                        padding: EdgeInsets.only(top: 18.0),
                         child: ProfilePhoto(),
                       ),
                       EditDetails()
@@ -89,7 +88,7 @@ class EditDetails extends StatelessWidget {
       padding: const EdgeInsets.only(top: 50),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30))),
@@ -103,13 +102,13 @@ class EditDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Email",
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
                       decoration:
-                          InputDecoration(hintText: "alexsomething@gmail.com"),
+                          const InputDecoration(hintText: "alexsomething@gmail.com"),
                     ),
                   ],
                 ),
@@ -121,13 +120,13 @@ class EditDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Address",
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
                       decoration:
-                          InputDecoration(hintText: "Somewhere in Heaven"),
+                          const InputDecoration(hintText: "Somewhere in Heaven"),
                     ),
                   ],
                 ),
@@ -139,12 +138,12 @@ class EditDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Withdrawl Type",
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: "UPI/Paypal"),
+                      decoration: const InputDecoration(hintText: "UPI/Paypal"),
                     ),
                   ],
                 ),
@@ -156,13 +155,13 @@ class EditDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Withdrawl A/C",
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
                       decoration:
-                          InputDecoration(hintText: "UPI Id/ PayPal Id"),
+                          const InputDecoration(hintText: "UPI Id/ PayPal Id"),
                     ),
                   ],
                 ),
@@ -174,12 +173,12 @@ class EditDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Banking Name",
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: "Alex"),
+                      decoration: const InputDecoration(hintText: "Alex"),
                     ),
                   ],
                 ),

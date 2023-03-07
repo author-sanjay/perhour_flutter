@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Wallet/JobDetailsClosed.dart';
@@ -26,8 +28,8 @@ class _WalletState extends State<Wallet> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: kblue,
-                  padding: EdgeInsets.only(top: 30, bottom: 10),
-                  child: Center(
+                  padding: const EdgeInsets.only(top: 30, bottom: 10),
+                  child: const Center(
                     child: Text(
                       "Earnings",
                       style: TextStyle(fontSize: 18, color: Colors.white),
@@ -39,7 +41,7 @@ class _WalletState extends State<Wallet> {
                       top: 28.0, left: 20, right: 20, bottom: 10),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(247, 245, 223, 123),
+                        color: const Color.fromARGB(247, 245, 223, 123),
                         borderRadius: BorderRadius.circular(20)),
                     child: Column(
                       children: [
@@ -50,9 +52,9 @@ class _WalletState extends State<Wallet> {
                               child: Column(
                                 children: [
                                   Wallet.earning
-                                      ? Text("Total Earning")
-                                      : Text("Referral Earning"),
-                                  Text(
+                                      ? const Text("Total Earning")
+                                      : const Text("Referral Earning"),
+                                  const Text(
                                     "\$ 500",
                                     style: TextStyle(
                                       fontSize: 25,
@@ -61,7 +63,7 @@ class _WalletState extends State<Wallet> {
                                 ],
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Padding(
                               padding: const EdgeInsets.only(right: 18.0),
                               child: Column(
@@ -84,10 +86,10 @@ class _WalletState extends State<Wallet> {
                                                 BorderRadius.circular(10),
                                             color: Wallet.earning
                                                 ? Colors.black
-                                                : Color.fromARGB(
+                                                : const Color.fromARGB(
                                                     247, 245, 223, 123),
                                           ),
-                                          padding: EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(10),
                                           child: Text(
                                             "Earning",
                                             style: TextStyle(
@@ -115,11 +117,11 @@ class _WalletState extends State<Wallet> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             color: Wallet.earning
-                                                ? Color.fromARGB(
+                                                ? const Color.fromARGB(
                                                     247, 245, 223, 123)
                                                 : Colors.black,
                                           ),
-                                          padding: EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(10),
                                           child: Text(
                                             "Referrals",
                                             style: TextStyle(
@@ -141,11 +143,11 @@ class _WalletState extends State<Wallet> {
                               bottom: 8.0, left: 8, right: 8),
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.9,
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 "WithDraw",
                                 style: TextStyle(
@@ -163,7 +165,7 @@ class _WalletState extends State<Wallet> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     // height: MediaQuery.of(context).size.height * 0.60,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
@@ -174,12 +176,14 @@ class _WalletState extends State<Wallet> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Wallet.earning
-                              ? Text(
+                              ? const Text(
                                   "Project Earnings",
                                   style: TextStyle(fontSize: 18),
                                 )
-                              : Text("Referrals"),
-                          Wallet.earning ? TxnList() : ReferralList()
+                              : const Text("Referrals"),
+                          Wallet.earning
+                              ? const TxnList()
+                              : const ReferralList()
                         ],
                       ),
                     ),
@@ -280,7 +284,7 @@ class TxnList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => JobDetailsClosed(),
+                    builder: (context) => const JobDetailsClosed(),
                   ),
                 );
               },

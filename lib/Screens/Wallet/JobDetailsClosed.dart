@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/Applujob/Applyjob.dart';
 
 class JobDetailsClosed extends StatelessWidget {
   const JobDetailsClosed({super.key});
@@ -36,10 +35,10 @@ class JobDetailsClosed extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   //main container
                   child: Column(
-                    children: [
-                      const Pricings(),
-                      const Description(),
-                      const Deadlines(),
+                    children: const [
+                      Pricings(),
+                      Description(),
+                      Deadlines(),
                     ],
                   ),
                 )

@@ -1,6 +1,6 @@
+// ignore_for_file: file_names, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 
 class BidsDetails extends StatelessWidget {
@@ -19,10 +19,10 @@ class BidsDetails extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 30, bottom: 10),
+                  padding: const EdgeInsets.only(top: 30, bottom: 10),
                   color: kblue,
                   width: MediaQuery.of(context).size.width,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Bid Details",
                       style: TextStyle(
@@ -33,16 +33,16 @@ class BidsDetails extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 50, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
                   child: Row(
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
                         child:
-                            Image(image: AssetImage("assets/images/Man2.png")),
+                            const Image(image: AssetImage("assets/images/Man2.png")),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
                         child: Text(
                           "Freelancer Name",
                           style: TextStyle(
@@ -57,14 +57,14 @@ class BidsDetails extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 18.0, right: 20, top: 20),
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "Time: 5 Days",
                               style: TextStyle(fontSize: 18),
@@ -78,9 +78,9 @@ class BidsDetails extends StatelessWidget {
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 20),
                           width: MediaQuery.of(context).size.width * 0.8,
-                          child: Text(
+                          child: const Text(
                               "jhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhj"),
                         ),
                         Padding(
@@ -96,7 +96,7 @@ class BidsDetails extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                             // width: MediaQuery.of(context).size.width * 0.8,
 
-                            child: Text(
+                            child: const Text(
                               "Chat With Freelancer",
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
@@ -117,7 +117,7 @@ class BidsDetails extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                             // width: MediaQuery.of(context).size.width * 0.8,
 
-                            child: Text(
+                            child: const Text(
                               "Assign Project",
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),

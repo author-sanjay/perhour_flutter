@@ -1,6 +1,6 @@
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 

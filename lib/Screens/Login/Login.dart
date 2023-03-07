@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Login/Components/BottomInputs.dart';
-import 'package:perhour_flutter/Screens/Login/Components/TopLogin.dart';
 import 'package:perhour_flutter/Screens/Register/Components/RegisterBottom.dart';
 
 class Login extends StatefulWidget {
@@ -57,7 +56,7 @@ class _LoginState extends State<Login> {
                                         borderRadius: BorderRadius.circular(10),
                                         color:
                                             Login.login ? Colors.white : kblue),
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         left: 10, right: 10, top: 5, bottom: 5),
                                     child: Text(
                                       "Login",
@@ -82,7 +81,7 @@ class _LoginState extends State<Login> {
                                         borderRadius: BorderRadius.circular(10),
                                         color:
                                             Login.login ? kblue : Colors.white),
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         left: 10, right: 10, top: 5, bottom: 5),
                                     child: Text(
                                       "Register",
@@ -108,14 +107,14 @@ class _LoginState extends State<Login> {
                     ),
                     const Spacer(),
                     Login.login
-                        ? Text(
+                        ? const Text(
                             "Login",
                             style: TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w300),
                           )
-                        : Text(
+                        : const Text(
                             "Register",
                             style: TextStyle(
                                 fontSize: 30,
@@ -128,7 +127,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              Login.login ? BottomInputs() : RegisterBottom()
+              Login.login ? const BottomInputs() : const RegisterBottom()
             ],
           ),
         ),

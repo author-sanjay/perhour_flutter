@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
