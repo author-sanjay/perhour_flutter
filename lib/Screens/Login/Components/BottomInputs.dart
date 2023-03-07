@@ -138,7 +138,7 @@ class _BottomInputsState extends State<BottomInputs> {
           "name", result["firstname"] + result["lastname"]);
       sharedPreferences.setString("email", result["email"]);
       user.email = result["email"];
-      user.id = result["id"].toString();
+      user.id = result["id"];
       user.country = result["country"].toString();
       user.address = result["address"].toString();
       user.firstname = result["firstname"].toString();

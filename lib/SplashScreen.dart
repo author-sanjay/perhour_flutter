@@ -29,21 +29,21 @@ class _SplashScreenState extends State<SplashScreen> {
     getvalidation().whenComplete(() async {
       if (id == null) {
         Timer(
-          Duration(seconds: 2),
+          const Duration(seconds: 2),
           () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Login(),
+              builder: (context) => const Login(),
             ),
           ),
         );
       } else {
-        Timer(Duration(seconds: 2), () async {
+        Timer(const Duration(seconds: 2), () async {
           var res = await http.get(Uri.parse("${api}users/getuser/${id}"),
               headers: headers);
           var result = jsonDecode(res.body);
           print(result);
-          user.email = result["email"];
+          user.email = result["email"].toString();
           user.id = result["id"].toString();
           user.country = result["country"].toString();
           user.address = result["address"].toString();
@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Home(),
+              builder: (context) => const Home(),
             ),
           );
         });
@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: Center(child: Text('data')),
+        child: const Center(child: Text('data')),
       ),
     );
   }

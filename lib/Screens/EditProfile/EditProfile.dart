@@ -1,11 +1,20 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/api.dart';
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +29,8 @@ class EditProfile extends StatelessWidget {
                 Container(
                   color: kblue,
                   width: MediaQuery.of(context).size.width,
-                  padding:
-                      const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 30, bottom: 10, left: 20, right: 20),
                   child: Row(
                     children: [
                       const Icon(
@@ -41,7 +50,9 @@ class EditProfile extends StatelessWidget {
                       ),
                       const Spacer(),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          update();
+                        },
                         child: const Text(
                           "Save",
                           style: TextStyle(
@@ -75,13 +86,42 @@ class EditProfile extends StatelessWidget {
       ),
     );
   }
+
+  void update() async {
+    final json = jsonEncode({
+      "phone": _EditDetailsState.phonenumber,
+      "address": _EditDetailsState.address,
+      "withdrawltype": _EditDetailsState.withdrawltype,
+      "accountnumber": _EditDetailsState.acnumber,
+      "bankingname": _EditDetailsState.bankingname,
+      "id": user.id
+    });
+
+    var res = await http.post(Uri.parse(api + 'users/update'),
+        headers: headers, body: json);
+    var result = jsonDecode(res.body);
+    print(result);
+    if (res.statusCode == 200) {
+      Navigator.pop(context);
+    }
+  }
 }
 
-class EditDetails extends StatelessWidget {
+class EditDetails extends StatefulWidget {
   const EditDetails({
     super.key,
   });
 
+  @override
+  State<EditDetails> createState() => _EditDetailsState();
+}
+
+class _EditDetailsState extends State<EditDetails> {
+  static String phonenumber = "";
+  static String address = "";
+  static String withdrawltype = "";
+  static String acnumber = "";
+  static String bankingname = "";
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -103,12 +143,17 @@ class EditDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Email",
+                      "Phone Number",
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          _EditDetailsState.phonenumber = value;
+                        });
+                      },
                       decoration:
-                          const InputDecoration(hintText: "alexsomething@gmail.com"),
+                          const InputDecoration(hintText: "+91 787******8"),
                     ),
                   ],
                 ),
@@ -125,8 +170,13 @@ class EditDetails extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
-                      decoration:
-                          const InputDecoration(hintText: "Somewhere in Heaven"),
+                      onChanged: (value) {
+                        setState(() {
+                          _EditDetailsState.address = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          hintText: "Somewhere in Heaven"),
                     ),
                   ],
                 ),
@@ -143,6 +193,9 @@ class EditDetails extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
+                      onChanged: (value) {
+                        _EditDetailsState.withdrawltype = value;
+                      },
                       decoration: const InputDecoration(hintText: "UPI/Paypal"),
                     ),
                   ],
@@ -160,6 +213,11 @@ class EditDetails extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          _EditDetailsState.acnumber;
+                        });
+                      },
                       decoration:
                           const InputDecoration(hintText: "UPI Id/ PayPal Id"),
                     ),
@@ -178,6 +236,11 @@ class EditDetails extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          _EditDetailsState.bankingname = value;
+                        });
+                      },
                       decoration: const InputDecoration(hintText: "Alex"),
                     ),
                   ],
