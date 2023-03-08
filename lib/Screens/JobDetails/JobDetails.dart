@@ -6,7 +6,8 @@ import 'package:perhour_flutter/Screens/Applujob/Applyjob.dart';
 
 class JobDetails extends StatefulWidget {
   JobDetails(
-      {required this.budget,
+      {required this.id,
+      required this.budget,
       required this.description,
       required this.name,
       required this.time,
@@ -14,6 +15,7 @@ class JobDetails extends StatefulWidget {
       required this.category,
       required this.exp,
       super.key});
+  int id;
   String name;
   int budget;
   String description;
@@ -73,7 +75,10 @@ class _JobDetailsState extends State<JobDetails> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ApplyJob(),
+                                builder: (context) => ApplyJob(
+                                    projectid: widget.id,
+                                    description: widget.description,
+                                    name: widget.name),
                               ),
                             );
                           },
@@ -135,11 +140,13 @@ class _DeadlinesState extends State<Deadlines> {
               children: [
                 Text(
                   "Deadline: ${widget.time} Days",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w300),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text("Project Type: ${widget.type}",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300))
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w300))
               ],
             ),
           ),
@@ -147,7 +154,7 @@ class _DeadlinesState extends State<Deadlines> {
             padding: const EdgeInsets.only(top: 20),
             child: Text(
               "Experience: ${widget.exp}",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             ),
           )
         ],
@@ -183,7 +190,7 @@ class _DescriptionState extends State<Description> {
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               widget.getDescription,
-              style: TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12),
             ),
           )
         ],
@@ -221,13 +228,13 @@ class _PricingsState extends State<Pricings> {
               children: [
                 Text(
                   widget.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 Text(
                   widget.category,
-                  style: TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ],
             ),
@@ -238,7 +245,7 @@ class _PricingsState extends State<Pricings> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
+                const Text(
                   "Budget",
                   style: TextStyle(
                     fontSize: 12,
@@ -246,7 +253,7 @@ class _PricingsState extends State<Pricings> {
                 ),
                 Text(
                   "Rs ${widget.price}",
-                  style: TextStyle(fontSize: 20, color: Colors.green),
+                  style: const TextStyle(fontSize: 20, color: Colors.green),
                 ),
               ],
             ),

@@ -34,6 +34,7 @@ class _ListProjectsState extends State<ListProjects> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => JobDetails(
+                        id: widget.getjobs[index].id,
                         budget: widget.getjobs[index].price,
                         description: widget.getjobs[index].fulldesc,
                         name: widget.getjobs[index].title,

@@ -4,9 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 
-class ApplyJob extends StatelessWidget {
-  const ApplyJob({super.key});
+class ApplyJob extends StatefulWidget {
+  ApplyJob(
+      {required this.projectid,
+      required this.description,
+      required this.name,
+      super.key});
+  int projectid;
+  String name;
+  String description;
+  @override
+  State<ApplyJob> createState() => _ApplyJobState();
+}
 
+class _ApplyJobState extends State<ApplyJob> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,15 +63,14 @@ class ApplyJob extends StatelessWidget {
                       ),
                       Container(
                         padding: const EdgeInsets.only(top: 20),
-                        child: const Text(
-                          "Job Title",
+                        child: Text(
+                          widget.name,
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.only(top: 10),
-                        child: const Text(
-                            "hghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgjhghgj"),
+                        child: Text(widget.description),
                       ),
                       const BidInputs()
                     ],
