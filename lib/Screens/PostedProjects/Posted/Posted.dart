@@ -47,14 +47,6 @@ class _PostedState extends State<Posted> {
             padding: const EdgeInsets.only(top: 20),
             child: Column(
               children: [
-                Assigned(
-                  id: 1,
-                  deliverydate: "23/10/2001",
-                  price: 5000,
-                  status: "assigned",
-                  title: "App Development",
-                ),
-
                 for (int i = 0; i < _getdeals.length; i++)
                   if (_getdeals[i].status == "Placed")
                     SimplePlaced(
@@ -80,6 +72,15 @@ class _PostedState extends State<Posted> {
                       status: _getdeals[i].status,
                       title: _getdeals[i].title,
                     )
+                  else if (_getdeals[i].status == "Assigned")
+                    Assigned(
+                      id: _getdeals[i].id,
+                      // bidsplace: _getdeals[i].bids,
+                      price: _getdeals[i].price,
+                      status: _getdeals[i].status,
+                      title: _getdeals[i].title,
+                      deliverydate: _getdeals[i].time,
+                    ),
                 // Checkdelivery(),
                 // Feedback()
               ],
@@ -125,8 +126,8 @@ class _AssignedState extends State<Assigned> {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: const Text(
-                        "titlew",
+                      child: Text(
+                        widget.title,
                         style: TextStyle(fontSize: 18),
                       )),
                   Column(
@@ -139,10 +140,10 @@ class _AssignedState extends State<Assigned> {
                           style: TextStyle(fontSize: 15),
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(top: 2.0),
                         child: Text(
-                          "Date",
+                          widget.deliverydate,
                           style: TextStyle(fontSize: 12),
                         ),
                       ),
@@ -160,10 +161,10 @@ class _AssignedState extends State<Assigned> {
                         "Assigned",
                         style: TextStyle(fontSize: 14, color: Colors.red),
                       )),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 18.0),
                     child: Text(
-                      "Rs ",
+                      "Rs ${widget.price}",
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   )
@@ -171,19 +172,37 @@ class _AssignedState extends State<Assigned> {
               )
             ],
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: kblue,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: const Center(
-                child: Text(
-              "Chat With Freelancer",
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            )),
+          Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: const Center(
+                    child: Text(
+                  "Chat With Freelancer",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                )),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: const Center(
+                    child: Text(
+                  "Revoke Project",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                )),
+              ),
+            ],
           )
         ],
       ),

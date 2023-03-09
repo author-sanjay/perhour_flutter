@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Projects/Assigned/Assignedapi.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/DeliverProject.dart';
+import 'package:perhour_flutter/Modals/Projects/Assigned/Assigned.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/Posted/Posted.dart';
 
 class PostedProjects extends StatefulWidget {
@@ -119,26 +121,75 @@ class _PostedProjectsState extends State<PostedProjects> {
   }
 }
 
-class Assigned extends StatelessWidget {
+class Assigned extends StatefulWidget {
   const Assigned({
     super.key,
   });
 
   @override
+  State<Assigned> createState() => _AssignedState();
+}
+
+class _AssignedState extends State<Assigned> {
+  bool _isloading = true;
+  late List<Asssigned> _getdeals;
+  @override
+  void initState() {
+    super.initState();
+    getDeals();
+  }
+
+  Future<void> getDeals() async {
+    _getdeals = await Assignedapi.getDeals();
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: const [Deliver()],
-      ),
+      child: _isloading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: [
+                for (int i = 0; i < _getdeals.length; i++)
+                  Deliver(
+                    deadline: "23-10-2001",
+                    id: _getdeals[i].id,
+                    price: _getdeals[i].price,
+                    status: _getdeals[i].status,
+                    title: _getdeals[i].title,
+                  )
+              ],
+            ),
     );
   }
 }
 
-class Deliver extends StatelessWidget {
-  const Deliver({
+class Deliver extends StatefulWidget {
+  Deliver({
+    required this.deadline,
+    required this.id,
+    required this.price,
+    required this.status,
+    required this.title,
     super.key,
   });
+  String title;
+  String status;
+  int id;
+  int price;
+  String deadline;
 
+  @override
+  State<Deliver> createState() => _DeliverState();
+}
+
+class _DeliverState extends State<Deliver> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -156,8 +207,8 @@ class Deliver extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: const Text(
-                      "App Development",
+                    child: Text(
+                      widget.title,
                       style: TextStyle(fontSize: 18),
                     )),
                 Padding(
@@ -191,16 +242,16 @@ class Deliver extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: const Text(
-                      "Assigned",
+                    child: Text(
+                      widget.status,
                       style: TextStyle(fontSize: 14, color: Colors.red),
                     )),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: const Text(
-                      "\$5000",
+                    child: Text(
+                      "Rs ${widget.price}",
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   ),
@@ -208,8 +259,8 @@ class Deliver extends StatelessWidget {
                 Container(
                     padding: const EdgeInsets.only(top: 10),
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: const Text(
-                      "Deadline: 23-10-2001",
+                    child: Text(
+                      "Deadline: ${widget.deadline}",
                       style: TextStyle(fontSize: 12),
                     ))
               ],
