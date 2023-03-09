@@ -211,29 +211,32 @@ class _DeliverState extends State<Deliver> {
                       widget.title,
                       style: TextStyle(fontSize: 18),
                     )),
-                Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DeliverProject(),
+                widget.status == "Cancelled"
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DeliverProject(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: kblue),
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 15, top: 8, bottom: 8),
+                            child: const Text(
+                              "Deliver",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: kblue),
-                        padding: const EdgeInsets.only(
-                            left: 15, right: 15, top: 8, bottom: 8),
-                        child: const Text(
-                          "Deliver",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                      ),
-                    ))
+                        ))
               ],
             ),
             const Spacer(),
@@ -256,13 +259,15 @@ class _DeliverState extends State<Deliver> {
                     ),
                   ),
                 ),
-                Container(
-                    padding: const EdgeInsets.only(top: 10),
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
-                      "Deadline: ${widget.deadline}",
-                      style: TextStyle(fontSize: 12),
-                    ))
+                widget.status == "Cancelled"
+                    ? Container()
+                    : Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        child: Text(
+                          "Deadline: ${widget.deadline}",
+                          style: TextStyle(fontSize: 12),
+                        ))
               ],
             )
           ],

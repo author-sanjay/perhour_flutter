@@ -5,9 +5,20 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 
-class SendFeedBack extends StatelessWidget {
-  const SendFeedBack({super.key});
+class SendFeedBack extends StatefulWidget {
+  SendFeedBack(
+      {required this.id, required this.desc, required this.title, super.key});
+  int id;
+  String title;
+  String desc;
+  static double stars = 0;
+  static String feedback = "";
 
+  @override
+  State<SendFeedBack> createState() => _SendFeedBackState();
+}
+
+class _SendFeedBackState extends State<SendFeedBack> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,17 +53,9 @@ class SendFeedBack extends StatelessWidget {
                       children: [
                         Container(
                           padding: const EdgeInsets.only(top: 20, left: 20),
-                          child: const Text(
-                            "Job Title",
+                          child: Text(
+                            widget.title,
                             style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, left: 20),
-                          child: const Text(
-                            "Deadline",
-                            style: TextStyle(fontSize: 13),
                           ),
                         ),
                       ],
@@ -80,8 +83,8 @@ class SendFeedBack extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: const Text(
-                    "Job Description",
+                  child: Text(
+                    widget.desc,
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
@@ -124,7 +127,11 @@ class SendFeedBack extends StatelessWidget {
                                 color: Colors.amber,
                               ),
                               onRatingUpdate: (rating) {
-                                print(rating);
+                                print(SendFeedBack.stars);
+                                SendFeedBack.stars = rating;
+                                // setState(() {
+                                //   SendFeedBack.stars = rating as int;
+                                // });
                               },
                             ),
                           ),
@@ -146,7 +153,12 @@ class SendFeedBack extends StatelessWidget {
                                     // color: kblue,
                                     height: MediaQuery.of(context).size.height *
                                         0.1,
-                                    child: const TextField(
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          SendFeedBack.feedback = value;
+                                        });
+                                      },
                                       // style: TextStyle(height: 300),
                                       minLines: 5,
                                       maxLines: 100,

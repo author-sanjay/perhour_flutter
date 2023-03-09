@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable, file_names, prefer_const_constructors_in_immutables, avoid_print, sized_box_for_whitespace, unnecessary_string_interpolations
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Modals/Projects/Posted/Posted.dart';
@@ -7,6 +9,8 @@ import 'package:perhour_flutter/Modals/Projects/Posted/Postedapi.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
 import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
+import 'package:perhour_flutter/api.dart';
+import 'package:http/http.dart' as http;
 // import 'package:perhour_flutter/Screens/PostedProjects/Posted/Feeback.dart';
 
 class Posted extends StatefulWidget {
@@ -71,6 +75,7 @@ class _PostedState extends State<Posted> {
                       price: _getdeals[i].price,
                       status: _getdeals[i].status,
                       title: _getdeals[i].title,
+                      description: _getdeals[i].fulldesc,
                     )
                   else if (_getdeals[i].status == "Assigned")
                     Assigned(
@@ -109,6 +114,34 @@ class Assigned extends StatefulWidget {
 }
 
 class _AssignedState extends State<Assigned> {
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure you?'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This action cannot be undone '),
+                // Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Revoke'),
+              onPressed: () {
+                revoke(widget.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -188,25 +221,41 @@ class _AssignedState extends State<Assigned> {
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 )),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: kblue,
-                  borderRadius: BorderRadius.circular(10),
+              GestureDetector(
+                onTap: () {
+                  _showMyDialog();
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: kblue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: const Center(
+                      child: Text(
+                    "Revoke Project",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  )),
                 ),
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: const Center(
-                    child: Text(
-                  "Revoke Project",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                )),
               ),
             ],
           )
         ],
       ),
     );
+  }
+
+  revoke(int id) async {
+    var res = await http.post(Uri.parse(api + "projects/revoke/${widget.id}"),
+        headers: headers);
+    // if (jsonDecode(res.body)) {
+    //   Navigator.pop(context);
+    // }
+    var result = jsonDecode(res.body);
+    print(result);
+    Navigator.pop(context);
   }
 }
 
@@ -217,6 +266,7 @@ class Feedback extends StatefulWidget {
     required this.price,
     required this.status,
     required this.title,
+    required this.description,
     super.key,
   });
   int id;
@@ -224,6 +274,7 @@ class Feedback extends StatefulWidget {
   int bidsplace;
   String status;
   int price;
+  String description;
 
   @override
   State<Feedback> createState() => _FeedbackState();
@@ -239,7 +290,8 @@ class _FeedbackState extends State<Feedback> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const SendFeedBack(),
+              builder: (context) => SendFeedBack(
+                  id: widget.id, desc: widget.description, title: widget.title),
             ),
           );
         },
