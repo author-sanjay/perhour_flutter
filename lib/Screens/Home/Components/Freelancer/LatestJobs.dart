@@ -1,8 +1,8 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:perhour_flutter/Modals/JobsModedapi.dart';
-import 'package:perhour_flutter/Modals/JobsModel.dart';
+import 'package:perhour_flutter/Modals/Jobs/JobsModedapi.dart';
+import 'package:perhour_flutter/Modals/Jobs/JobsModel.dart';
 import 'package:perhour_flutter/Screens/Home/Components/ListProjects.dart';
 
 class LatestJobs extends StatefulWidget {

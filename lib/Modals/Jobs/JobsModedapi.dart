@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:perhour_flutter/Modals/JobsModel.dart';
+import 'package:perhour_flutter/Modals/Jobs/JobsModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/api.dart';
 

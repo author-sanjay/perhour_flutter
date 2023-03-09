@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:perhour_flutter/Modals/JobsModel.dart';
+import 'package:perhour_flutter/Modals/Jobs/JobsModel.dart';
 import 'package:perhour_flutter/Screens/JobDetails/JobDetails.dart';
 
 class ListProjects extends StatefulWidget {
