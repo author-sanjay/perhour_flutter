@@ -47,6 +47,13 @@ class _PostedState extends State<Posted> {
             padding: const EdgeInsets.only(top: 20),
             child: Column(
               children: [
+                Assigned(
+                  deliverydate: "23/10/2001",
+                  price: 5000,
+                  status: "assigned",
+                  title: "App Development",
+                ),
+
                 for (int i = 0; i < _getdeals.length; i++)
                   if (_getdeals[i].status == "Placed")
                     SimplePlaced(
@@ -74,6 +81,107 @@ class _PostedState extends State<Posted> {
               ],
             ),
           );
+  }
+}
+
+class Assigned extends StatefulWidget {
+  Assigned({
+    required this.deliverydate,
+    required this.price,
+    required this.status,
+    required this.title,
+    super.key,
+  });
+  String title;
+  String deliverydate;
+  String status;
+  int price;
+
+  @override
+  State<Assigned> createState() => _AssignedState();
+}
+
+class _AssignedState extends State<Assigned> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      width: MediaQuery.of(context).size.width * 0.9,
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        "titlew",
+                        style: TextStyle(fontSize: 18),
+                      )),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          "Delivery Date",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 2.0),
+                        child: Text(
+                          "Date",
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: Text(
+                        "Assigned",
+                        style: TextStyle(fontSize: 14, color: Colors.red),
+                      )),
+                  Padding(
+                    padding: EdgeInsets.only(top: 18.0),
+                    child: Text(
+                      "Rs ",
+                      style: TextStyle(fontSize: 20, color: Colors.green),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: kblue,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Center(
+                child: Text(
+              "Chat With Freelancer",
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            )),
+          )
+        ],
+      ),
+    );
   }
 }
 
