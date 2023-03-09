@@ -2,13 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Projects/Posted/Posted.dart';
+import 'package:perhour_flutter/Modals/Projects/Posted/Postedapi.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
 import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
 // import 'package:perhour_flutter/Screens/PostedProjects/Posted/Feeback.dart';
 
 class Posted extends StatefulWidget {
-  const Posted({
+  Posted({
     super.key,
   });
 
@@ -17,27 +19,83 @@ class Posted extends StatefulWidget {
 }
 
 class _PostedState extends State<Posted> {
+  bool _isloading = true;
+  late List<Postedd> _getdeals;
   @override
   void initState() {
     super.initState();
+    getDeals();
+  }
+
+  Future<void> getDeals() async {
+    _getdeals = await Postedapi.getDeals();
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 20),
-      child: Column(
-        children: [const SimplePlaced(), const Checkdelivery(), Feedback()],
-      ),
-    );
+    return _isloading
+        ? Center(
+            child: CircularProgressIndicator(
+              color: kblue,
+            ),
+          )
+        : Container(
+            padding: const EdgeInsets.only(top: 20),
+            child: Column(
+              children: [
+                for (int i = 0; i < _getdeals.length; i++)
+                  if (_getdeals[i].status == "Placed")
+                    SimplePlaced(
+                      bidsplace: _getdeals[i].bids,
+                      price: _getdeals[i].price,
+                      status: _getdeals[i].status,
+                      title: _getdeals[i].title,
+                    )
+                  else if (_getdeals[i].status == "Delivered")
+                    Checkdelivery(
+                      bidsplace: _getdeals[i].bids,
+                      price: _getdeals[i].price,
+                      status: _getdeals[i].status,
+                      title: _getdeals[i].title,
+                    )
+                  else if (_getdeals[i].status == "Completed")
+                    Feedback(
+                      bidsplace: _getdeals[i].bids,
+                      price: _getdeals[i].price,
+                      status: _getdeals[i].status,
+                      title: _getdeals[i].title,
+                    )
+                // Checkdelivery(),
+                // Feedback()
+              ],
+            ),
+          );
   }
 }
 
-class Feedback extends StatelessWidget {
+class Feedback extends StatefulWidget {
   Feedback({
+    required this.bidsplace,
+    required this.price,
+    required this.status,
+    required this.title,
     super.key,
   });
 
+  String title;
+  int bidsplace;
+  String status;
+  int price;
+
+  @override
+  State<Feedback> createState() => _FeedbackState();
+}
+
+class _FeedbackState extends State<Feedback> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,10 +110,12 @@ class Feedback extends StatelessWidget {
           );
         },
         child: Container(
+          margin: EdgeInsets.only(bottom: 10),
           width: MediaQuery.of(context).size.width * 0.9,
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-          color: Colors.white,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
             children: [
               Column(
@@ -63,8 +123,8 @@ class Feedback extends StatelessWidget {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.5,
-                      child: const Text(
-                        "App Development",
+                      child: Text(
+                        "${widget.title}",
                         style: TextStyle(fontSize: 18),
                       )),
                   Padding(
@@ -88,14 +148,14 @@ class Feedback extends StatelessWidget {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      child: const Text(
-                        "Placed",
-                        style: TextStyle(fontSize: 14, color: Colors.red),
+                      child: Text(
+                        "${widget.status}",
+                        style: TextStyle(fontSize: 12, color: Colors.red),
                       )),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 18.0),
                     child: Text(
-                      "\$5000",
+                      "Rs ${widget.price}",
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   )
@@ -109,11 +169,24 @@ class Feedback extends StatelessWidget {
   }
 }
 
-class Checkdelivery extends StatelessWidget {
-  const Checkdelivery({
+class Checkdelivery extends StatefulWidget {
+  Checkdelivery({
+    required this.bidsplace,
+    required this.price,
+    required this.status,
+    required this.title,
     super.key,
   });
+  String title;
+  int bidsplace;
+  String status;
+  int price;
 
+  @override
+  State<Checkdelivery> createState() => _CheckdeliveryState();
+}
+
+class _CheckdeliveryState extends State<Checkdelivery> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -128,10 +201,12 @@ class Checkdelivery extends StatelessWidget {
           );
         },
         child: Container(
+          margin: EdgeInsets.only(bottom: 10),
           width: MediaQuery.of(context).size.width * 0.9,
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-          color: Colors.white,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
             children: [
               Column(
@@ -139,8 +214,8 @@ class Checkdelivery extends StatelessWidget {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.5,
-                      child: const Text(
-                        "App Development",
+                      child: Text(
+                        "${widget.title}",
                         style: TextStyle(fontSize: 18),
                       )),
                   Padding(
@@ -174,14 +249,14 @@ class Checkdelivery extends StatelessWidget {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      child: const Text(
-                        "Placed",
-                        style: TextStyle(fontSize: 14, color: Colors.red),
+                      child: Text(
+                        "${widget.status}",
+                        style: TextStyle(fontSize: 12, color: Colors.red),
                       )),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 18.0),
                     child: Text(
-                      "\$5000",
+                      "Rs ${widget.price}",
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   )
@@ -195,11 +270,25 @@ class Checkdelivery extends StatelessWidget {
   }
 }
 
-class SimplePlaced extends StatelessWidget {
-  const SimplePlaced({
+class SimplePlaced extends StatefulWidget {
+  SimplePlaced({
+    required this.bidsplace,
+    required this.price,
+    required this.status,
+    required this.title,
     super.key,
   });
 
+  String title;
+  int bidsplace;
+  String status;
+  int price;
+
+  @override
+  State<SimplePlaced> createState() => _SimplePlacedState();
+}
+
+class _SimplePlacedState extends State<SimplePlaced> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -212,6 +301,7 @@ class SimplePlaced extends StatelessWidget {
         );
       },
       child: Container(
+        margin: EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.9,
@@ -224,14 +314,14 @@ class SimplePlaced extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: const Text(
-                      "App Development",
+                    child: Text(
+                      "${widget.title}",
                       style: TextStyle(fontSize: 18),
                     )),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Text(
-                    "Bids Placed:10",
+                    "Bids Placed:${widget.bidsplace}",
                     style: TextStyle(fontSize: 15),
                   ),
                 )
@@ -243,14 +333,14 @@ class SimplePlaced extends StatelessWidget {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: const Text(
-                      "Placed",
+                    child: Text(
+                      "${widget.status}",
                       style: TextStyle(fontSize: 14, color: Colors.red),
                     )),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(top: 18.0),
                   child: Text(
-                    "\$5000",
+                    "Rs ${widget.price}",
                     style: TextStyle(fontSize: 20, color: Colors.green),
                   ),
                 )

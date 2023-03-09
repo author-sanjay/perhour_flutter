@@ -1,4 +1,4 @@
-class Posted {
+class Postedd {
   int id;
   String title;
   int bids;
@@ -9,9 +9,9 @@ class Posted {
   String category;
   String experience;
   String time;
-  Posted(this.id, this.title, this.bids, this.fulldesc, this.price, this.fixed,
+  Postedd(this.id, this.title, this.bids, this.fulldesc, this.price, this.fixed,
       this.category, this.experience, this.time, this.status);
-  Posted.fromJson(Map<dynamic, dynamic> json)
+  Postedd.fromJson(Map<dynamic, dynamic> json)
       : id = json["id"],
         title = json["title"] as String,
         bids = json["totalbids"],
@@ -23,9 +23,9 @@ class Posted {
         time = json["timelimit"] as String,
         status = json["status"] as String;
 
-  static List<Posted> dealsfromapi(List api) {
+  static List<Postedd> dealsfromapi(List api) {
     return api.map((e) {
-      return Posted.fromJson(e);
+      return Postedd.fromJson(e);
     }).toList();
   }
 }
