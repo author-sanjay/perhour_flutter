@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, non_constant_identifier_names
+// ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, non_constant_identifier_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Modals/Jobs/JobsModedapi.dart';
@@ -50,12 +50,12 @@ class _LatestJobsState extends State<LatestJobs> {
                     height: 30,
                   ),
                   _isloading
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : _getdeals.length == 0
-                          ? Padding(
-                              padding: const EdgeInsets.all(48.0),
+                      : _getdeals.isEmpty
+                          ? const Padding(
+                              padding: EdgeInsets.all(48.0),
                               child: Center(
                                   child: Text(
                                       "Oops, We have not projects right now. Please try again in an hour")),

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -22,11 +22,11 @@ class BottomInputs extends StatefulWidget {
 class _BottomInputsState extends State<BottomInputs> {
   static String email = "";
   static String password = "";
-  final snackbar = SnackBar(content: Text("Email cant be null"));
-  final passwordsnackbar = SnackBar(content: Text("Password cant be null"));
-  final invalidemail = SnackBar(content: Text("Invalid Email"));
+  final snackbar = const SnackBar(content: Text("Email cant be null"));
+  final passwordsnackbar = const SnackBar(content: Text("Password cant be null"));
+  final invalidemail = const SnackBar(content: Text("Invalid Email"));
   final invalidepassword =
-      SnackBar(content: Text("Please Create a strong password"));
+      const SnackBar(content: Text("Please Create a strong password"));
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -115,9 +115,9 @@ class _BottomInputsState extends State<BottomInputs> {
   }
 
   void validateandnavigate() async {
-    if (_BottomInputsState.email.length == 0) {
+    if (_BottomInputsState.email.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    } else if (_BottomInputsState.password.length == 0) {
+    } else if (_BottomInputsState.password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(passwordsnackbar);
     } else if (!isemail(_BottomInputsState.email)) {
       ScaffoldMessenger.of(context).showSnackBar(invalidemail);
@@ -147,7 +147,7 @@ class _BottomInputsState extends State<BottomInputs> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Home(),
+          builder: (context) => const Home(),
         ),
       );
     }

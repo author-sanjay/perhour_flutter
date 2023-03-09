@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 
 class RegisterBottom extends StatelessWidget {
   const RegisterBottom({super.key});

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers
+
 import 'dart:convert';
 
 import 'package:perhour_flutter/Modals/Jobs/JobsModel.dart';
@@ -7,7 +9,7 @@ import 'package:perhour_flutter/api.dart';
 class JobsModelapi {
   static Future<List<Jobs>> getDeals() async {
     var res =
-        await http.get(Uri.parse(api + "projects/getlatest"), headers: headers);
+        await http.get(Uri.parse("${api}projects/getlatest"), headers: headers);
     List _temp = [];
     for (var i in jsonDecode(res.body)) {
       _temp.add(i);

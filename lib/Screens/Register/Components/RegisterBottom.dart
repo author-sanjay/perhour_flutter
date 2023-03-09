@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors
+// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
@@ -109,9 +109,9 @@ class _RegisterBottomState extends State<RegisterBottom> {
   }
 
   void validateandnavigate() {
-    if (RegisterBottom.email.length == 0) {
+    if (RegisterBottom.email.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    } else if (RegisterBottom.password.length == 0) {
+    } else if (RegisterBottom.password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(passwordsnackbar);
     } else if (!isemail(RegisterBottom.email)) {
       ScaffoldMessenger.of(context).showSnackBar(invalidemail);

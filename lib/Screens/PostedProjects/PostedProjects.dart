@@ -3,9 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/DeliverProject.dart';
-import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
-import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
-import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/Posted/Posted.dart';
 
 class PostedProjects extends StatefulWidget {

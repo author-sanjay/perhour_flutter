@@ -61,16 +61,15 @@ class _ListProjectsState extends State<ListProjects> {
                           children: [
                             Text(
                               widget.getjobs[index].title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
-                              "Bids Placed:" +
-                                  widget.getjobs[index].bids.toString(),
-                              style: TextStyle(fontSize: 12),
+                              "Bids Placed:${widget.getjobs[index].bids}",
+                              style: const TextStyle(fontSize: 12),
                             )
                           ],
                         ),
@@ -81,17 +80,17 @@ class _ListProjectsState extends State<ListProjects> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Budget",
                               style: TextStyle(fontSize: 10),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
                               widget.getjobs[index].price.toString(),
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.green),
+                                  const TextStyle(fontSize: 16, color: Colors.green),
                             ),
                           ],
                         ),

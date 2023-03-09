@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable, avoid_print, unnecessary_brace_in_string_interps, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -316,7 +316,7 @@ class _BidInputsState extends State<BidInputs> {
 
     try {
       var res = await http.post(
-          Uri.parse(api + "bids/add/${user.id}/${projectid}"),
+          Uri.parse("${api}bids/add/${user.id}/${projectid}"),
           headers: headers,
           body: json);
       // var result = jsonDecode(res.statusCode);

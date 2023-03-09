@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, must_be_immutable, prefer_interpolation_to_compose_strings, avoid_print, prefer_is_empty
 
 import 'dart:convert';
 
@@ -81,7 +81,7 @@ class _BidsDetailsState extends State<BidsDetails> {
                         width: MediaQuery.of(context).size.width * 0.2,
                         child: photo.length > 0
                             ? Image(image: NetworkImage(photo))
-                            : Image(
+                            : const Image(
                                 image: AssetImage("assets/images/Man2.png")),
                       ),
                       const Padding(
@@ -113,19 +113,19 @@ class _BidsDetailsState extends State<BidsDetails> {
                               children: [
                                 Text(
                                   "Time: ${widget.time} Days",
-                                  style: TextStyle(fontSize: 18),
+                                  style: const TextStyle(fontSize: 18),
                                 ),
                                 Text(
                                   "Revisions: ${widget.revisions}",
-                                  style: TextStyle(fontSize: 12),
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
-                              "\Rs ${widget.time} Days",
+                              "Rs ${widget.time} Days",
                               style:
-                                  TextStyle(fontSize: 18, color: Colors.green),
+                                  const TextStyle(fontSize: 18, color: Colors.green),
                             )
                           ],
                         ),

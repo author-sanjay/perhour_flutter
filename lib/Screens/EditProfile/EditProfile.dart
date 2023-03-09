@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers
+// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -97,7 +97,7 @@ class _EditProfileState extends State<EditProfile> {
       "id": user.id
     });
 
-    var res = await http.post(Uri.parse(api + 'users/update'),
+    var res = await http.post(Uri.parse('${api}users/update'),
         headers: headers, body: json);
     var result = jsonDecode(res.body);
     print(result);

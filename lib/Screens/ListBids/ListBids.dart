@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
@@ -124,7 +124,7 @@ class _ListBidsState extends State<ListBids> {
                                                         .width *
                                                     0.5,
                                                 child: Text(
-                                                  "${_getdeals[index].desc}",
+                                                  _getdeals[index].desc,
                                                   style: const TextStyle(
                                                       fontSize: 12),
                                                 ),

@@ -1,10 +1,9 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable, avoid_print, unused_local_variable, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/Home/Home.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Screens/Login/Login.dart';
 import 'package:perhour_flutter/User.dart';
@@ -220,7 +219,7 @@ class _RegisterDetailsState extends State<RegisterDetails> {
 
     var res = await http.post(
         Uri.parse(
-            api + 'users/verifyusername/' + _RegisterDetailsState.username),
+            '${api}users/verifyusername/${_RegisterDetailsState.username}'),
         headers: headers);
 
     // var result = res.body;
@@ -245,7 +244,7 @@ class _RegisterDetailsState extends State<RegisterDetails> {
       "username": _RegisterDetailsState.username,
       "password": widget.password
     });
-    var res = await http.post(Uri.parse(api + 'users/add'),
+    var res = await http.post(Uri.parse('${api}users/add'),
         headers: headers, body: json);
     var result = res.body;
     if (res.statusCode == 200) {

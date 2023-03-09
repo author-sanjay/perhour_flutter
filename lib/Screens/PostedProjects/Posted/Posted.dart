@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable
+// ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable, file_names, prefer_const_constructors_in_immutables, avoid_print, sized_box_for_whitespace, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
@@ -38,7 +38,7 @@ class _PostedState extends State<Posted> {
   @override
   Widget build(BuildContext context) {
     return _isloading
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(
               color: kblue,
             ),
@@ -111,7 +111,7 @@ class _AssignedState extends State<Assigned> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       width: MediaQuery.of(context).size.width * 0.9,
@@ -125,21 +125,21 @@ class _AssignedState extends State<Assigned> {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.4,
-                      child: Text(
+                      child: const Text(
                         "titlew",
                         style: TextStyle(fontSize: 18),
                       )),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text(
                           "Delivery Date",
                           style: TextStyle(fontSize: 15),
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 2.0),
                         child: Text(
                           "Date",
@@ -156,11 +156,11 @@ class _AssignedState extends State<Assigned> {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      child: Text(
+                      child: const Text(
                         "Assigned",
                         style: TextStyle(fontSize: 14, color: Colors.red),
                       )),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 18.0),
                     child: Text(
                       "Rs ",
@@ -172,14 +172,14 @@ class _AssignedState extends State<Assigned> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.all(10),
+            margin: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: kblue,
               borderRadius: BorderRadius.circular(10),
             ),
             width: MediaQuery.of(context).size.width * 0.9,
-            child: Center(
+            child: const Center(
                 child: Text(
               "Chat With Freelancer",
               style: TextStyle(fontSize: 16, color: Colors.white),
@@ -225,7 +225,7 @@ class _FeedbackState extends State<Feedback> {
           );
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: MediaQuery.of(context).size.width * 0.9,
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
@@ -240,7 +240,7 @@ class _FeedbackState extends State<Feedback> {
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: Text(
                         "${widget.title}",
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       )),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -266,13 +266,13 @@ class _FeedbackState extends State<Feedback> {
                       width: MediaQuery.of(context).size.width * 0.2,
                       child: Text(
                         "${widget.status}",
-                        style: TextStyle(fontSize: 12, color: Colors.red),
+                        style: const TextStyle(fontSize: 12, color: Colors.red),
                       )),
                   Padding(
-                    padding: EdgeInsets.only(top: 18.0),
+                    padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
                       "Rs ${widget.price}",
-                      style: TextStyle(fontSize: 20, color: Colors.green),
+                      style: const TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   )
                 ],
@@ -319,7 +319,7 @@ class _CheckdeliveryState extends State<Checkdelivery> {
           );
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           width: MediaQuery.of(context).size.width * 0.9,
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
@@ -334,7 +334,7 @@ class _CheckdeliveryState extends State<Checkdelivery> {
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: Text(
                         "${widget.title}",
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       )),
                   Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -369,13 +369,13 @@ class _CheckdeliveryState extends State<Checkdelivery> {
                       width: MediaQuery.of(context).size.width * 0.2,
                       child: Text(
                         "${widget.status}",
-                        style: TextStyle(fontSize: 12, color: Colors.red),
+                        style: const TextStyle(fontSize: 12, color: Colors.red),
                       )),
                   Padding(
-                    padding: EdgeInsets.only(top: 18.0),
+                    padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
                       "Rs ${widget.price}",
-                      style: TextStyle(fontSize: 20, color: Colors.green),
+                      style: const TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   )
                 ],
@@ -421,7 +421,7 @@ class _SimplePlacedState extends State<SimplePlaced> {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.9,
@@ -436,13 +436,13 @@ class _SimplePlacedState extends State<SimplePlaced> {
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
                       "${widget.title}",
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     )),
                 Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
                     "Bids Placed:${widget.bidsplace}",
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 )
               ],
@@ -455,13 +455,13 @@ class _SimplePlacedState extends State<SimplePlaced> {
                     width: MediaQuery.of(context).size.width * 0.2,
                     child: Text(
                       "${widget.status}",
-                      style: TextStyle(fontSize: 14, color: Colors.red),
+                      style: const TextStyle(fontSize: 14, color: Colors.red),
                     )),
                 Padding(
-                  padding: EdgeInsets.only(top: 18.0),
+                  padding: const EdgeInsets.only(top: 18.0),
                   child: Text(
                     "Rs ${widget.price}",
-                    style: TextStyle(fontSize: 20, color: Colors.green),
+                    style: const TextStyle(fontSize: 20, color: Colors.green),
                   ),
                 )
               ],
