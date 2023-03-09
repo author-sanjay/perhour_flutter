@@ -124,8 +124,8 @@ class _BidsDetailsState extends State<BidsDetails> {
                             const Spacer(),
                             Text(
                               "Rs ${widget.time} Days",
-                              style:
-                                  const TextStyle(fontSize: 18, color: Colors.green),
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.green),
                             )
                           ],
                         ),
@@ -156,22 +156,28 @@ class _BidsDetailsState extends State<BidsDetails> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.175,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.175,
-                                top: 8,
-                                bottom: 8),
-                            decoration: BoxDecoration(
-                                color: kblue,
-                                borderRadius: BorderRadius.circular(10)),
-                            // width: MediaQuery.of(context).size.width * 0.8,
+                          child: GestureDetector(
+                            onTap: () {
+                              assignproject(widget.userid, widget.projectid);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.175,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.175,
+                                  top: 8,
+                                  bottom: 8),
+                              decoration: BoxDecoration(
+                                  color: kblue,
+                                  borderRadius: BorderRadius.circular(10)),
+                              // width: MediaQuery.of(context).size.width * 0.8,
 
-                            child: const Text(
-                              "Assign Project",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                              child: const Text(
+                                "Assign Project",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
+                              ),
                             ),
                           ),
                         )
@@ -185,5 +191,17 @@ class _BidsDetailsState extends State<BidsDetails> {
         ),
       ),
     );
+  }
+
+  assignproject(int user, int project) async {
+    print(project);
+
+    var res = await http.post(
+        Uri.parse(api + "projects/assignproject/${user}/${project}"),
+        headers: headers);
+    print(res.statusCode);
+    var result = jsonDecode(res.body);
+    print(result);
+    // if(res.statusCode)
   }
 }

@@ -79,7 +79,7 @@ class _ListBidsState extends State<ListBids> {
                                         description: _getdeals[index].desc,
                                         price: _getdeals[index].price,
                                         time: _getdeals[index].time,
-                                        projectid: _getdeals[index].id,
+                                        projectid: widget.id,
                                         revisions: _getdeals[index].revesion,
                                         userid: _getdeals[index].user,
                                       ),
