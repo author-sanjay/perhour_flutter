@@ -1,10 +1,51 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/api.dart';
 
-class BidsDetails extends StatelessWidget {
-  const BidsDetails({super.key});
+class BidsDetails extends StatefulWidget {
+  BidsDetails(
+      {required this.description,
+      required this.price,
+      required this.time,
+      required this.projectid,
+      required this.revisions,
+      required this.userid,
+      super.key});
+  int projectid;
+  int time;
+  int price;
+  String description;
+  int revisions;
+  int userid;
+
+  @override
+  State<BidsDetails> createState() => _BidsDetailsState();
+}
+
+class _BidsDetailsState extends State<BidsDetails> {
+  static String photo = "";
+  Future<void> name() async {
+    var res = await http.get(Uri.parse(api + 'users/getuser/${widget.userid}'),
+        headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    setState(() {
+      if (result["photo"] != null) {
+        photo = result["photo"];
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    name();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +79,10 @@ class BidsDetails extends StatelessWidget {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
-                        child:
-                            const Image(image: AssetImage("assets/images/Man2.png")),
+                        child: photo.length > 0
+                            ? Image(image: NetworkImage(photo))
+                            : Image(
+                                image: AssetImage("assets/images/Man2.png")),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 8.0),
@@ -64,14 +107,23 @@ class BidsDetails extends StatelessWidget {
                     child: Column(
                       children: [
                         Row(
-                          children: const [
-                            Text(
-                              "Time: 5 Days",
-                              style: TextStyle(fontSize: 18),
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Time: ${widget.time} Days",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  "Revisions: ${widget.revisions}",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
                             ),
                             Spacer(),
                             Text(
-                              "\$ 5000",
+                              "\Rs ${widget.time} Days",
                               style:
                                   TextStyle(fontSize: 18, color: Colors.green),
                             )
@@ -80,8 +132,7 @@ class BidsDetails extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.only(top: 20),
                           width: MediaQuery.of(context).size.width * 0.8,
-                          child: const Text(
-                              "jhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhjjhjhj"),
+                          child: Text(widget.description),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),

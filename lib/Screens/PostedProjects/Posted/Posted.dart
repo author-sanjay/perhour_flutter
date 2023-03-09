@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
@@ -48,6 +48,7 @@ class _PostedState extends State<Posted> {
             child: Column(
               children: [
                 Assigned(
+                  id: 1,
                   deliverydate: "23/10/2001",
                   price: 5000,
                   status: "assigned",
@@ -57,6 +58,7 @@ class _PostedState extends State<Posted> {
                 for (int i = 0; i < _getdeals.length; i++)
                   if (_getdeals[i].status == "Placed")
                     SimplePlaced(
+                      id: _getdeals[i].id,
                       bidsplace: _getdeals[i].bids,
                       price: _getdeals[i].price,
                       status: _getdeals[i].status,
@@ -64,6 +66,7 @@ class _PostedState extends State<Posted> {
                     )
                   else if (_getdeals[i].status == "Delivered")
                     Checkdelivery(
+                      id: _getdeals[i].id,
                       bidsplace: _getdeals[i].bids,
                       price: _getdeals[i].price,
                       status: _getdeals[i].status,
@@ -71,6 +74,7 @@ class _PostedState extends State<Posted> {
                     )
                   else if (_getdeals[i].status == "Completed")
                     Feedback(
+                      id: _getdeals[i].id,
                       bidsplace: _getdeals[i].bids,
                       price: _getdeals[i].price,
                       status: _getdeals[i].status,
@@ -86,12 +90,14 @@ class _PostedState extends State<Posted> {
 
 class Assigned extends StatefulWidget {
   Assigned({
+    required this.id,
     required this.deliverydate,
     required this.price,
     required this.status,
     required this.title,
     super.key,
   });
+  int id;
   String title;
   String deliverydate;
   String status;
@@ -187,13 +193,14 @@ class _AssignedState extends State<Assigned> {
 
 class Feedback extends StatefulWidget {
   Feedback({
+    required this.id,
     required this.bidsplace,
     required this.price,
     required this.status,
     required this.title,
     super.key,
   });
-
+  int id;
   String title;
   int bidsplace;
   String status;
@@ -236,18 +243,19 @@ class _FeedbackState extends State<Feedback> {
                         style: TextStyle(fontSize: 18),
                       )),
                   Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: kblue),
-                        padding: const EdgeInsets.only(
-                            left: 15, right: 15, top: 8, bottom: 8),
-                        child: const Text(
-                          "Send Feedback",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                      ))
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kblue),
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, top: 8, bottom: 8),
+                      child: const Text(
+                        "Send Feedback",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const Spacer(),
@@ -279,12 +287,14 @@ class _FeedbackState extends State<Feedback> {
 
 class Checkdelivery extends StatefulWidget {
   Checkdelivery({
+    required this.id,
     required this.bidsplace,
     required this.price,
     required this.status,
     required this.title,
     super.key,
   });
+  int id;
   String title;
   int bidsplace;
   String status;
@@ -380,6 +390,7 @@ class _CheckdeliveryState extends State<Checkdelivery> {
 
 class SimplePlaced extends StatefulWidget {
   SimplePlaced({
+    required this.id,
     required this.bidsplace,
     required this.price,
     required this.status,
@@ -391,6 +402,7 @@ class SimplePlaced extends StatefulWidget {
   int bidsplace;
   String status;
   int price;
+  int id;
 
   @override
   State<SimplePlaced> createState() => _SimplePlacedState();
@@ -404,7 +416,7 @@ class _SimplePlacedState extends State<SimplePlaced> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ListBids(),
+            builder: (context) => ListBids(id: widget.id),
           ),
         );
       },

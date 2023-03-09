@@ -6,8 +6,7 @@ import 'package:perhour_flutter/api.dart';
 
 class BidModelapi {
   static Future<List<Bids>> getDeals(int projectid) async {
-    var res = await http.get(
-        Uri.parse(api + "bids/getprojectbids" + projectid.toString()),
+    var res = await http.get(Uri.parse("${api}bids/getprojectbids/$projectid"),
         headers: headers);
     List _temp = [];
     for (var i in jsonDecode(res.body)) {

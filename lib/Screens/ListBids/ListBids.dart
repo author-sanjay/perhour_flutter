@@ -2,126 +2,174 @@
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Bids/BIdModelapi.dart';
+import 'package:perhour_flutter/Modals/Bids/BidsModel.dart';
 import 'package:perhour_flutter/Screens/ListBids/BidDetails.dart';
 
-class ListBids extends StatelessWidget {
-  const ListBids({super.key});
+class ListBids extends StatefulWidget {
+  ListBids({required this.id, super.key});
+  int id;
+  @override
+  State<ListBids> createState() => _ListBidsState();
+}
+
+class _ListBidsState extends State<ListBids> {
+  bool _isloading = true;
+  late List<Bids> _getdeals;
+
+  @override
+  void initState() {
+    super.initState();
+    getDeals();
+  }
+
+  Future<void> getDeals() async {
+    _getdeals = await BidModelapi.getDeals(widget.id);
+
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints:
-              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            color: backgroundwhite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Topbar(title: "Bids"),
-                const Padding(
-                  padding:
-                      EdgeInsets.only(left: 20.0, right: 20, top: 20),
-                  child: Text(
-                    "Bids",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 20),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: 20,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (_, __) => const Divider(),
-                    itemBuilder: (context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10.0, right: 10),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const BidsDetails(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 10, bottom: 10),
-                              // color: Colors.white,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+        child: _isloading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ConstrainedBox(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: backgroundwhite,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Topbar(title: "Bids"),
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(left: 20.0, right: 20, top: 20),
+                        child: Text(
+                          "Bids",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0, right: 20),
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: _getdeals.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          separatorBuilder: (_, __) => const Divider(),
+                          itemBuilder: (context, int index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, right: 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BidsDetails(
+                                        description: _getdeals[index].desc,
+                                        price: _getdeals[index].price,
+                                        time: _getdeals[index].time,
+                                        projectid: _getdeals[index].id,
+                                        revisions: _getdeals[index].revesion,
+                                        userid: _getdeals[index].user,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                        top: 10,
+                                        bottom: 10),
+                                    // color: Colors.white,
+                                    child: Row(
                                       children: [
-                                        const Text(
-                                          "Sanjay Kumar",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500),
+                                        Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _getdeals[index]
+                                                    .username
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                child: Text(
+                                                  "${_getdeals[index].desc}",
+                                                  style: const TextStyle(
+                                                      fontSize: 12),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
+                                        const Spacer(),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.5,
-                                          child: const Text(
-                                            "Bids Placed: 10 Bids Placed: 10Bids Placed: 10Bids Placed: 10 Bids Placed: 10",
-                                            style: TextStyle(fontSize: 12),
+                                              0.2,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Time: ${_getdeals[index].time} Days",
+                                                style: const TextStyle(
+                                                    fontSize: 10),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                "Rs ${_getdeals[index].price}",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.green),
+                                              ),
+                                            ],
                                           ),
                                         )
                                       ],
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: const [
-                                        Text(
-                                          "Time: 4 Days",
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          "Rs 10000",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.green),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )),
+                                    )),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
