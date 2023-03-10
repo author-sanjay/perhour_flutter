@@ -4,6 +4,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Membership/Membership.dart';
+import 'package:perhour_flutter/Modals/Membership/Membershipapi.dart';
 
 class Membership extends StatefulWidget {
   const Membership({Key? key}) : super(key: key);
@@ -14,6 +16,39 @@ class Membership extends StatefulWidget {
 }
 
 class _MembershipState extends State<Membership> {
+  bool _isloading = true;
+  late List<Member> _getdeals;
+  @override
+  void initState() {
+    super.initState();
+    getDeals();
+  }
+
+  Future<void> getDeals() async {
+    _getdeals = await Memberapi.getDeals();
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+    splitdata(_getdeals);
+  }
+
+  static List<Member> _monthly = [];
+  static List<Member> _yearly = [];
+  splitdata(List<Member> _getdeals) {
+    for (int i = 0; i < _getdeals.length; i++) {
+      if (_getdeals[i].monthly) {
+        setState(() {
+          _MembershipState._monthly.add(_getdeals[i]);
+        });
+      } else {
+        setState(() {
+          _MembershipState._yearly.add(_getdeals[i]);
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Random random = Random();
@@ -39,8 +74,8 @@ class _MembershipState extends State<Membership> {
                     padding: const EdgeInsets.only(top: 68.0),
                     child: Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        child:
-                            const Image(image: AssetImage("assets/images/vip.png"))),
+                        child: const Image(
+                            image: AssetImage("assets/images/vip.png"))),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 18.0),
@@ -51,8 +86,7 @@ class _MembershipState extends State<Membership> {
                     ),
                   ),
                   const Padding(
-                    padding:
-                        EdgeInsets.only(top: 18.0, left: 20, right: 20),
+                    padding: EdgeInsets.only(top: 18.0, left: 20, right: 20),
                     child: Text(
                       "Designed to maximise your freelancer success and earnings!",
                       style:
@@ -183,8 +217,7 @@ class _MembershipState extends State<Membership> {
                                       children: [
                                         for (int i = 0; i < 4; i++)
                                           const Padding(
-                                            padding:
-                                                EdgeInsets.only(top: 8.0),
+                                            padding: EdgeInsets.only(top: 8.0),
                                             child: Text("Bids Left: 4/10"),
                                           )
                                       ],
@@ -204,7 +237,8 @@ class _MembershipState extends State<Membership> {
                               });
                             },
                             child: Container(
-                                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                padding:
+                                    const EdgeInsets.only(top: 8, bottom: 8),
                                 decoration: BoxDecoration(
                                     color: kblue,
                                     borderRadius: BorderRadius.circular(10)),
@@ -223,8 +257,15 @@ class _MembershipState extends State<Membership> {
                     )
                   else
                     Membership.monthly
-                        ? Monthly(coolors: coolors, random: random)
-                        : Yearly(coolors: coolors, random: random)
+                        ? Monthly(
+                            coolors: coolors,
+                            random: random,
+                            monthly: _getdeals)
+                        : Yearly(
+                            coolors: coolors,
+                            random: random,
+                            yearly: _getdeals,
+                          )
                 ],
               )),
         ),
@@ -234,12 +275,13 @@ class _MembershipState extends State<Membership> {
 }
 
 class Yearly extends StatelessWidget {
-  const Yearly({
+  Yearly({
+    required this.yearly,
     super.key,
     required this.coolors,
     required this.random,
   });
-
+  List<Member> yearly;
   final List coolors;
   final Random random;
 
@@ -254,61 +296,57 @@ class Yearly extends StatelessWidget {
             padding: const EdgeInsets.only(left: 50.0),
             child: Row(
               children: [
-                for (int i = 0; i < 4; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: coolors[random.nextInt(5)],
-                          borderRadius: BorderRadius.circular(10)),
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 38.0, left: 20, right: 20),
-                            child: Text(
-                              "Basic",
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 5.0, left: 20, right: 20),
-                            child: Text(
-                              "@3999",
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 10.0, left: 20, right: 20),
-                            child: Text(
-                              "Benefits",
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              for (int i = 0; i < 4; i++)
+                for (int i = 0; i < yearly.length; i++)
+                  yearly[i].monthly
+                      ? Container()
+                      : Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: coolors[random.nextInt(5)],
+                                borderRadius: BorderRadius.circular(10)),
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 38.0, left: 20, right: 20),
+                                  child: Text(
+                                    yearly[i].title,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5.0, left: 20, right: 20),
+                                  child: Text(
+                                    "@${yearly[i].price}",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
                                 const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text("data"),
+                                  padding: EdgeInsets.only(
+                                      top: 10.0, left: 20, right: 20),
+                                  child: Text(
+                                    "Benefits",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Benifits(
+                                  benifits: yearly[i].benefits,
                                 )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                              ],
+                            ),
+                          ),
+                        )
               ],
             ),
           ),
@@ -318,12 +356,42 @@ class Yearly extends StatelessWidget {
   }
 }
 
+class Benifits extends StatelessWidget {
+  const Benifits({
+    super.key,
+    required this.benifits,
+  });
+
+  final String benifits;
+
+  @override
+  Widget build(BuildContext context) {
+    var l = benifits.split("\r");
+    print(l);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (int i = 0; i < l.length; i++)
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, left: 10, right: 10),
+            child: Text(
+              l[i],
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
 class Monthly extends StatelessWidget {
-  const Monthly({
+  Monthly({
+    required this.monthly,
     super.key,
     required this.coolors,
     required this.random,
   });
+  List<Member> monthly;
 
   final List coolors;
   final Random random;
@@ -339,61 +407,55 @@ class Monthly extends StatelessWidget {
             padding: const EdgeInsets.only(left: 50.0),
             child: Row(
               children: [
-                for (int i = 0; i < 4; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: coolors[random.nextInt(5)],
-                          borderRadius: BorderRadius.circular(10)),
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 38.0, left: 20, right: 20),
-                            child: Text(
-                              "Basic",
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 5.0, left: 20, right: 20),
-                            child: Text(
-                              "@399",
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 10.0, left: 20, right: 20),
-                            child: Text(
-                              "Benefits",
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              for (int i = 0; i < 4; i++)
+                for (int i = 0; i < monthly.length; i++)
+                  monthly[i].monthly
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: coolors[random.nextInt(5)],
+                                borderRadius: BorderRadius.circular(10)),
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 38.0, left: 20, right: 20),
+                                  child: Text(
+                                    monthly[i].title,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5.0, left: 20, right: 20),
+                                  child: Text(
+                                    "@${monthly[i].price}",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
                                 const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text("data"),
-                                )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                                  padding: EdgeInsets.only(
+                                      top: 10.0, left: 20, right: 20),
+                                  child: Text(
+                                    "Benefits",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Benifits(benifits: monthly[i].benefits)
+                              ],
+                            ),
+                          ),
+                        )
+                      : Container()
               ],
             ),
           ),
