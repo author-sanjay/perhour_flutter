@@ -1,9 +1,14 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
+import 'package:perhour_flutter/Screens/Home/Home.dart';
+import 'package:perhour_flutter/api.dart';
+import 'package:http/http.dart' as http;
 
 class SendFeedBack extends StatefulWidget {
   SendFeedBack(
@@ -175,18 +180,23 @@ class _SendFeedBackState extends State<SendFeedBack> {
                             )),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: kblue,
-                                borderRadius: BorderRadius.circular(10)),
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: const Center(
-                                child: Text(
-                              "Submit",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            )),
+                          child: GestureDetector(
+                            onTap: () {
+                              sendfeedback();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: kblue,
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: const Center(
+                                  child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
+                              )),
+                            ),
                           ),
                         )
                       ],
@@ -197,6 +207,23 @@ class _SendFeedBackState extends State<SendFeedBack> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  sendfeedback() async {
+    final json = jsonEncode({
+      "feedback": SendFeedBack.feedback,
+      "feedbackstars": SendFeedBack.stars
+    });
+    var res = await http.post(Uri.parse(api + "projects/feedback/${widget.id}"),
+        headers: headers, body: json);
+    var result = jsonDecode(res.body);
+    print(result);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Home(),
       ),
     );
   }
