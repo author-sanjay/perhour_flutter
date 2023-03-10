@@ -23,7 +23,8 @@ class _BottomInputsState extends State<BottomInputs> {
   static String email = "";
   static String password = "";
   final snackbar = const SnackBar(content: Text("Email cant be null"));
-  final passwordsnackbar = const SnackBar(content: Text("Password cant be null"));
+  final passwordsnackbar =
+      const SnackBar(content: Text("Password cant be null"));
   final invalidemail = const SnackBar(content: Text("Invalid Email"));
   final invalidepassword =
       const SnackBar(content: Text("Please Create a strong password"));
@@ -144,6 +145,7 @@ class _BottomInputsState extends State<BottomInputs> {
       user.firstname = result["firstname"].toString();
       user.lastname = result["lastname"].toString();
       user.username = result["username"].toString();
+      user.membershipid = result["membershipid"].toString();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

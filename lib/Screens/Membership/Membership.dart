@@ -1,11 +1,15 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Modals/Membership/Membership.dart';
 import 'package:perhour_flutter/Modals/Membership/Membershipapi.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/api.dart';
+import 'package:http/http.dart' as http;
 
 class Membership extends StatefulWidget {
   const Membership({Key? key}) : super(key: key);
@@ -301,49 +305,54 @@ class Yearly extends StatelessWidget {
                       ? Container()
                       : Padding(
                           padding: const EdgeInsets.only(right: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: coolors[random.nextInt(5)],
-                                borderRadius: BorderRadius.circular(10)),
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 38.0, left: 20, right: 20),
-                                  child: Text(
-                                    yearly[i].title,
-                                    style: TextStyle(
-                                      fontSize: 16,
+                          child: GestureDetector(
+                            onTap: () {
+                              addmembership(yearly[i].id);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: coolors[random.nextInt(5)],
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 38.0, left: 20, right: 20),
+                                    child: Text(
+                                      yearly[i].title,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 5.0, left: 20, right: 20),
-                                  child: Text(
-                                    "@${yearly[i].price}",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 5.0, left: 20, right: 20),
+                                    child: Text(
+                                      "@${yearly[i].price}",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10.0, left: 20, right: 20),
-                                  child: Text(
-                                    "Benefits",
-                                    style: TextStyle(
-                                      fontSize: 14,
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 10.0, left: 20, right: 20),
+                                    child: Text(
+                                      "Benefits",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Benifits(
-                                  benifits: yearly[i].benefits,
-                                )
-                              ],
+                                  Benifits(
+                                    benifits: yearly[i].benefits,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -353,6 +362,15 @@ class Yearly extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  addmembership(int membershipid) async {
+    var res = await http.post(
+        Uri.parse("${api}users/addmembership/${user.id}/${membershipid}"),
+        headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    
   }
 }
 
@@ -411,47 +429,52 @@ class Monthly extends StatelessWidget {
                   monthly[i].monthly
                       ? Padding(
                           padding: const EdgeInsets.only(right: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: coolors[random.nextInt(5)],
-                                borderRadius: BorderRadius.circular(10)),
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 38.0, left: 20, right: 20),
-                                  child: Text(
-                                    monthly[i].title,
-                                    style: TextStyle(
-                                      fontSize: 16,
+                          child: GestureDetector(
+                            onTap: () {
+                              addmembership(monthly[i].id);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: coolors[random.nextInt(5)],
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 38.0, left: 20, right: 20),
+                                    child: Text(
+                                      monthly[i].title,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 5.0, left: 20, right: 20),
-                                  child: Text(
-                                    "@${monthly[i].price}",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 5.0, left: 20, right: 20),
+                                    child: Text(
+                                      "@${monthly[i].price}",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10.0, left: 20, right: 20),
-                                  child: Text(
-                                    "Benefits",
-                                    style: TextStyle(
-                                      fontSize: 14,
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 10.0, left: 20, right: 20),
+                                    child: Text(
+                                      "Benefits",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Benifits(benifits: monthly[i].benefits)
-                              ],
+                                  Benifits(benifits: monthly[i].benefits)
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -462,5 +485,13 @@ class Monthly extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  addmembership(int membershipid) async {
+    var res = await http.post(
+        Uri.parse("${api}users/addmembership/${user.id}/${membershipid}"),
+        headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
   }
 }
