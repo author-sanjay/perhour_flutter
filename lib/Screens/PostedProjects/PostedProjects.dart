@@ -211,7 +211,7 @@ class _DeliverState extends State<Deliver> {
                       widget.title,
                       style: TextStyle(fontSize: 18),
                     )),
-                widget.status == "Cancelled"
+                widget.status == "Cancelled" || widget.status == "Completed"
                     ? Container()
                     : Padding(
                         padding: const EdgeInsets.only(top: 8.0),
@@ -252,21 +252,21 @@ class _DeliverState extends State<Deliver> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: Text(
                       "Rs ${widget.price}",
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   ),
                 ),
-                widget.status == "Cancelled"
+                widget.status == "Cancelled" || widget.status == "Completed"
                     ? Container()
                     : Container(
                         padding: const EdgeInsets.only(top: 10),
-                        width: MediaQuery.of(context).size.width * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         child: Text(
                           "Deadline: ${widget.deadline}",
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 11),
                         ))
               ],
             )
