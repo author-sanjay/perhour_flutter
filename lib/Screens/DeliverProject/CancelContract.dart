@@ -61,12 +61,13 @@ class CancelContract extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 18.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FreelancerProfile(),
-                            ),
-                          );
+                          //TODO
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => FreelancerProfile(),
+                          //   ),
+                          // );
                         },
                         child: Container(
                             width: MediaQuery.of(context).size.width * 0.2,

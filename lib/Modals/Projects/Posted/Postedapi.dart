@@ -16,4 +16,6 @@ class Postedapi {
     }
     return Postedd.dealsfromapi(_temp);
   }
+
+
 }

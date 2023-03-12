@@ -16,4 +16,15 @@ class JobsModelapi {
     }
     return Jobs.dealsfromapi(_temp);
   }
+
+
+  static Future<List<Jobs>> getbycat(String cat) async {
+    var res = await http.get(Uri.parse("${api}projects/getbycategory/${cat}"),
+        headers: headers);
+    List _temp = [];
+    for (var i in jsonDecode(res.body)) {
+      _temp.add(i);
+    }
+    return Jobs.dealsfromapi(_temp);
+  }
 }

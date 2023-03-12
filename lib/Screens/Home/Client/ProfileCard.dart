@@ -7,12 +7,16 @@ import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({
+  ProfileCard({
     super.key,
+    required this.id,
+    required this.name, required this.photo, required this.rates, required this.tag,
     required this.colorss,
     required this.random,
-  });
 
+  });
+  int id;
+String name; String rates; String tag;  String? photo;
   final List colorss;
   final Random random;
 
@@ -29,7 +33,7 @@ class ProfileCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FreelancerProfile(),
+              builder: (context) => FreelancerProfile(id: id),
             ),
           );
         },
@@ -55,7 +59,7 @@ class ProfileCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 18.0),
                       child: Text(
-                        "\$ 50/hr ",
+                        "Rs ${rates}/hr ",
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     )
@@ -73,14 +77,14 @@ class ProfileCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          "Sanjay Kumar ",
+                          "${name.toUpperCase()}",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          "UX Designer",
+                          "${tag.toUpperCase()}",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),

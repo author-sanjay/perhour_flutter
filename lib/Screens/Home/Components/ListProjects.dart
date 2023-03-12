@@ -19,7 +19,10 @@ class _ListProjectsState extends State<ListProjects> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: ListView.separated(
+      child: widget.getjobs.length==0?Padding(
+        padding: const EdgeInsets.all(48.0),
+        child: Center(child: Text("We dont have projects in this category. Please try after some time"),),
+      ): ListView.separated(
         shrinkWrap: true,
         itemCount: widget.getjobs.length,
         physics: const NeverScrollableScrollPhysics(),

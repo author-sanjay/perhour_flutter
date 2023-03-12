@@ -3,7 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Jobs/JobsModedapi.dart';
+import 'package:perhour_flutter/Modals/Jobs/JobsModel.dart';
+import 'package:perhour_flutter/Modals/Projects/Posted/Posted.dart';
+import 'package:perhour_flutter/Modals/Projects/Posted/Postedapi.dart';
+
 import 'package:perhour_flutter/Screens/Home/Components/ListProjects.dart';
+import 'package:perhour_flutter/Screens/PostedProjects/Posted/Posted.dart';
 
 class Projects extends StatefulWidget {
   Projects({required this.categoryname, super.key});
@@ -13,6 +19,21 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
+  bool _isloading = true;
+  late List<Jobs> _getdeals;
+  @override
+  void initState() {
+    super.initState();
+    getDeals();
+  }
+
+  Future<void> getDeals() async {
+    _getdeals = await JobsModelapi.getbycat(widget.categoryname);
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +61,8 @@ class _ProjectsState extends State<Projects> {
                     "Latest Jobs",
                     style: TextStyle(fontSize: 16),
                   )),
-              ListProjects(
-                getjobs: const [],
+              _isloading?Center(child: CircularProgressIndicator(),): ListProjects(
+                getjobs: _getdeals,
               )
             ],
           )),

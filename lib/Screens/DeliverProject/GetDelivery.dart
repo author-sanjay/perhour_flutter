@@ -11,6 +11,7 @@ import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart
 class GetDelivery extends StatelessWidget {
   const GetDelivery({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,14 +66,17 @@ class GetDelivery extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 18.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FreelancerProfile(),
-                            ),
-                          );
-                        },
-                        child: Container(
+
+                          //TODo
+                        }
+                        //   Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => FreelancerProfile(id: ,),
+                        //     ),
+                        //   );
+                        // },
+                        ,child: Container(
                             width: MediaQuery.of(context).size.width * 0.2,
                             child: const Image(
                                 image: AssetImage("assets/images/Man2.png"))),

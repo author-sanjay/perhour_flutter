@@ -5,7 +5,8 @@ import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 
 class FreelancerProfile extends StatefulWidget {
-  const FreelancerProfile({super.key});
+  FreelancerProfile({required this.id,super.key});
+  int id;
 
   @override
   State<FreelancerProfile> createState() => _FreelancerProfileState();
@@ -224,6 +225,7 @@ class Reviews extends StatelessWidget {
     super.key,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -238,12 +240,7 @@ class Reviews extends StatelessWidget {
             padding: const EdgeInsets.only(left: 18.0, right: 20),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FreelancerProfile(),
-                  ),
-                );
+
               },
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,

@@ -9,6 +9,7 @@ import 'package:perhour_flutter/Modals/Wallettxns/Txnmodel.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/Wallet/JobDetailsClosed.dart';
 import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/Screens/Withdraw/Withdraw.dart';
 
 import '../../api.dart';
 class Wallet extends StatefulWidget {
@@ -176,17 +177,20 @@ class _WalletState extends State<Wallet> {
                         Padding(
                           padding: const EdgeInsets.only(
                               bottom: 8.0, left: 8, right: 8),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Center(
-                              child: Text(
-                                "WithDraw",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white),
+                          child: GestureDetector(
+                            onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => Withdraw(),),);},
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: const Center(
+                                child: Text(
+                                  "WithDraw",
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.white),
+                                ),
                               ),
                             ),
                           ),
