@@ -1,9 +1,16 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Wallettxns/Txnapi.dart';
+import 'package:perhour_flutter/Modals/Wallettxns/Txnmodel.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/Wallet/JobDetailsClosed.dart';
+import 'package:http/http.dart' as http;
 
+import '../../api.dart';
 class Wallet extends StatefulWidget {
   const Wallet({Key? key}) : super(key: key);
   static bool earning = true;
@@ -13,6 +20,24 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
+  static double? walletid;
+ @override void initState() {
+   super.initState();
+   wallet();
+ }
+
+ Future<void> wallet() async {Map<String, String> headers = {
+       "Content-type"
+       :
+       "application/json"};var res = await http.get(Uri.parse(api+"wallet/balance/${user.id}"),headers: headers);
+       print(res.body);
+       if(res.body.isNotEmpty){
+         setState(() {
+           _WalletState.walletid=jsonDecode(res.body);
+           print(_WalletState.walletid);
+         });
+       }
+       }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +65,7 @@ class _WalletState extends State<Wallet> {
                   padding: const EdgeInsets.only(
                       top: 28.0, left: 20, right: 20, bottom: 10),
                   child: Container(
+                    width: MediaQuery.of(context).size.width*0.9,
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(247, 245, 223, 123),
                         borderRadius: BorderRadius.circular(20)),
@@ -52,14 +78,23 @@ class _WalletState extends State<Wallet> {
                               child: Column(
                                 children: [
                                   Wallet.earning
-                                      ? const Text("Total Earning")
-                                      : const Text("Referral Earning"),
-                                  const Text(
-                                    "\$ 500",
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                    ),
-                                  ),
+                                      ? Column(
+                                        children: [
+                                          Text("Total Earning"),
+                                          Text(
+                                            "Rs ${_WalletState.walletid}",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                      : Column(
+                                        children: [
+                                          Text("Referral Earnings"),
+                                        ],
+                                      ),
+
                                 ],
                               ),
                             ),
@@ -262,73 +297,132 @@ class ReferralList extends StatelessWidget {
   }
 }
 
-class TxnList extends StatelessWidget {
+class TxnList extends StatefulWidget {
   const TxnList({
     super.key,
   });
 
   @override
+  State<TxnList> createState() => _TxnListState();
+}
+
+class _TxnListState extends State<TxnList> {
+  bool _isloading = true;
+  late List<Txn> _getdeals;
+  @override void initState() {super.initState();getDeals();}
+  Future<void> getDeals() async {
+    _getdeals = await Txnapi.getDeals();
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.separated(
-        shrinkWrap: true,
-        itemCount: 20,
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        separatorBuilder: (_, __) => const Divider(),
-        itemBuilder: (context, int index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const JobDetailsClosed(),
-                  ),
-                );
-              },
-              child: Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 10, bottom: 10),
-                  // color: Colors.white,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "App Development",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w500),
-                            ),
-                          ],
+    return _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
+      child: ConstrainedBox( constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height*0.6),
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: _getdeals.length,
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (_, __) => const Divider(),
+          itemBuilder: (context, int index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
+              child: _getdeals[index].incoming?GestureDetector(
+
+                onTap: () {
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => JobDetailsClosed(id: _getdeals[index].projectid),
+                    ),
+                  );
+                },
+                child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    // color: Colors.white,
+                    child: Row(
+                      children: [
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                              Text(
+                                _getdeals[index].projectname,
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Rs 10000",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.green),
-                            ),
-                          ],
+                        const Spacer(),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                               Text(
+                                _getdeals[index].amount.toString(),
+                                style:
+                                TextStyle(fontSize: 16, color: Colors.green),
+                               )
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              ):GestureDetector(
+
+
+                child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    // color: Colors.white,
+                    child: Row(
+                      children: [
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                              Text(
+                                _getdeals[index].projectname,
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  )),
-            ),
-          );
-        },
+                        const Spacer(),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                               Text(
+                                "${_getdeals[index].amount}",
+                                style:
+                                TextStyle(fontSize: 16, color: Colors.red),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
