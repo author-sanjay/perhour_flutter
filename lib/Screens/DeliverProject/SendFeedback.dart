@@ -1,11 +1,10 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, must_be_immutable, use_build_context_synchronously
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 import 'package:perhour_flutter/api.dart';
 import 'package:http/http.dart' as http;
@@ -60,7 +59,7 @@ class _SendFeedBackState extends State<SendFeedBack> {
                           padding: const EdgeInsets.only(top: 20, left: 20),
                           child: Text(
                             widget.title,
-                            style: TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18),
                           ),
                         ),
                       ],
@@ -91,7 +90,7 @@ class _SendFeedBackState extends State<SendFeedBack> {
                   padding: const EdgeInsets.only(top: 20, left: 20),
                   child: Text(
                     widget.desc,
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ),
                 Padding(
@@ -168,7 +167,7 @@ class _SendFeedBackState extends State<SendFeedBack> {
                                       // style: TextStyle(height: 300),
                                       minLines: 5,
                                       maxLines: 100,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         hintText:
                                             "Overall I rate this freelancer as...",
                                         contentPadding: EdgeInsets.all(8),
@@ -217,14 +216,14 @@ class _SendFeedBackState extends State<SendFeedBack> {
       "feedback": SendFeedBack.feedback,
       "feedbackstars": SendFeedBack.stars
     });
-    var res = await http.post(Uri.parse(api + "projects/feedback/${widget.id}"),
+    var res = await http.post(Uri.parse("${api}projects/feedback/${widget.id}"),
         headers: headers, body: json);
     var result = jsonDecode(res.body);
     print(result);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => Home(),
+        builder: (context) => const Home(),
       ),
     );
   }

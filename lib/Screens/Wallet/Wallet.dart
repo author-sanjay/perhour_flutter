@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
 
@@ -81,10 +81,10 @@ class _WalletState extends State<Wallet> {
                                   Wallet.earning
                                       ? Column(
                                         children: [
-                                          Text("Total Earning"),
+                                          const Text("Total Earning"),
                                           Text(
                                             "Rs ${_WalletState.walletid}",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 18,
                                             ),
                                           ),
@@ -92,7 +92,7 @@ class _WalletState extends State<Wallet> {
                                       )
                                       : Column(
                                         children: [
-                                          Text("Referral Earnings"),
+                                          const Text("Referral Earnings"),
                                         ],
                                       ),
 
@@ -178,7 +178,7 @@ class _WalletState extends State<Wallet> {
                           padding: const EdgeInsets.only(
                               bottom: 8.0, left: 8, right: 8),
                           child: GestureDetector(
-                            onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => Withdraw(),),);},
+                            onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => const Withdraw(),),);},
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               padding: const EdgeInsets.all(10),
@@ -323,7 +323,7 @@ class _TxnListState extends State<TxnList> {
   }
   @override
   Widget build(BuildContext context) {
-    return _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
+    return _isloading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
       child: ConstrainedBox( constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height*0.6),
         child: ListView.separated(
           shrinkWrap: true,
@@ -360,7 +360,7 @@ class _TxnListState extends State<TxnList> {
                             children:  [
                               Text(
                                 _getdeals[index].projectname,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -375,7 +375,7 @@ class _TxnListState extends State<TxnList> {
                                Text(
                                 _getdeals[index].amount.toString(),
                                 style:
-                                TextStyle(fontSize: 16, color: Colors.green),
+                                const TextStyle(fontSize: 16, color: Colors.green),
                                )
                             ],
                           ),
@@ -401,7 +401,7 @@ class _TxnListState extends State<TxnList> {
                             children:  [
                               Text(
                                 _getdeals[index].projectname,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -416,7 +416,7 @@ class _TxnListState extends State<TxnList> {
                                Text(
                                 "${_getdeals[index].amount}",
                                 style:
-                                TextStyle(fontSize: 16, color: Colors.red),
+                                const TextStyle(fontSize: 16, color: Colors.red),
                               ),
                             ],
                           ),

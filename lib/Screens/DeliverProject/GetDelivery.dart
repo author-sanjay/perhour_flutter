@@ -1,12 +1,10 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/CancelContract.dart';
-import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
-import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
+
 
 class GetDelivery extends StatelessWidget {
   const GetDelivery({super.key});

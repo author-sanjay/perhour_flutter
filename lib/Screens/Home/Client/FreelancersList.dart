@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, prefer_const_constructors, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Modals/Users/Usermodelapi.dart';

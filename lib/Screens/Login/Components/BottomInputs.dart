@@ -145,7 +145,7 @@ class _BottomInputsState extends State<BottomInputs> {
       user.firstname = result["firstname"].toString();
       user.lastname = result["lastname"].toString();
       user.username = result["username"].toString();
-      user.membershipid = result["membershipid"].toString();
+      user.membershipid = result["membershipid"];
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

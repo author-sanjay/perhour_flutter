@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, unused_field, avoid_print, prefer_final_fields, no_leading_underscores_for_local_identifiers, must_be_immutable
 
 import 'dart:convert';
 import 'dart:math';
@@ -319,21 +319,21 @@ class Yearly extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 38.0, left: 20, right: 20),
                                     child: Text(
                                       yearly[i].title,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                       ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 5.0, left: 20, right: 20),
                                     child: Text(
                                       "@${yearly[i].price}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 20,
                                       ),
                                     ),
@@ -366,7 +366,7 @@ class Yearly extends StatelessWidget {
 
   addmembership(int membershipid) async {
     var res = await http.post(
-        Uri.parse("${api}users/addmembership/${user.id}/${membershipid}"),
+        Uri.parse("${api}users/addmembership/${user.id}/$membershipid"),
         headers: headers);
     var result = jsonDecode(res.body);
     print(result);
@@ -391,10 +391,10 @@ class Benifits extends StatelessWidget {
       children: [
         for (int i = 0; i < l.length; i++)
           Padding(
-            padding: EdgeInsets.only(top: 8.0, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 8.0, left: 10, right: 10),
             child: Text(
               l[i],
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             ),
           ),
       ],
@@ -443,21 +443,21 @@ class Monthly extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 38.0, left: 20, right: 20),
                                     child: Text(
                                       monthly[i].title,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                       ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 5.0, left: 20, right: 20),
                                     child: Text(
                                       "@${monthly[i].price}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 20,
                                       ),
                                     ),
@@ -489,7 +489,7 @@ class Monthly extends StatelessWidget {
 
   addmembership(int membershipid) async {
     var res = await http.post(
-        Uri.parse("${api}users/addmembership/${user.id}/${membershipid}"),
+        Uri.parse("${api}users/addmembership/${user.id}/$membershipid"),
         headers: headers);
     var result = jsonDecode(res.body);
     print(result);

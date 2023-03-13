@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable, avoid_print, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
 
@@ -104,12 +104,12 @@ class Deadlines extends StatelessWidget {
               children:  [
                 Text(
                   "Deadline: ${_JobDetailsClosedState.deadline} Days",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
                 ),
-                Spacer(),
+                const Spacer(),
                 _JobDetailsClosedState.type?
-                Text("Project Type: Fixed",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300)):Text("Project Type: Hourly",
+                const Text("Project Type: Fixed",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300)):const Text("Project Type: Hourly",
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300))
               ],
             ),
@@ -118,7 +118,7 @@ class Deadlines extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: Text(
               "Experience: ${_JobDetailsClosedState.exp}",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             ),
           )
         ],
@@ -147,8 +147,8 @@ class Description extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
-              "${_JobDetailsClosedState.jd}",
-              style: TextStyle(fontSize: 12),
+              _JobDetailsClosedState.jd,
+              style: const TextStyle(fontSize: 12),
             ),
           )
         ],
@@ -174,14 +174,14 @@ class Pricings extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${_JobDetailsClosedState.name}",
-                  style: TextStyle(
+                  _JobDetailsClosedState.name,
+                  style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 Text(
-                  "${_JobDetailsClosedState.cat}",
-                  style: TextStyle(fontSize: 12),
+                  _JobDetailsClosedState.cat,
+                  style: const TextStyle(fontSize: 12),
                 ),
               ],
             ),
@@ -192,7 +192,7 @@ class Pricings extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children:  [
-                Text(
+                const Text(
                   "Budget",
                   style: TextStyle(
                     fontSize: 12,
@@ -200,12 +200,12 @@ class Pricings extends StatelessWidget {
                 ),
                 Text(
                   "Rs ${_JobDetailsClosedState.price}",
-                  style: TextStyle(fontSize: 20, color: Colors.green),
+                  style: const TextStyle(fontSize: 20, color: Colors.green),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Status :Completed")
+                const Text("Status :Completed")
               ],
             ),
           )

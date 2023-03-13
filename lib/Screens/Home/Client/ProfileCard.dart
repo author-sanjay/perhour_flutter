@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
 
 import 'dart:math';
 

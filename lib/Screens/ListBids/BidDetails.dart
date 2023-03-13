@@ -197,7 +197,7 @@ class _BidsDetailsState extends State<BidsDetails> {
     print(project);
 
     var res = await http.post(
-        Uri.parse(api + "projects/assignproject/${user}/${project}"),
+        Uri.parse(api + "projects/assignproject/$user/$project"),
         headers: headers);
     print(res.statusCode);
     var result = jsonDecode(res.body);

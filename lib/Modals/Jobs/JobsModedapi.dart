@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers
+// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 

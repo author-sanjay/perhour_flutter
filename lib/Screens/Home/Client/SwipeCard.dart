@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers
+// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print, prefer_const_constructors
 
 import 'dart:math';
 

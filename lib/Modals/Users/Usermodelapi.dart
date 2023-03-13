@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers, avoid_print
+
 import 'dart:convert';
 
 import 'package:perhour_flutter/Modals/Users/Usertop3.dart';

@@ -332,10 +332,21 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       const Spacer(),
-                                      const Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                        size: 30,
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SelfProfile(),
+                                            ),
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
                                       )
                                     ],
                                   ),

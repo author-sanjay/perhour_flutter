@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable, file_names, prefer_const_constructors_in_immutables, avoid_print, sized_box_for_whitespace, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable, file_names, prefer_const_constructors_in_immutables, avoid_print, sized_box_for_whitespace, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -161,7 +161,7 @@ class _AssignedState extends State<Assigned> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: Text(
                         widget.title,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       )),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,10 +174,10 @@ class _AssignedState extends State<Assigned> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 2.0),
+                        padding: const EdgeInsets.only(top: 2.0),
                         child: Text(
                           widget.deliverydate,
-                          style: TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ),
                     ],
@@ -195,10 +195,10 @@ class _AssignedState extends State<Assigned> {
                         style: TextStyle(fontSize: 14, color: Colors.red),
                       )),
                   Padding(
-                    padding: EdgeInsets.only(top: 18.0),
+                    padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
                       "Rs ${widget.price}",
-                      style: TextStyle(fontSize: 20, color: Colors.green),
+                      style: const TextStyle(fontSize: 20, color: Colors.green),
                     ),
                   )
                 ],
@@ -248,7 +248,7 @@ class _AssignedState extends State<Assigned> {
   }
 
   revoke(int id) async {
-    var res = await http.post(Uri.parse(api + "projects/revoke/${widget.id}"),
+    var res = await http.post(Uri.parse("${api}projects/revoke/${widget.id}"),
         headers: headers);
     // if (jsonDecode(res.body)) {
     //   Navigator.pop(context);

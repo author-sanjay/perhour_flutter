@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unused_import, implementation_imports, must_be_immutable, avoid_unnecessary_containers
+// ignore_for_file: file_names, unused_import, implementation_imports, must_be_immutable, avoid_unnecessary_containers, avoid_print, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

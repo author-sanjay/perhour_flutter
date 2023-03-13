@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Modals/Jobs/JobsModel.dart';
@@ -19,7 +19,7 @@ class _ListProjectsState extends State<ListProjects> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: widget.getjobs.length==0?Padding(
+      child: widget.getjobs.isEmpty?Padding(
         padding: const EdgeInsets.all(48.0),
         child: Center(child: Text("We dont have projects in this category. Please try after some time"),),
       ): ListView.separated(
