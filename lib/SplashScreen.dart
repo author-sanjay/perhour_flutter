@@ -52,9 +52,10 @@ class _SplashScreenState extends State<SplashScreen> {
           user.firstname = result["firstname"].toString();
           user.lastname = result["lastname"].toString();
           user.username = result["username"].toString();
-          user.membershipid = result["membershipid"].toString();
+          user.membershipid = result["membershipid"];
           user.about=result["about"].toString();
           user.rate=result["rates"];
+          user.stars=result["star"];
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

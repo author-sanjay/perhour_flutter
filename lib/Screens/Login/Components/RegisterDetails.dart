@@ -26,7 +26,9 @@ class _RegisterDetailsState extends State<RegisterDetails> {
   static String dob = "";
   static String address = "";
   static String country = "";
+  static String about="";
   static String username = "";
+  static double rate=0;
   @override
   void initState() {
     super.initState();
@@ -48,7 +50,10 @@ class _RegisterDetailsState extends State<RegisterDetails> {
               child: Center(
                   child: Column(
                 children: [
-                  const Text("Just Need Few More Details"),
+                  Padding(
+                    padding: const EdgeInsets.only(top:58.0),
+                    child: const Text("Just Need Few More Details"),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Column(
@@ -105,6 +110,31 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                                 const InputDecoration(hintText: "DD/MM/YYYY"),
                           ),
                         ),
+
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("About You"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, bottom: 20),
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.about = value;
+                              });
+                            },
+                            // style: TextStyle(height: 300),
+                            minLines: 5,
+                            maxLines: 100,
+                            decoration: const InputDecoration(
+                              hintText:
+                              "I am a ...",
+                              contentPadding: EdgeInsets.all(8),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
                         const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text("Address"),
@@ -120,6 +150,24 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                             },
                             decoration:
                                 const InputDecoration(hintText: "Address"),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Your Hourly Rates"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, bottom: 20),
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.rate = double.parse(value) ;
+                              });
+                            },
+                            decoration:
+                            const InputDecoration(hintText: "Rs 1000/hour"),
+                            keyboardType: TextInputType.number,
                           ),
                         ),
                         const Padding(
@@ -224,13 +272,14 @@ class _RegisterDetailsState extends State<RegisterDetails> {
 
     // var result = res.body;
     // print(result);
-    // if (result.toString() == "true") {
-    //   print("kjh");
-    //   setState(() {
-    //     RegisterDetails.available = true;
-    //     print(RegisterDetails.available);
-    //   });
-    // }
+    if(res.body=="true"){
+      print("helo");
+      setState(() {
+        RegisterDetails.available=true;
+      });
+    }else{
+      print(res.body);
+    }
   }
 
   Future postuser() async {
@@ -242,7 +291,9 @@ class _RegisterDetailsState extends State<RegisterDetails> {
       "country": _RegisterDetailsState.country,
       "email": widget.email,
       "username": _RegisterDetailsState.username,
-      "password": widget.password
+      "password": widget.password,
+      "rates":_RegisterDetailsState.rate,
+      "about":_RegisterDetailsState.about
     });
     var res = await http.post(Uri.parse('${api}users/add'),
         headers: headers, body: json);

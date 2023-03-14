@@ -36,7 +36,7 @@ class _SelfProfileState extends State<SelfProfile> {
       body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 padding: const EdgeInsets.only(top: 40, bottom: 10),
@@ -75,11 +75,15 @@ class _SelfProfileState extends State<SelfProfile> {
                         "@${user.username}",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w300),
-                      )
+                      ),
+
+
                     ],
                   ),
                 ),
               ),
+
+
               Padding(
                 padding: const EdgeInsets.all(28.0),
                 child: Container(

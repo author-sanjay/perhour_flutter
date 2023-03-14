@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/EditProfile/EditProfile.dart';
 import 'package:perhour_flutter/Screens/Help&Support/HelpAndSupport.dart';
+import 'package:perhour_flutter/Screens/Login/Login.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
 import 'package:perhour_flutter/Screens/Wallet/Wallet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileOptions extends StatelessWidget {
   const ProfileOptions({super.key});
@@ -258,22 +260,31 @@ class ProfileOptions extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 30),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.1,
-                                child: Icon(Icons.logout),
-                              ),
-                              Spacer(),
-                              Text(
-                                "Log Out",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Spacer(),
-                              Icon(Icons.chevron_right_sharp)
-                            ],
+                        GestureDetector(
+                          onTap: () async {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            prefs.remove('email');
+                            prefs.remove('uid');
+                            prefs.remove('name');
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => Login(),),);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.1,
+                                  child: Icon(Icons.logout),
+                                ),
+                                Spacer(),
+                                Text(
+                                  "Log Out",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
                           ),
                         )
                       ]),
@@ -287,4 +298,6 @@ class ProfileOptions extends StatelessWidget {
       )),
     );
   }
+
+
 }

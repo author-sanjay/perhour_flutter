@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 class Membership extends StatefulWidget {
   const Membership({Key? key}) : super(key: key);
   static bool monthly = false;
-  static bool member = true;
+  static late bool member ;
   @override
   State<Membership> createState() => _MembershipState();
 }
@@ -25,10 +25,20 @@ class _MembershipState extends State<Membership> {
   @override
   void initState() {
     super.initState();
+
     getDeals();
   }
 
   Future<void> getDeals() async {
+    print(user.membershipid);
+    if(user.membershipid==0){
+      print(user.membershipid);
+      setState(() {
+        Membership.member=false;
+      });
+    }else{
+      Membership.member=true;
+    }
     _getdeals = await Memberapi.getDeals();
     setState(() {
       _isloading = false;
@@ -64,7 +74,7 @@ class _MembershipState extends State<Membership> {
       const Color(0xFFF8AEF1)
     ];
     return Scaffold(
-      body: SingleChildScrollView(
+      body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: ConstrainedBox(
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(context).size.height),

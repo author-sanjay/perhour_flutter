@@ -23,6 +23,7 @@ class _BottomInputsState extends State<BottomInputs> {
   static String email = "";
   static String password = "";
   final snackbar = const SnackBar(content: Text("Email cant be null"));
+  final wrongdetails = const SnackBar(content: Text("Invalid Email Or Password"));
   final passwordsnackbar =
       const SnackBar(content: Text("Password cant be null"));
   final invalidemail = const SnackBar(content: Text("Invalid Email"));
@@ -129,9 +130,10 @@ class _BottomInputsState extends State<BottomInputs> {
           Uri.parse(
               "${api}users/login/${_BottomInputsState.email}/${_BottomInputsState.password}"),
           headers: headers);
-      var result = jsonDecode(res.body);
-      print(result);
+
 if(res.body.isNotEmpty) {
+  var result = jsonDecode(res.body);
+  print(result);
   final SharedPreferences sharedPreferences =
   await SharedPreferences.getInstance();
   sharedPreferences.setString("uid", result["id"].toString());
@@ -139,7 +141,7 @@ if(res.body.isNotEmpty) {
       "name", result["firstname"] + result["lastname"]);
   sharedPreferences.setString("email", result["email"]);
   user.email = result["email"];
-  user.id = result["id"];
+  user.id = result["id"].toString();
   user.country = result["country"].toString();
   user.address = result["address"].toString();
   user.firstname = result["firstname"].toString();
@@ -148,6 +150,7 @@ if(res.body.isNotEmpty) {
   user.membershipid = result["membershipid"];
   user.about = result["about"];
   user.rate=result["rates"];
+  user.stars=result["star"];
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(
@@ -155,7 +158,7 @@ if(res.body.isNotEmpty) {
     ),
   );
 }else{
-
+ScaffoldMessenger.of(context).showSnackBar(wrongdetails);
 }
     }
   }
