@@ -134,7 +134,7 @@ class SelfProfile extends StatelessWidget {
                 padding: EdgeInsets.only(left: 30.0, right: 30, top: 20),
                 child: Text("Latest Reviews"),
               ),
-              const Reviews()
+              Reviews(getdeals: [],)
             ],
           ),
         ),

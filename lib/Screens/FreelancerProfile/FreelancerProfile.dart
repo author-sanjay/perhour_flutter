@@ -1,8 +1,16 @@
 // ignore_for_file: file_names, unnecessary_import, avoid_unnecessary_containers, sized_box_for_whitespace, camel_case_types, must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Projects/Assigned/Assigned.dart';
+import 'package:perhour_flutter/Modals/Projects/Assigned/Assignedapi.dart';
+import 'package:perhour_flutter/Screens/FreelancerProfile/Feebdbackshow.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
+import 'package:http/http.dart ' as http;
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/api.dart';
 
 class FreelancerProfile extends StatefulWidget {
   FreelancerProfile({required this.id,super.key});
@@ -13,11 +21,55 @@ class FreelancerProfile extends StatefulWidget {
 }
 
 class _FreelancerProfileState extends State<FreelancerProfile> {
+  bool _isloading = true;
+  late List<Asssigned> _getdeals;
+  @override
+
+  Future<void> getDeals() async {
+    _getdeals = await Assignedapi.getall(widget.id);
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
+  static String name="";
+  static double totalstart=0;
+  static String username="";
+  static String photo="";
+  static double rates=0;
+  static String about="";
+  Future<void> userr() async {
+    var res = await http.get(Uri.parse(api+"users/getuser/"+widget.id.toString()),headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    setState(() {
+     _FreelancerProfileState.name=result["firstname"]+" "+result["lastname"];
+      _FreelancerProfileState.totalstart=result["totalstars"];
+      _FreelancerProfileState.username=result["username"];
+      if(result[photo]!=null){
+
+        _FreelancerProfileState.photo=result["photo"];
+      }else{
+        print("Hello");
+        _FreelancerProfileState.photo="";
+      }
+      _FreelancerProfileState.rates=result["rates"];
+
+      _FreelancerProfileState.about=result["about"];
+    });
+  }
+
+
+  @override void initState() {
+    super.initState();
+    userr();
+    getDeals();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const bottomnav(),
-      body: SingleChildScrollView(
+      body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +91,8 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: const Image(
+                      child: _FreelancerProfileState.photo.length>0? Image(
+                          image: NetworkImage(_FreelancerProfileState.photo)): Image(
                           image: AssetImage("assets/images/Man2.png"))),
                 ),
               ),
@@ -47,16 +100,16 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Column(
-                    children: const [
+                    children:  [
                       Text(
-                        "Sanjay Kumar",
+                        _FreelancerProfileState.name.toUpperCase(),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
                       Text(
-                        "@sanju",
+                        "@${_FreelancerProfileState.username}",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w300),
                       )
@@ -70,7 +123,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children:  [
                       Text(
                         "About Me",
                         style: TextStyle(
@@ -80,7 +133,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                       Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text(
-                            "About me About me About me About me About me About me "),
+                            _FreelancerProfileState.about),
                       )
                     ],
                   ),
@@ -97,14 +150,14 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             color: const Color.fromRGBO(211, 56, 35, 1),
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
-                          children: const [
+                          children:  [
                             Text(
                               "Projects",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
                             ),
                             Text(
-                              "24",
+                              _getdeals.length.toString(),
                               style:
                                   TextStyle(fontSize: 20, color: Colors.white),
                             )
@@ -118,16 +171,16 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             color: const Color.fromRGBO(208, 4, 212, 1),
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
-                          children: const [
+                          children:  [
                             Text(
                               "Per hour",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
                             ),
                             Text(
-                              "24",
+                              "Rs ${_FreelancerProfileState.rates}",
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                  TextStyle(fontSize: 15, color: Colors.white),
                             )
                           ],
                         ),
@@ -140,7 +193,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                 padding: EdgeInsets.only(left: 30.0, right: 30, top: 20),
                 child: Text("Latest Reviews"),
               ),
-              const Reviews()
+              Reviews(getdeals: _getdeals,)
             ],
           ),
         ),
@@ -202,7 +255,7 @@ class _bottomnavState extends State<bottomnav> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
                     Text(
-                      "Hire Sanjay Kumar",
+                      "Chat With Freelancer",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
@@ -221,9 +274,10 @@ class _bottomnavState extends State<bottomnav> {
 }
 
 class Reviews extends StatelessWidget {
-  const Reviews({
+  Reviews({required this.getdeals,
     super.key,
   });
+  List<Asssigned> getdeals;
 
 
   @override
@@ -231,7 +285,7 @@ class Reviews extends StatelessWidget {
     return Container(
       child: ListView.separated(
         shrinkWrap: true,
-        itemCount: 20,
+        itemCount: getdeals.length,
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         separatorBuilder: (_, __) => const Divider(),
@@ -240,6 +294,7 @@ class Reviews extends StatelessWidget {
             padding: const EdgeInsets.only(left: 18.0, right: 20),
             child: GestureDetector(
               onTap: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => Feedbackshow(Projectname: getdeals[index].title,review: getdeals[index].feedback,givenby: getdeals[index].givenby,username: user.firstname+" "+user.lastname,stars: getdeals[index].rating),),);
 
               },
               child: Container(
@@ -267,9 +322,9 @@ class Reviews extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children:  [
                               Text(
-                                "App Development",
+                                "${getdeals[index].title}",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w300),
                               )
@@ -279,13 +334,17 @@ class Reviews extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.12,
+                        width: MediaQuery.of(context).size.width * 0.20,
                         child: Row(
                           children: [
-                            const Padding(
+                             Padding(
                               padding: EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                "5",
+                              child: getdeals[index].rating==0?Text(
+                                "5.0",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w300),
+                              ): Text(
+                                "${getdeals[index].rating}",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w300),
                               ),

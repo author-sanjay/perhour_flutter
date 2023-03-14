@@ -11,8 +11,11 @@ class Asssigned {
   String category;
   String experience;
   String time;
+  double rating;
+  String feedback;
+  String givenby;
   Asssigned(this.id, this.title, this.bids, this.fulldesc, this.price,
-      this.fixed, this.category, this.experience, this.time, this.status);
+      this.fixed, this.category, this.experience, this.time, this.status, this.rating,this.feedback, this.givenby);
   Asssigned.fromJson(Map<dynamic, dynamic> json)
       : id = json["id"],
         title = json["title"] as String,
@@ -23,7 +26,10 @@ class Asssigned {
         fixed = json["fixed"],
         experience = json["experience"] as String,
         time = json["timelimit"] as String,
-        status = json["status"] as String;
+        status = json["status"] as String,
+  rating=json["feedbackstars"],
+  feedback=json["feedback"]
+  ,givenby=json["givenbyy"];
 
   static List<Asssigned> dealsfromapi(List api) {
     return api.map((e) {

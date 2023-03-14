@@ -16,4 +16,14 @@ class Assignedapi {
     }
     return Asssigned.dealsfromapi(_temp);
   }
+
+  static Future<List<Asssigned>> getall(int id) async {
+    var res = await http.get(Uri.parse("${api}users/getcompletedprojects/${id}"),
+        headers: headers);
+    List _temp = [];
+    for (var i in jsonDecode(res.body)) {
+      _temp.add(i);
+    }
+    return Asssigned.dealsfromapi(_temp);
+  }
 }

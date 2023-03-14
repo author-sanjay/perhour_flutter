@@ -7,7 +7,10 @@ void main() {
   runApp(ChangeNotifierProvider<Users>(
       create: (context) => Users(),
       child:
-          Consumer<Users>(builder: ((context, provider, child) => const MyApp()))));
+          Consumer<Users>(builder: ((context, provider, child) => const MyApp()),
+      ),
+  ),
+  );
 }
 
 class MyApp extends StatefulWidget {
