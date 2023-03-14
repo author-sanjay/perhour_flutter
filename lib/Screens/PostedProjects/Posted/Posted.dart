@@ -70,6 +70,7 @@ class _PostedState extends State<Posted> {
                     )
                   else if (_getdeals[i].status == "Completed")
                     Feedback(
+                      feedback: _getdeals[i].feedback==null?"":_getdeals[i].feedback.toString(),
                       id: _getdeals[i].id,
                       bidsplace: _getdeals[i].bids,
                       price: _getdeals[i].price,
@@ -96,6 +97,7 @@ class _PostedState extends State<Posted> {
 
 class Assigned extends StatefulWidget {
   Assigned({
+
     required this.id,
     required this.deliverydate,
     required this.price,
@@ -103,6 +105,7 @@ class Assigned extends StatefulWidget {
     required this.title,
     super.key,
   });
+
   int id;
   String title;
   String deliverydate;
@@ -261,6 +264,7 @@ class _AssignedState extends State<Assigned> {
 
 class Feedback extends StatefulWidget {
   Feedback({
+    required this.feedback,
     required this.id,
     required this.bidsplace,
     required this.price,
@@ -269,6 +273,7 @@ class Feedback extends StatefulWidget {
     required this.description,
     super.key,
   });
+  String feedback;
   int id;
   String title;
   int bidsplace;
@@ -313,6 +318,7 @@ class _FeedbackState extends State<Feedback> {
                         "${widget.title}",
                         style: const TextStyle(fontSize: 18),
                       )),
+              widget.feedback.length==0?
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Container(
@@ -326,7 +332,7 @@ class _FeedbackState extends State<Feedback> {
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
-                  ),
+                  ):Container(),
                 ],
               ),
               const Spacer(),

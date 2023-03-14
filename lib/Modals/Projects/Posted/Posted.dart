@@ -11,10 +11,12 @@ class Postedd {
   String category;
   String experience;
   String time;
+  String? feedback;
   Postedd(this.id, this.title, this.bids, this.fulldesc, this.price, this.fixed,
       this.category, this.experience, this.time, this.status);
   Postedd.fromJson(Map<dynamic, dynamic> json)
       : id = json["id"],
+  feedback=json["feedback"],
         title = json["title"] as String,
         bids = json["totalbids"],
         fulldesc = json["fulldescription"] as String,
