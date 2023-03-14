@@ -21,6 +21,7 @@ class RegisterDetails extends StatefulWidget {
 }
 
 class _RegisterDetailsState extends State<RegisterDetails> {
+  static String tagline="";
   static String firstname = "";
   static String lastname = "";
   static String dob = "";
@@ -150,6 +151,23 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                             },
                             decoration:
                                 const InputDecoration(hintText: "Address"),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Profile Headline"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, bottom: 20),
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                _RegisterDetailsState.tagline = value;
+                              });
+                            },
+                            decoration:
+                            const InputDecoration(hintText: "UX/UI Designer"),
                           ),
                         ),
                         const Padding(
@@ -293,6 +311,7 @@ class _RegisterDetailsState extends State<RegisterDetails> {
       "username": _RegisterDetailsState.username,
       "password": widget.password,
       "rates":_RegisterDetailsState.rate,
+      "headline":_RegisterDetailsState.tagline,
       "about":_RegisterDetailsState.about
     });
     var res = await http.post(Uri.parse('${api}users/add'),

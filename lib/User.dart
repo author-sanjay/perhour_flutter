@@ -20,6 +20,8 @@ class Users extends ChangeNotifier {
   double stars = 0;
   int membershipid = 0;
   String about="";
+  String membershipexpiry="";
+
 
   void signin(
       String id,

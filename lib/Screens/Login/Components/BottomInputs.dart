@@ -151,6 +151,8 @@ if(res.body.isNotEmpty) {
   user.about = result["about"];
   user.rate=result["rates"];
   user.stars=result["star"];
+  user.bidsleft=result["bidsleft"];
+  user.membershipexpiry=result["membershipexpiry"].toString();
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(

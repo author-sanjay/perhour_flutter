@@ -53,6 +53,8 @@ class _SplashScreenState extends State<SplashScreen> {
           user.lastname = result["lastname"].toString();
           user.username = result["username"].toString();
           user.membershipid = result["membershipid"];
+          user.bidsleft=result["bidsleft"];
+          user.membershipexpiry=result["membershipexpiry"].toString();
           user.about=result["about"].toString();
           user.rate=result["rates"];
           user.stars=result["star"];

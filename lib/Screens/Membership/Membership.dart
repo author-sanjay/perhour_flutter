@@ -20,6 +20,12 @@ class Membership extends StatefulWidget {
 }
 
 class _MembershipState extends State<Membership> {
+  bool monthly=true;
+  String name="";
+  int price=0;
+  int bids=0;
+  String desc="";
+
   bool _isloading = true;
   late List<Member> _getdeals;
   @override
@@ -27,6 +33,20 @@ class _MembershipState extends State<Membership> {
     super.initState();
 
     getDeals();
+  }
+
+  Future<void> membershipdetails() async {
+    var res = await http.get(Uri.parse(api+"membership/getsingle/${user.membershipid}" ),headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    setState(() {
+      monthly=result["montly"];
+      name=result["name"];
+      price=result["price"];
+      desc=result["description"];
+      bids=result["extendedbids"];
+      print(desc);
+    });
   }
 
   Future<void> getDeals() async {
@@ -45,6 +65,8 @@ class _MembershipState extends State<Membership> {
     });
     print(_getdeals);
     splitdata(_getdeals);
+    membershipdetails();
+
   }
 
   static List<Member> _monthly = [];
@@ -197,45 +219,52 @@ class _MembershipState extends State<Membership> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Padding(
+                                     Padding(
                                       padding: EdgeInsets.only(
                                           top: 38.0, left: 20, right: 20),
                                       child: Text(
-                                        "Basic",
+                                        "${name}",
                                         style: TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
                                     ),
-                                    const Padding(
+                                    monthly? Padding(
                                       padding: EdgeInsets.only(
-                                          top: 5.0, left: 20, right: 20),
+                                          top: 15.0, left: 20, right: 20),
                                       child: Text(
-                                        "@3999",
+                                        "@${price}/month",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ): Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 15.0, left: 20, right: 20),
+                                      child: Text(
+                                        "@${price}/year",
                                         style: TextStyle(
                                           fontSize: 20,
                                         ),
                                       ),
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.0, left: 20, right: 20),
-                                      child: Text(
-                                        "Stats",
-                                        style: TextStyle(
-                                          fontSize: 14,
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:18.0),
+                                      child: Column(children: [
+                                        Text(("Bids Left:" ),style: TextStyle(fontSize: 18),),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text( "${user.bidsleft}/${bids}" ),
                                         ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        for (int i = 0; i < 4; i++)
-                                          const Padding(
-                                            padding: EdgeInsets.only(top: 8.0),
-                                            child: Text("Bids Left: 4/10"),
-                                          )
-                                      ],
-                                    ),
+                                        Text(("Valid Till: " ),style: TextStyle(fontSize: 18),),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("${user.membershipexpiry} "),
+                                        )
+                                      ],),
+                                    )
+
                                   ],
                                 ),
                               ),
