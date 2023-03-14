@@ -8,6 +8,7 @@ class Users extends ChangeNotifier {
   String lastname = "";
   String phonenumber = "";
   String address = "";
+  double rate=0;
   String country = "";
   String email = "";
   String username = "";
@@ -18,6 +19,7 @@ class Users extends ChangeNotifier {
   int bidsleft = 0;
   double stars = 0;
   String membershipid = "0";
+  String about="";
 
   void signin(
       String id,
@@ -34,7 +36,7 @@ class Users extends ChangeNotifier {
       String billingaddress,
       int bidsleft,
       double stars,
-      int membershipid) {
+      int membershipid,String about) {
     id = id;
     firstname = firstname;
     lastname = lastname;
@@ -50,6 +52,7 @@ class Users extends ChangeNotifier {
     bidsleft = bidsleft;
     stars = stars;
     membershipid = membershipid;
+    about=about;
 
     notifyListeners();
   }

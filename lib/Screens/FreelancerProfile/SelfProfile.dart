@@ -3,15 +3,37 @@
 import 'package:flutter/material.dart';
 
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Projects/Assigned/Assigned.dart';
+import 'package:perhour_flutter/Modals/Projects/Assigned/Assignedapi.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 
-class SelfProfile extends StatelessWidget {
+class SelfProfile extends StatefulWidget {
   const SelfProfile({super.key});
+
+  @override
+  State<SelfProfile> createState() => _SelfProfileState();
+}
+
+class _SelfProfileState extends State<SelfProfile> {
+  bool _isloading = true;
+  late List<Asssigned> _getdeals;
+  @override
+
+  Future<void> getDeals() async {
+    _getdeals = await Assignedapi.getall(int.parse(user.id));
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
+  @override void initState() {super.initState();
+  getDeals();}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +55,7 @@ class SelfProfile extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: const Image(
+                      child: user.photo.length>0?Image(image: NetworkImage(user.photo)): Image(
                           image: AssetImage("assets/images/Man2.png"))),
                 ),
               ),
@@ -41,16 +63,16 @@ class SelfProfile extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Column(
-                    children: const [
+                    children:  [
                       Text(
-                        "Sanjay Kumar",
+                        "${user.firstname.toUpperCase() } ${user.lastname.toUpperCase()}",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
                       Text(
-                        "@sanju",
+                        "@${user.username}",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w300),
                       )
@@ -64,7 +86,7 @@ class SelfProfile extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children:  [
                       Text(
                         "About Me",
                         style: TextStyle(
@@ -74,7 +96,7 @@ class SelfProfile extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text(
-                            "About me About me About me About me About me About me "),
+                            "${user.about} "),
                       )
                     ],
                   ),
@@ -91,14 +113,14 @@ class SelfProfile extends StatelessWidget {
                             color: const Color.fromRGBO(211, 56, 35, 1),
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
                               "Projects",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
                             ),
                             Text(
-                              "24",
+                              "${_getdeals.length}",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.white),
                             )
@@ -112,14 +134,14 @@ class SelfProfile extends StatelessWidget {
                             color: const Color.fromRGBO(208, 4, 212, 1),
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
-                          children: const [
+                          children:  [
                             Text(
                               "Per hour",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
                             ),
                             Text(
-                              "24",
+                              "${user.rate}",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.white),
                             )
@@ -134,7 +156,7 @@ class SelfProfile extends StatelessWidget {
                 padding: EdgeInsets.only(left: 30.0, right: 30, top: 20),
                 child: Text("Latest Reviews"),
               ),
-              Reviews(getdeals: [],)
+              Reviews(getdeals: _getdeals,)
             ],
           ),
         ),

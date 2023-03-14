@@ -131,27 +131,32 @@ class _BottomInputsState extends State<BottomInputs> {
           headers: headers);
       var result = jsonDecode(res.body);
       print(result);
+if(res.body.isNotEmpty) {
+  final SharedPreferences sharedPreferences =
+  await SharedPreferences.getInstance();
+  sharedPreferences.setString("uid", result["id"].toString());
+  sharedPreferences.setString(
+      "name", result["firstname"] + result["lastname"]);
+  sharedPreferences.setString("email", result["email"]);
+  user.email = result["email"];
+  user.id = result["id"];
+  user.country = result["country"].toString();
+  user.address = result["address"].toString();
+  user.firstname = result["firstname"].toString();
+  user.lastname = result["lastname"].toString();
+  user.username = result["username"].toString();
+  user.membershipid = result["membershipid"];
+  user.about = result["about"];
+  user.rate=result["rates"];
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const Home(),
+    ),
+  );
+}else{
 
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString("uid", result["id"].toString());
-      sharedPreferences.setString(
-          "name", result["firstname"] + result["lastname"]);
-      sharedPreferences.setString("email", result["email"]);
-      user.email = result["email"];
-      user.id = result["id"];
-      user.country = result["country"].toString();
-      user.address = result["address"].toString();
-      user.firstname = result["firstname"].toString();
-      user.lastname = result["lastname"].toString();
-      user.username = result["username"].toString();
-      user.membershipid = result["membershipid"];
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Home(),
-        ),
-      );
+}
     }
   }
 }
