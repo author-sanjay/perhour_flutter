@@ -15,6 +15,7 @@ class Users extends ChangeNotifier {
   String bankname = "";
   String photo = "";
   String ifsc = "";
+  String role="";
   String billingaddress = "";
   int bidsleft = 0;
   double stars = 0;

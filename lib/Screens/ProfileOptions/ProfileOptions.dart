@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/EditProfile/EditProfile.dart';
 import 'package:perhour_flutter/Screens/Help&Support/HelpAndSupport.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/Login/Login.dart';
+import 'package:perhour_flutter/Screens/ManageSupport/ManageSupport.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
@@ -230,28 +232,22 @@ class ProfileOptions extends StatelessWidget {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Help(),
-                              ),
-                            );
+
+                        user.role=="ROLE_ADMIN"?GestureDetector(
+                          onTap: ()  {
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => ManageSupport(),),);
                           },
                           child: Container(
                             padding: EdgeInsets.only(top: 30),
                             child: Row(
                               children: [
                                 Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    child: Image(
-                                        image: AssetImage(
-                                            "assets/images/Help1.png"))),
+                                  width: MediaQuery.of(context).size.width * 0.1,
+                                  child: Icon(Icons.chat_bubble),
+                                ),
                                 Spacer(),
                                 Text(
-                                  "Help & Support",
+                                  "Manage Support",
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 Spacer(),
@@ -259,7 +255,7 @@ class ProfileOptions extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
+                        ):Container(),
                         GestureDetector(
                           onTap: () async {
                             SharedPreferences prefs = await SharedPreferences.getInstance();
