@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, empty_statements
+// ignore_for_file: file_names, sized_box_for_whitespace, empty_statements, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -21,7 +21,7 @@ class _WithdrawState extends State<Withdraw> {
   static double amount=0;
   static String method="";
   static String name="";
-  final snackbar =  SnackBar(content: Text("Withdraw request sent. Money will be credited to your account in 48 hrs"),);
+  final snackbar =  const SnackBar(content: Text("Withdraw request sent. Money will be credited to your account in 48 hrs"),);
   static String ac="";
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class _WithdrawState extends State<Withdraw> {
     final json=jsonEncode({
 
     });
-    var res = await http.post(Uri.parse(api + 'help/withdrawll/${_WithdrawState.amount}/${_WithdrawState.method}/${_WithdrawState.name}/${_WithdrawState.ac}/${user.id}'),headers: headers,body: json);var result = jsonDecode(res.body);print(result);
+    var res = await http.post(Uri.parse('${api}help/withdrawll/${_WithdrawState.amount}/${_WithdrawState.method}/${_WithdrawState.name}/${_WithdrawState.ac}/${user.id}'),headers: headers,body: json);var result = jsonDecode(res.body);print(result);
 Navigator.pop(context);
   }
 }

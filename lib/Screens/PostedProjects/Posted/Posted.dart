@@ -318,7 +318,7 @@ class _FeedbackState extends State<Feedback> {
                         "${widget.title}",
                         style: const TextStyle(fontSize: 18),
                       )),
-              widget.feedback.length==0?
+              widget.feedback.isEmpty?
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Container(

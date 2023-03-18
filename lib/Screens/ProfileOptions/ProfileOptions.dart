@@ -1,9 +1,8 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors, avoid_unnecessary_containers
+// ignore_for_file: file_names, sized_box_for_whitespace, prefer_const_constructors, avoid_unnecessary_containers, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/EditProfile/EditProfile.dart';
-import 'package:perhour_flutter/Screens/Help&Support/HelpAndSupport.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/Login/Login.dart';
 import 'package:perhour_flutter/Screens/ManageSupport/ManageSupport.dart';

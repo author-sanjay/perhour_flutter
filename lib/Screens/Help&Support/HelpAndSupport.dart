@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, unused_field, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -149,7 +149,7 @@ class _Help extends State<Help> {
                               // style: TextStyle(height: 300),
                               minLines: 5,
                               maxLines: 100,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: "I Have a Problem that...",
                                 contentPadding: EdgeInsets.all(8),
                                 border: OutlineInputBorder(),
@@ -203,7 +203,7 @@ final json=jsonEncode({
 });
 
 
-  var res = await http.post(Uri.parse(api + 'help/add/${user.id}'),body: json,headers: headers);
+  var res = await http.post(Uri.parse('${api}help/add/${user.id}'),body: json,headers: headers);
   var result = jsonDecode(res.body);
   print(result);
   Navigator.pop(context);

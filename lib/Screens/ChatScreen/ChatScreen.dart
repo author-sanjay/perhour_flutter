@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 
@@ -24,7 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   alignment: Alignment.bottomCenter,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height*0.07,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: kblue,
                       borderRadius: BorderRadius.only(topRight: Radius.circular(20),
                           topLeft: Radius.circular(20)
@@ -33,7 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.only(left:18.0, right: 18),
-                        child: TextFormField(style: TextStyle(color: Colors.white),
+                        child: TextFormField(style: const TextStyle(color: Colors.white),
                         ),
                     ),
                   ),

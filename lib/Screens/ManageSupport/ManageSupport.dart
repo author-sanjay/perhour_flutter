@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_print, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -37,7 +39,7 @@ class _ManageSupportState extends State<ManageSupport> {
     return  Scaffold(body:
       ConstrainedBox(constraints:
         BoxConstraints(minHeight: MediaQuery.of(context).size.height),child:
-      _isloading?Center(child: CircularProgressIndicator(),)
+      _isloading?const Center(child: CircularProgressIndicator(),)
           :SingleChildScrollView(
             child: Container(width: MediaQuery.of(context).size.width,color: backgroundwhite,child:
               Column(children: [
@@ -49,14 +51,14 @@ class _ManageSupportState extends State<ManageSupport> {
                 for(int i=0;i<_getdeals.length;i++ )
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(padding: EdgeInsets.all( 10),width: MediaQuery.of(context).size.width*0.8,decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),child:
+                    child: Container(padding: const EdgeInsets.all( 10),width: MediaQuery.of(context).size.width*0.8,decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),child:
                       Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [Text("Subject: "),Text(_getdeals[i].subject.toUpperCase())],),
+                          child: Row(children: [const Text("Subject: "),Text(_getdeals[i].subject.toUpperCase())],),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Text("Message: "),
                         ),
                         Padding(
@@ -65,11 +67,11 @@ class _ManageSupportState extends State<ManageSupport> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [Text("Email: "),Text(_getdeals[i].email.toUpperCase())],),
+                          child: Row(children: [const Text("Email: "),Text(_getdeals[i].email.toUpperCase())],),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [Text("Phone No.: "),Text(_getdeals[i].phone.toUpperCase())],),
+                          child: Row(children: [const Text("Phone No.: "),Text(_getdeals[i].phone.toUpperCase())],),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -79,8 +81,8 @@ class _ManageSupportState extends State<ManageSupport> {
                               decoration: BoxDecoration(
                                   color: kblue,
                                   borderRadius: BorderRadius.circular(10)),
-                              padding: EdgeInsets.all( 10),
-                              child: Center(
+                              padding: const EdgeInsets.all( 10),
+                              child: const Center(
                                   child: Text("Resolved",
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.white),
@@ -100,7 +102,7 @@ class _ManageSupportState extends State<ManageSupport> {
   }
 
   void markcomplete(int id) async {
-    var res = await http.post(Uri.parse(api +"help/resolve/${id}"),headers: headers);
+    var res = await http.post(Uri.parse("${api}help/resolve/$id"),headers: headers);
     var result = jsonDecode(res.body);
     print(result);
     Navigator.pop(context);

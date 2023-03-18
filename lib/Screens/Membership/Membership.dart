@@ -36,7 +36,7 @@ class _MembershipState extends State<Membership> {
   }
 
   Future<void> membershipdetails() async {
-    var res = await http.get(Uri.parse(api+"membership/getsingle/${user.membershipid}" ),headers: headers);
+    var res = await http.get(Uri.parse("${api}membership/getsingle/${user.membershipid}" ),headers: headers);
     var result = jsonDecode(res.body);
     print(result);
     setState(() {
@@ -96,7 +96,7 @@ class _MembershipState extends State<Membership> {
       const Color(0xFFF8AEF1)
     ];
     return Scaffold(
-      body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
+      body: _isloading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: ConstrainedBox(
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(context).size.height),
@@ -220,30 +220,30 @@ class _MembershipState extends State<Membership> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                      Padding(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                           top: 38.0, left: 20, right: 20),
                                       child: Text(
-                                        "${name}",
-                                        style: TextStyle(
+                                        name,
+                                        style: const TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
                                     ),
                                     monthly? Padding(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                           top: 15.0, left: 20, right: 20),
                                       child: Text(
-                                        "@${price}/month",
-                                        style: TextStyle(
+                                        "@$price/month",
+                                        style: const TextStyle(
                                           fontSize: 20,
                                         ),
                                       ),
                                     ): Padding(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                           top: 15.0, left: 20, right: 20),
                                       child: Text(
-                                        "@${price}/year",
-                                        style: TextStyle(
+                                        "@$price/year",
+                                        style: const TextStyle(
                                           fontSize: 20,
                                         ),
                                       ),
@@ -252,12 +252,12 @@ class _MembershipState extends State<Membership> {
                                     Padding(
                                       padding: const EdgeInsets.only(top:18.0),
                                       child: Column(children: [
-                                        Text(("Bids Left:" ),style: TextStyle(fontSize: 18),),
+                                        const Text(("Bids Left:" ),style: TextStyle(fontSize: 18),),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text( "${user.bidsleft}/${bids}" ),
+                                          child: Text( "${user.bidsleft}/$bids" ),
                                         ),
-                                        Text(("Valid Till: " ),style: TextStyle(fontSize: 18),),
+                                        const Text(("Valid Till: " ),style: TextStyle(fontSize: 18),),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text("${user.membershipexpiry} "),

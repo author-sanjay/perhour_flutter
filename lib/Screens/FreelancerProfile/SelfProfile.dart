@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, override_on_non_overriding_member
 
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,6 @@ class _SelfProfileState extends State<SelfProfile> {
     setState(() {
       _isloading = false;
     });
-    print(_getdeals);
   }
   @override void initState() {super.initState();
   getDeals();}
@@ -33,7 +32,7 @@ class _SelfProfileState extends State<SelfProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
+      body: _isloading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,7 +54,7 @@ class _SelfProfileState extends State<SelfProfile> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: user.photo.length>0?Image(image: NetworkImage(user.photo)): Image(
+                      child: user.photo.isNotEmpty?Image(image: NetworkImage(user.photo)): const Image(
                           image: AssetImage("assets/images/Man2.png"))),
                 ),
               ),
@@ -66,14 +65,14 @@ class _SelfProfileState extends State<SelfProfile> {
                     children:  [
                       Text(
                         "${user.firstname.toUpperCase() } ${user.lastname.toUpperCase()}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
                       Text(
                         "@${user.username}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w300),
                       ),
 
@@ -91,14 +90,14 @@ class _SelfProfileState extends State<SelfProfile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:  [
-                      Text(
+                      const Text(
                         "About Me",
                         style: TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
                             "${user.about} "),
                       )
@@ -118,7 +117,7 @@ class _SelfProfileState extends State<SelfProfile> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
-                            Text(
+                            const Text(
                               "Projects",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
@@ -126,7 +125,7 @@ class _SelfProfileState extends State<SelfProfile> {
                             Text(
                               "${_getdeals.length}",
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                  const TextStyle(fontSize: 20, color: Colors.white),
                             )
                           ],
                         ),
@@ -139,7 +138,7 @@ class _SelfProfileState extends State<SelfProfile> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children:  [
-                            Text(
+                            const Text(
                               "Per hour",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
@@ -147,7 +146,7 @@ class _SelfProfileState extends State<SelfProfile> {
                             Text(
                               "${user.rate}",
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                  const TextStyle(fontSize: 20, color: Colors.white),
                             )
                           ],
                         ),

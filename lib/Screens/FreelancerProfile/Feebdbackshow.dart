@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, must_be_immutable, non_constant_identifier_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
@@ -32,28 +34,28 @@ class _FeedbackshowState extends State<Feedbackshow> {
            padding: EdgeInsets.only( top: 18, left: MediaQuery.of(context).size.width*0.2),
                 child: Row(children: [
                   for(double i=0;i<widget.stars;i++)
-                    Image(image: AssetImage("assets/images/Star1.png"),width: MediaQuery.of(context).size.width*0.1,)
+                    Image(image: const AssetImage("assets/images/Star1.png"),width: MediaQuery.of(context).size.width*0.1,)
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 38.0, left: 20, right: 20),
-                child: Container(width: MediaQuery.of(context).size.width*0.8,decoration: BoxDecoration(color: Color.fromARGB(
+                child: Container(width: MediaQuery.of(context).size.width*0.8,decoration: BoxDecoration(color: const Color.fromARGB(
                     247, 245, 223, 123), borderRadius: BorderRadius.circular(20)), child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Padding(
                         padding: const EdgeInsets.all(18.0),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                           Container(child: Row(children: [
-                            Image(image: AssetImage("assets/images/stamp.jpg"),height: MediaQuery.of(context).size.height*0.12,),
-                            Spacer(),Text("Postcard",style: TextStyle(fontSize: 18),),Spacer()
+                            Image(image: const AssetImage("assets/images/stamp.jpg"),height: MediaQuery.of(context).size.height*0.12,),
+                            const Spacer(),const Text("Postcard",style: TextStyle(fontSize: 18),),const Spacer()
                           ],),),
                           Padding(
                             padding: const EdgeInsets.only(top:18.0),
                             child: Container( width: MediaQuery.of(context).size.width*0.7,
                               child: Row(
                                 children: [
-                                  Text("To: ",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
-                                  Text("${widget.username.toUpperCase()}")
+                                  const Text("To: ",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+                                  Text(widget.username.toUpperCase())
                                 ],
                               ),
                             ),
@@ -63,15 +65,15 @@ class _FeedbackshowState extends State<Feedbackshow> {
                             padding: const EdgeInsets.only(top:8.0),
                             child: Container(width: MediaQuery.of(context).size.width*0.7,
                               child: Row(
-                                children: [
+                                children: const [
                                   Text("Subject: ",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
                                   Flexible(child: Text("Showering You with Gratitude"))
                                 ],
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top:18.0),
+                          const Padding(
+                            padding: EdgeInsets.only(top:18.0),
                             child: Text("Review:",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),),
                           ),
                           Container(width: MediaQuery.of(context).size.width*0.7,
@@ -90,8 +92,8 @@ class _FeedbackshowState extends State<Feedbackshow> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  Text("Thanking You",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
-                                  Text("${widget.givenby.toUpperCase()}",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),)
+                                  const Text("Thanking You",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+                                  Text(widget.givenby.toUpperCase(),style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),)
                                 ],
                               ),
                             ),

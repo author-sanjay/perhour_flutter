@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 import 'package:perhour_flutter/api.dart';
 import 'package:http/http.dart' as http;
@@ -69,13 +70,14 @@ class _SendFeedBackState extends State<SendFeedBack> {
                       padding: const EdgeInsets.only(right: 18.0),
                       child: GestureDetector(
                         onTap: () {
-                          //TODO
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => FreelancerProfile(),
-                          //   ),
-                          // );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FreelancerProfile(
+                                id: widget.id,
+                              ),
+                            ),
+                          );
                         },
                         child: Container(
                             width: MediaQuery.of(context).size.width * 0.2,

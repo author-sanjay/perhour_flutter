@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_import, avoid_unnecessary_containers, sized_box_for_whitespace, camel_case_types, must_be_immutable
+// ignore_for_file: file_names, unnecessary_import, avoid_unnecessary_containers, sized_box_for_whitespace, camel_case_types, must_be_immutable, override_on_non_overriding_member, unused_field
 
 import 'dart:convert';
 
@@ -31,7 +31,6 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
     setState(() {
       _isloading = false;
     });
-    print(_getdeals);
   }
   static String name="";
   static double totalstart=0;
@@ -40,9 +39,8 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
   static double rates=0;
   static String about="";
   Future<void> userr() async {
-    var res = await http.get(Uri.parse(api+"users/getuser/"+widget.id.toString()),headers: headers);
+    var res = await http.get(Uri.parse("${api}users/getuser/${widget.id}"),headers: headers);
     var result = jsonDecode(res.body);
-    print(result);
     setState(() {
      _FreelancerProfileState.name=result["firstname"]+" "+result["lastname"];
       _FreelancerProfileState.totalstart=result["totalstars"];
@@ -51,7 +49,6 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
 
         _FreelancerProfileState.photo=result["photo"];
       }else{
-        print("Hello");
         _FreelancerProfileState.photo="";
       }
       _FreelancerProfileState.rates=result["rates"];
@@ -70,7 +67,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const bottomnav(),
-      body: _isloading?Center(child: CircularProgressIndicator(),): SingleChildScrollView(
+      body: _isloading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,8 +89,8 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: _FreelancerProfileState.photo.length>0? Image(
-                          image: NetworkImage(_FreelancerProfileState.photo)): Image(
+                      child: _FreelancerProfileState.photo.isNotEmpty? Image(
+                          image: NetworkImage(_FreelancerProfileState.photo)): const Image(
                           image: AssetImage("assets/images/Man2.png"))),
                 ),
               ),
@@ -104,14 +101,14 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                     children:  [
                       Text(
                         _FreelancerProfileState.name.toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
                       Text(
                         "@${_FreelancerProfileState.username}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w300),
                       )
                     ],
@@ -125,14 +122,14 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:  [
-                      Text(
+                      const Text(
                         "About Me",
                         style: TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
                             _FreelancerProfileState.about),
                       )
@@ -152,7 +149,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children:  [
-                            Text(
+                            const Text(
                               "Projects",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
@@ -160,7 +157,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             Text(
                               _getdeals.length.toString(),
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                  const TextStyle(fontSize: 20, color: Colors.white),
                             )
                           ],
                         ),
@@ -173,7 +170,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children:  [
-                            Text(
+                            const Text(
                               "Per hour",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white),
@@ -181,7 +178,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             Text(
                               "Rs ${_FreelancerProfileState.rates}",
                               style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
+                                  const TextStyle(fontSize: 15, color: Colors.white),
                             )
                           ],
                         ),
@@ -253,7 +250,7 @@ class _bottomnavState extends State<bottomnav> {
                   child: CircularProgressIndicator(),
                 )
               : GestureDetector(
-            onTap: (){Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ChatScreen(),),);},
+            onTap: (){Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const ChatScreen(),),);},
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: const [
@@ -298,7 +295,7 @@ class Reviews extends StatelessWidget {
             padding: const EdgeInsets.only(left: 18.0, right: 20),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Feedbackshow(Projectname: getdeals[index].title,review: getdeals[index].feedback,givenby: getdeals[index].givenby,username: user.firstname+" "+user.lastname,stars: getdeals[index].rating),),);
+                Navigator.push(context,MaterialPageRoute(builder: (context) => Feedbackshow(Projectname: getdeals[index].title,review: getdeals[index].feedback,givenby: getdeals[index].givenby,username: "${user.firstname} ${user.lastname}",stars: getdeals[index].rating),),);
 
               },
               child: Container(
@@ -328,8 +325,8 @@ class Reviews extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:  [
                               Text(
-                                "${getdeals[index].title}",
-                                style: TextStyle(
+                                getdeals[index].title,
+                                style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w300),
                               )
                             ],
@@ -342,14 +339,14 @@ class Reviews extends StatelessWidget {
                         child: Row(
                           children: [
                              Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: getdeals[index].rating==0?Text(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: getdeals[index].rating==0?const Text(
                                 "5.0",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w300),
                               ): Text(
                                 "${getdeals[index].rating}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w300),
                               ),
                             ),
