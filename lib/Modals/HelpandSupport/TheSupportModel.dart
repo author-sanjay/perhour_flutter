@@ -7,7 +7,7 @@ import 'package:perhour_flutter/api.dart';
 
 class TheSupportapi {
   static Future<List<TheSupport>> getDeals() async {
-    var res = await http.post(Uri.parse("${api}help/getactive"),
+    var res = await http.get(Uri.parse("${api}help/getactive"),
         headers: headers);
     List _temp = [];
     for (var i in jsonDecode(res.body)) {

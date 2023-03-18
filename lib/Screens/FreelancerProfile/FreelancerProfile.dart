@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Modals/Projects/Assigned/Assigned.dart';
 import 'package:perhour_flutter/Modals/Projects/Assigned/Assignedapi.dart';
+import 'package:perhour_flutter/Screens/ChatScreen/ChatScreen.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/Feebdbackshow.dart';
 import 'package:perhour_flutter/Screens/Home/Home.dart';
 import 'package:http/http.dart ' as http;
@@ -251,22 +252,25 @@ class _bottomnavState extends State<bottomnav> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "Chat With Freelancer",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.keyboard_double_arrow_right_sharp,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
+              : GestureDetector(
+            onTap: (){Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ChatScreen(),),);},
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Text(
+                        "Chat With Freelancer",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.keyboard_double_arrow_right_sharp,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+              ),
         ),
       ),
     );
