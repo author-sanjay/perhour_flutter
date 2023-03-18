@@ -76,7 +76,32 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: const Center(child: Text('data')),
+        height: MediaQuery.of(context).size.height,
+        color: Color(0xFF010339),
+        // color: Colors.white,
+        child:  Center(child: Column(
+          children: [
+            Container(
+                padding: EdgeInsets.only( 
+                  top:MediaQuery.of(context).size.height*0.2,),
+                child: Image(
+                    image: AssetImage("assets/images/PerHourlogo.png")
+                )
+            ),
+
+            Container(
+              padding: EdgeInsets.only(
+                top:MediaQuery.of(context).size.height*0.05,),
+              child: Column(
+                children: [
+                  Image(image: AssetImage("assets/images/artic.png"),width: MediaQuery.of(context).size.width*0.5,),
+                  Text("ARTICZ",style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w200),)
+                ],
+              ),
+            )
+          ],
+        ),
+        ),
       ),
     );
   }
