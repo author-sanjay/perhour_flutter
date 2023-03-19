@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1016506264491",
+    "project_id": "perhour-1f063",
+    "storage_bucket": "perhour-1f063.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016506264491:android:af494114aba6544f7000ee",
+        "android_client_info": {
+          "package_name": "com.articz.perhour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016506264491-0im4pada8prgup5h27kko47o2euaptdk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQtp4HoKxhIXNaGl_SLNA3H10FMANIkoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016506264491-0im4pada8prgup5h27kko47o2euaptdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
