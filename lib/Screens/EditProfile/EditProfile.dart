@@ -1,9 +1,11 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
+import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/FirebaseServices/Storage.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/api.dart';
 
@@ -262,19 +264,64 @@ class _EditDetailsState extends State<EditDetails> {
   }
 }
 
-class ProfilePhoto extends StatelessWidget {
+class ProfilePhoto extends StatefulWidget {
   const ProfilePhoto({
     super.key,
   });
 
   @override
+  State<ProfilePhoto> createState() => _ProfilePhotoState();
+}
+
+class _ProfilePhotoState extends State<ProfilePhoto> {
+  final Storage storage = Storage();
+  String? photo = user.photo;
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
           child: GestureDetector(
-        onTap: () {},
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
+            onTap: (() async {
+              final results =
+              await FilePicker.platform.pickFiles(
+                allowMultiple: false,
+                type: FileType.image,
+              );
+              if (results == null) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(
+                  content: Text("File not selected"),
+                ));
+                return null;
+              } else {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(
+                  content: Text("File selected"),
+                ));
+              }
+              final path = results.files.single.path;
+              final filename = results.files.single.name;
+              // ignore: avoid_print
+              storage
+                  .uploadfile(path!, filename)
+                  .then(((result) {
+                // deals("", "", "", "", "", "", 0, widget.photourl!);
+
+                setState(() {
+                  // deal.photo = result;
+                  // widget.photo = result;
+                  photo = result;
+                  user.photo = result;
+                });
+              }));
+            }),
+        child: user.photo.isNotEmpty?
+        CircleAvatar(
+          backgroundImage: NetworkImage(user.photo),
+          radius: MediaQuery.of(context).size.width * 0.2,
+        )
+                  :CircleAvatar(
+          backgroundImage: AssetImage("assets/images/Man2.png"),
           radius: MediaQuery.of(context).size.width * 0.2,
         ),
       )),

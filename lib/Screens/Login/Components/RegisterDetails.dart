@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/FirebaseServices/DBServices.dart';
 import 'package:perhour_flutter/Screens/Login/Login.dart';
 import 'package:perhour_flutter/User.dart';
 import 'package:perhour_flutter/api.dart';
@@ -21,6 +22,7 @@ class RegisterDetails extends StatefulWidget {
 }
 
 class _RegisterDetailsState extends State<RegisterDetails> {
+  final _dbServices=DBServices();
   static String tagline="";
   static String firstname = "";
   static String lastname = "";
@@ -316,8 +318,11 @@ class _RegisterDetailsState extends State<RegisterDetails> {
     });
     var res = await http.post(Uri.parse('${api}users/add'),
         headers: headers, body: json);
-    var result = res.body;
+
+    print(jsonDecode(res.body));
     if (res.statusCode == 200) {
+      var result = jsonDecode(res.body);
+      _dbServices.inituserdatawithphoto(result["id"], result["firstname"]+result["lastname"], result["email"]);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

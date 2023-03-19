@@ -232,7 +232,7 @@ class _bottomnavState extends State<bottomnav> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const Home(),
+            builder: (context) => const ChatScreen(),
           ),
         );
       },

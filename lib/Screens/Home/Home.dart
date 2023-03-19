@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
                                             );
                                           },
                                           child: const Icon(
-                                            Icons.person,
+                                            Icons.wechat_sharp,
                                             color: Colors.white,
                                             size: 30,
                                           ),

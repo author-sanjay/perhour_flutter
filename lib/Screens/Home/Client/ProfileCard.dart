@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/FreelancerProfile/FreelancerProfile.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 
 class ProfileCard extends StatelessWidget {
   ProfileCard({
@@ -16,7 +17,10 @@ class ProfileCard extends StatelessWidget {
 
   });
   int id;
-String name; String rates; String tag;  String? photo;
+  String name;
+  String rates;
+  String tag;
+  String photo;
   final List colorss;
   final Random random;
 
@@ -50,17 +54,20 @@ String name; String rates; String tag;  String? photo;
                 padding: const EdgeInsets.only(top: 18.0, left: 28),
                 child: Row(
                   children: [
-                    Container(
+                    photo!="none" ? CircleAvatar(backgroundImage: NetworkImage(user.photo),radius: MediaQuery.of(context).size.width*0.08,):Container(
                       height: 60,
                       width: 60,
                       child: Image(image: AssetImage("assets/images/Man2.png")),
                     ),
                     Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 18.0),
-                      child: Text(
-                        "Rs ${rates}/hr ",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.4,
+                        child: Text(
+                          "Rs ${rates}/hr ",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                       ),
                     )
                   ],

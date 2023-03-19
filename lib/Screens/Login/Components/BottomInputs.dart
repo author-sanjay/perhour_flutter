@@ -153,7 +153,7 @@ if(res.body.isNotEmpty) {
   user.stars=result["star"];
   user.role=result["role"];
   user.bidsleft=result["bidsleft"];
-  user.membershipexpiry=result["membershipexpiry"].toString();
+  // user.membershipexpiry=result["membershipexpiry"].toString();
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(

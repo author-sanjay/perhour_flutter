@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/EditProfile/EditProfile.dart';
+import 'package:perhour_flutter/Screens/FreelancerProfile/SelfProfile.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/Login/Login.dart';
 import 'package:perhour_flutter/Screens/ManageSupport/ManageSupport.dart';
@@ -44,16 +45,17 @@ class ProfileOptions extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  user.photo.isEmpty? Container(
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: Image(
                       image: AssetImage("assets/images/Man2.png"),
                     ),
+                  ):CircleAvatar(backgroundImage: NetworkImage(user.photo,), radius: MediaQuery.of(context).size.width*0.15,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
-                      "Sanjay Kumar",
+                      "${user.firstname.toUpperCase()} ${user.lastname.toUpperCase()}",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
                     ),
@@ -103,6 +105,34 @@ class ProfileOptions extends StatelessWidget {
                                 Spacer(),
                                 Text(
                                   "Edit Profile",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SelfProfile(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only( top:20),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                    MediaQuery.of(context).size.width * 0.1,
+                                    child: Icon(Icons.person,size: MediaQuery.of(context).size.width*0.1,),),
+                                Spacer(),
+                                Text(
+                                  "Profile",
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 Spacer(),
