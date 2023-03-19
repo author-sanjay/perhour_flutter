@@ -96,6 +96,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void update() async {
     final json = jsonEncode({
+"photo":user.photo,
       "phone": _EditDetailsState.phonenumber,
       "address": _EditDetailsState.address,
       "withdrawltype": _EditDetailsState.withdrawltype,
@@ -312,7 +313,9 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                   // widget.photo = result;
                   photo = result;
                   user.photo = result;
+                  // updatephoto(result);
                 });
+
               }));
             }),
         child: user.photo.isNotEmpty?
@@ -326,5 +329,25 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
         ),
       )),
     );
+  }
+
+
+
+
+
+  void updatephoto(String photo) async{
+    final json = jsonEncode({
+
+      "photo": _EditDetailsState.phonenumber,
+
+    });
+
+    var res = await http.post(Uri.parse('${api}users/update'),
+        headers: headers, body: json);
+    var result = jsonDecode(res.body);
+    print(result);
+    if (res.statusCode == 200) {
+      Navigator.pop(context);
+    }
   }
 }
