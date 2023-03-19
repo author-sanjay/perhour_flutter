@@ -54,7 +54,7 @@ class _SelfProfileState extends State<SelfProfile> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: user.photo.isNotEmpty?Image(image: NetworkImage(user.photo)): const Image(
+                      child: user.photo.isNotEmpty?CircleAvatar(backgroundImage: NetworkImage(user.photo),radius: MediaQuery.of(context).size.width*0.17,): const Image(
                           image: AssetImage("assets/images/Man2.png"))),
                 ),
               ),
