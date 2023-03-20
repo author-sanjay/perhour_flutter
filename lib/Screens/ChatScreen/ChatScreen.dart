@@ -88,14 +88,31 @@ setState(() {
             ),
 
             SendBox(id: widget.id,name: widget.name),
-            Positioned(top: 0,child: Container(color:const Color.fromARGB(247, 245, 223, 123),padding: EdgeInsets.only( top: MediaQuery.of(context).size.height*0.04,bottom: 10,left: MediaQuery.of(context).size.width*0.1),width: MediaQuery.of(context).size.width,child: Row(
-              children: [
-                _ChatScreenState.photo.length>0?  CircleAvatar(backgroundImage: NetworkImage(_ChatScreenState.photo),):
-                CircleAvatar(backgroundImage: AssetImage("assets/images/Man2.png"),),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0),
-                  child: Text("${widget.name.toUpperCase()}",style: TextStyle(fontSize: 18,color: Colors.black),),
-                ),
+            Positioned(top: 0,
+              child: Container(
+                  color:const Color.fromARGB(247, 245, 223, 123),
+                  padding: EdgeInsets.only( 
+                      top: MediaQuery.of(context).size.height*0.04,
+                      bottom: 10,
+                      left: MediaQuery.of(context).size.width*0.1),
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      _ChatScreenState.photo.length>0?  
+                      CircleAvatar(backgroundImage: NetworkImage(_ChatScreenState.photo),):
+                        CircleAvatar(backgroundImage: AssetImage("assets/images/Man2.png"),),
+                      Padding(
+                      padding: const EdgeInsets.only(left: 18.0),
+                      child: Text("${widget.name.toUpperCase()}",
+                        style: TextStyle(fontSize: 18,color: Colors.black),
+                      ),
+                        
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 18.0),
+                        child: SingleChildScrollView(child: Text("Hire",style: TextStyle(fontSize: 15),)),
+                      )
               ],
             )),)
           ],
