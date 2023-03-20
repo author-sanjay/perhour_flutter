@@ -1,17 +1,50 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
+import 'package:chat_app_plugin/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:perhour_flutter/Colors.dart';
-import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+   ChatScreen({required this.id,required this.name,Key? key});
+ final  int id;
+ final String name;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  static int id=0;
+  static String name="0";
+  static Stream<QuerySnapshot>? chats;
+  chatMessages() async {
+setState(() {
+  _ChatScreenState.id=widget.id;
+  _ChatScreenState.name=widget.name;
+  print(_ChatScreenState.name);
+});
+    String chatid = "";
+    if (int.parse(user.id)  <  widget.id) {
+      chatid = "${user.id}_${widget.id}";
+    } else {
+      chatid = "${widget.id}_${user.id}";
+    }
+
+    DatabaseService().getchatchats(chatid).then((val) {
+      setState(() {
+        _ChatScreenState.chats = val;
+        print(_ChatScreenState.chats);
+      });
+    });
+  }
+
+
+
+
+  @override void initState() {super.initState();chatMessages();}
+
   @override
   Widget build(BuildContext context) {
 
@@ -25,21 +58,23 @@ class _ChatScreenState extends State<ChatScreen> {
 
             Positioned(child: Container(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height,color: kblue,)),
             Positioned( top: MediaQuery.of(context).size.height*0.12,
-              child: Container(width: MediaQuery.of(context).size.width,child:
-                 Center(
-                        child: Column(
-                          children: [
-                            Sent(),
-                            Recieved()],))),
+              child: Container(width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height*0.8,child:
+                 Flex(
+                   direction: Axis.horizontal,
+                   children: [Expanded(
+                            child:
+                              chatMessageslist(),
+                             ),]
+                 )),
             ),
 
-            SendBox(),
+            SendBox(id: widget.id,name: widget.name),
             Positioned(top: 0,child: Container(color:const Color.fromARGB(247, 245, 223, 123),padding: EdgeInsets.only( top: MediaQuery.of(context).size.height*0.04,bottom: 10,left: MediaQuery.of(context).size.width*0.1),width: MediaQuery.of(context).size.width,child: Row(
               children: [
                 CircleAvatar(backgroundImage: AssetImage("assets/images/Man2.png"),),
                 Padding(
                   padding: const EdgeInsets.only(left: 18.0),
-                  child: Text("User Name",style: TextStyle(fontSize: 18,color: Colors.black),),
+                  child: Text("${widget.name.toUpperCase()}",style: TextStyle(fontSize: 18,color: Colors.black),),
                 ),
               ],
             )),)
@@ -48,13 +83,43 @@ class _ChatScreenState extends State<ChatScreen> {
       )
     ),);
   }
+  chatMessageslist() {
+    return StreamBuilder(
+      stream: chats,
+      builder: (context, AsyncSnapshot snapshot) {
+        return snapshot.hasData
+            ? ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: snapshot.data.docs.length,
+          itemBuilder: (context, index) {
+            return snapshot.data.docs[index]['sender']==_ChatScreenState.name?Recieved(message: snapshot.data.docs[index]['message'],):Sent(message: snapshot.data.docs[index]['message'],);
+          },
+        )
+            : SingleChildScrollView(
+              child: Container(child: Column(
+                children: [
+                  Text("Send Your Requirements",style: TextStyle(fontSize: 16, color: Colors.white),),
+
+                ],
+              ),),
+            );
+      },
+    );
+  }
 }
 
-class Recieved extends StatelessWidget {
-  const Recieved({
+class Recieved extends StatefulWidget {
+   Recieved({
+    required this.message,
     super.key,
   });
+  String message;
 
+  @override
+  State<Recieved> createState() => _RecievedState();
+}
+
+class _RecievedState extends State<Recieved> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,21 +134,28 @@ class Recieved extends StatelessWidget {
           ),
           color: const Color.fromARGB(247, 245, 223, 123),),
         width: MediaQuery.of(context).size.width*0.6,
-        child: Text("hjhjhjhjhjhjhjhjhjhj"),),
+        child: Text("${widget.message}"),),
             );
   }
 }
 
-class Sent extends StatelessWidget {
-  const Sent({
+class Sent extends StatefulWidget {
+  Sent({
+    required this.message,
     super.key,
   });
+  String message;
 
+  @override
+  State<Sent> createState() => _SentState();
+}
+
+class _SentState extends State<Sent> {
   @override
   Widget build(BuildContext context) {
     return Positioned(right:20,
       child: Padding(
-        padding: const EdgeInsets.only(top:8.0,left: 100),
+        padding: const EdgeInsets.only(top:8.0,left: 100,right: 20),
         child: Container(
           padding: EdgeInsets.all( 10),
           decoration: BoxDecoration(
@@ -93,19 +165,29 @@ class Sent extends StatelessWidget {
                 bottomLeft: Radius.circular(10)
             ),
             color: const Color.fromARGB(247, 245, 223, 123),),
-          width: MediaQuery.of(context).size.width*0.6,
-          child: Text("hjhjhjhjhjhjhjhjhjhj"),
+          width: MediaQuery.of(context).size.width*0.5,
+          child: Text("${widget.message}"),
         ),
       ),
     );
   }
 }
 
-class SendBox extends StatelessWidget {
-  const SendBox({
+class SendBox extends StatefulWidget {
+  SendBox({
+    required this.id, required this.name,
     super.key,
   });
+  int id;
+  String name;
 
+  @override
+  State<SendBox> createState() => _SendBoxState();
+}
+
+class _SendBoxState extends State<SendBox> {
+  TextEditingController _textController = TextEditingController();
+  static String message="";
   @override
   Widget build(BuildContext context) {
     return Positioned(bottom: 0,
@@ -125,15 +207,31 @@ class SendBox extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(width: MediaQuery.of(context).size.width*0.8,
-                      child: TextFormField(style: const TextStyle(color: Colors.black),decoration: InputDecoration(hintText: "Your Message"), maxLines: 10,
+                      child: TextFormField(controller: _textController,onChanged: (v){setState(() {
+                        _SendBoxState.message=v;
+                      });},style: const TextStyle(color: Colors.black),decoration: InputDecoration(hintText: "Your Message"), maxLines: 10,
                       ),
                     ),
-                    Icon(Icons.send)
+                    GestureDetector(onTap: (){
+                      sendMessage(int.parse(user.id),user.firstname, _ChatScreenState.id, _ChatScreenState.name,_SendBoxState.message );
+                    },child: Icon(Icons.send))
                   ],
                 ),
             ),
           ),
       ),
     );
+  }
+
+  sendMessage(int user1, String user1name, int user2, String user2name,
+      String message) async {
+    var chatmessage = {
+      "message": message,
+      "sender": user1name,
+      "time": DateTime.now().millisecondsSinceEpoch
+    };
+    await DatabaseService(uid: user.id)
+        .addchat(user1.toString(), user1name, user2.toString(), user2name, chatmessage);
+    _textController.text="";
   }
 }

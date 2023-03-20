@@ -59,6 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
           user.about = result["about"].toString();
           user.rate = result["rates"];
           user.stars = result["star"];
+          user.photo=result["photo"];
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

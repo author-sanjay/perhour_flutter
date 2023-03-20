@@ -152,6 +152,12 @@ if(res.body.isNotEmpty) {
   user.rate=result["rates"];
   user.stars=result["star"];
   user.role=result["role"];
+  if(result["photo"]!=null){
+    user.photo=result["photo"];
+  }
+else{
+    user.photo="";
+  }
   user.bidsleft=result["bidsleft"];
   // user.membershipexpiry=result["membershipexpiry"].toString();
   Navigator.pushReplacement(

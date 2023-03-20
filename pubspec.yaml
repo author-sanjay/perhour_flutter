@@ -43,6 +43,7 @@ dependencies:
   firebase_storage:
   file_picker:
   cloud_firestore:
+  chat_app_plugin: ^0.0.2
 
 dev_dependencies:
   change_app_package_name: ^1.1.0

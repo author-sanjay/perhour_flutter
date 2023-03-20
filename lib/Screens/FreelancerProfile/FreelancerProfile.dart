@@ -41,16 +41,18 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
   Future<void> userr() async {
     var res = await http.get(Uri.parse("${api}users/getuser/${widget.id}"),headers: headers);
     var result = jsonDecode(res.body);
+    print(result);
     setState(() {
      _FreelancerProfileState.name=result["firstname"]+" "+result["lastname"];
       _FreelancerProfileState.totalstart=result["totalstars"];
       _FreelancerProfileState.username=result["username"];
-      if(result[photo]!=null){
+      if(result["photo"]!=null){
 
         _FreelancerProfileState.photo=result["photo"];
       }else{
         _FreelancerProfileState.photo="";
       }
+      print(_FreelancerProfileState.photo);
       _FreelancerProfileState.rates=result["rates"];
 
       _FreelancerProfileState.about=result["about"];
@@ -66,7 +68,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const bottomnav(),
+      bottomNavigationBar: bottomnav(id: widget.id,name:_FreelancerProfileState.name,),
       body: _isloading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(
@@ -89,9 +91,17 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: _FreelancerProfileState.photo.isNotEmpty? Image(
-                          image: NetworkImage(_FreelancerProfileState.photo)): const Image(
-                          image: AssetImage("assets/images/Man2.png"))),
+                      child: _FreelancerProfileState.photo.isNotEmpty?
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              _FreelancerProfileState.photo
+                          ),
+                          radius: MediaQuery.of(context).size.width*0.15,
+                          ):
+                          const Image(
+                          image: AssetImage("assets/images/Man2.png"),
+                          ),
+                  ),
                 ),
               ),
               Center(
@@ -201,9 +211,11 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
 }
 
 class bottomnav extends StatefulWidget {
-  const bottomnav({
+  bottomnav({ required this.id,required this.name,
     super.key,
   });
+  int id;
+  String name;
 
   @override
   State<bottomnav> createState() => _bottomnavState();
@@ -232,7 +244,7 @@ class _bottomnavState extends State<bottomnav> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const ChatScreen(),
+            builder: (context) => ChatScreen(id: widget.id,name: widget.name),
           ),
         );
       },
@@ -250,7 +262,7 @@ class _bottomnavState extends State<bottomnav> {
                   child: CircularProgressIndicator(),
                 )
               : GestureDetector(
-            onTap: (){Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const ChatScreen(),),);},
+            onTap: (){Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ChatScreen(id: widget.id,name: widget.name),),);},
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: const [
