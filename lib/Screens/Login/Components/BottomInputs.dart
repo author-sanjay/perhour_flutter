@@ -155,9 +155,7 @@ if(res.body.isNotEmpty) {
   if(result["photo"]!=null){
     user.photo=result["photo"];
   }
-else{
-    user.photo="";
-  }
+
   user.bidsleft=result["bidsleft"];
   // user.membershipexpiry=result["membershipexpiry"].toString();
   Navigator.pushReplacement(

@@ -68,7 +68,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bottomnav(id: widget.id,name:_FreelancerProfileState.name,),
+      bottomNavigationBar: bottomnav(id: widget.id,name:_FreelancerProfileState.username,),
       body: _isloading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Container(
           child: Column(

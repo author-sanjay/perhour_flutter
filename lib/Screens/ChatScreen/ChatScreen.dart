@@ -1,28 +1,49 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:chat_app_plugin/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+
+import '../../api.dart';
 
 class ChatScreen extends StatefulWidget {
    ChatScreen({required this.id,required this.name,Key? key});
  final  int id;
  final String name;
-
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  static String photo="";
   static int id=0;
   static String name="0";
   static Stream<QuerySnapshot>? chats;
+  Future<void> finduser() async {
+    // print(user.id);
+    // print(widget.name);
+    var res = await http.get(Uri.parse("${api}users/getuser/${widget.id}" ),headers: headers);
+    var result = jsonDecode(res.body);
+    print(res.body);
+    if(result["photo"]!=null){
+      setState(() {
+        _ChatScreenState.photo=result["photo"];
+      });
+    }else{
+      _ChatScreenState.photo="";
+    }
+    _ChatScreenState.name=result["username"];
+
+    print(_ChatScreenState.photo);
+  }
   chatMessages() async {
 setState(() {
   _ChatScreenState.id=widget.id;
-  _ChatScreenState.name=widget.name;
+
   print(_ChatScreenState.name);
 });
     String chatid = "";
@@ -31,6 +52,8 @@ setState(() {
     } else {
       chatid = "${widget.id}_${user.id}";
     }
+    print("${user.id}   ${widget.id}");
+    print(chatid);
 
     DatabaseService().getchatchats(chatid).then((val) {
       setState(() {
@@ -43,7 +66,7 @@ setState(() {
 
 
 
-  @override void initState() {super.initState();chatMessages();}
+  @override void initState() {super.initState();chatMessages();finduser();}
 
   @override
   Widget build(BuildContext context) {
@@ -51,26 +74,23 @@ setState(() {
     return Scaffold(
       // bottomNavigationBar: SingleChildScrollView(reverse: true,child: Container(height: MediaQuery.of(context).size.height*0.08,decoration: BoxDecoration(color: kblue,borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))),width: MediaQuery.of(context).size.width, child: Center(child: TextFormField(decoration: InputDecoration(fillColor: backgroundwhite),),),)),
       body:
-    SingleChildScrollView(
-      child: Container(height: MediaQuery.of(context).size.height,
+
+      Container(height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
 
             Positioned(child: Container(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height,color: kblue,)),
             Positioned( top: MediaQuery.of(context).size.height*0.12,
               child: Container(width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height*0.8,child:
-                 Flex(
-                   direction: Axis.horizontal,
-                   children: [Expanded(
-                            child:
+
                               chatMessageslist(),
-                             ),]
-                 )),
+                             ),
             ),
 
             SendBox(id: widget.id,name: widget.name),
             Positioned(top: 0,child: Container(color:const Color.fromARGB(247, 245, 223, 123),padding: EdgeInsets.only( top: MediaQuery.of(context).size.height*0.04,bottom: 10,left: MediaQuery.of(context).size.width*0.1),width: MediaQuery.of(context).size.width,child: Row(
               children: [
+                _ChatScreenState.photo.length>0?  CircleAvatar(backgroundImage: NetworkImage(_ChatScreenState.photo),):
                 CircleAvatar(backgroundImage: AssetImage("assets/images/Man2.png"),),
                 Padding(
                   padding: const EdgeInsets.only(left: 18.0),
@@ -81,7 +101,7 @@ setState(() {
           ],
         ),
       )
-    ),);
+    );
   }
   chatMessageslist() {
     return StreamBuilder(
@@ -89,7 +109,7 @@ setState(() {
       builder: (context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           itemCount: snapshot.data.docs.length,
           itemBuilder: (context, index) {
             return snapshot.data.docs[index]['sender']==_ChatScreenState.name?Recieved(message: snapshot.data.docs[index]['message'],):Sent(message: snapshot.data.docs[index]['message'],);
@@ -123,7 +143,7 @@ class _RecievedState extends State<Recieved> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top:8.0,right: 100),
+      padding: const EdgeInsets.only(top:8.0,right: 100,left: 20),
       child: Container(
         padding: EdgeInsets.all( 10),
         decoration: BoxDecoration(
@@ -213,7 +233,7 @@ class _SendBoxState extends State<SendBox> {
                       ),
                     ),
                     GestureDetector(onTap: (){
-                      sendMessage(int.parse(user.id),user.firstname, _ChatScreenState.id, _ChatScreenState.name,_SendBoxState.message );
+                      sendMessage(int.parse(user.id),user.username, _ChatScreenState.id, _ChatScreenState.name,_SendBoxState.message );
                     },child: Icon(Icons.send))
                   ],
                 ),
@@ -230,6 +250,8 @@ class _SendBoxState extends State<SendBox> {
       "sender": user1name,
       "time": DateTime.now().millisecondsSinceEpoch
     };
+
+    print(chatmessage);
     await DatabaseService(uid: user.id)
         .addchat(user1.toString(), user1name, user2.toString(), user2name, chatmessage);
     _textController.text="";
