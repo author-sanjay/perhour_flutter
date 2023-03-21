@@ -10,7 +10,7 @@ import 'package:perhour_flutter/Modals/Membership/Membershipapi.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/api.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 class Membership extends StatefulWidget {
   const Membership({Key? key}) : super(key: key);
   static bool monthly = false;
@@ -20,6 +20,10 @@ class Membership extends StatefulWidget {
 }
 
 class _MembershipState extends State<Membership> {
+
+ static Razorpay _razorpay = Razorpay();
+
+
   bool monthly=true;
   String name="";
   int price=0;
@@ -28,12 +32,44 @@ class _MembershipState extends State<Membership> {
 
   bool _isloading = true;
   late List<Member> _getdeals;
+
+
+
+
+
+
+
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Do something when payment succeeds
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet is selected
+  }
+
+
+
+void dispose(){
+  _razorpay.clear(); // Removes all listeners
+}
   @override
   void initState() {
     super.initState();
+    print("hello");
 
+
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     getDeals();
   }
+
+
 
   Future<void> membershipdetails() async {
     var res = await http.get(Uri.parse("${api}membership/getsingle/${user.membershipid}" ),headers: headers);
@@ -346,7 +382,7 @@ class Yearly extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 15),
                           child: GestureDetector(
                             onTap: () {
-                              addmembership(yearly[i].id);
+                              addmembership(yearly[i].id,yearly[i].price);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -403,12 +439,36 @@ class Yearly extends StatelessWidget {
     );
   }
 
-  addmembership(int membershipid) async {
-    var res = await http.post(
-        Uri.parse("${api}users/addmembership/${user.id}/$membershipid"),
-        headers: headers);
-    var result = jsonDecode(res.body);
-    print(result);
+  addmembership(int membershipid,int amount) async {
+    final json=jsonEncode({
+      "customername":user.firstname+" "+user.lastname,
+      "customeremail":user.email,
+      "amount":amount
+    });
+  http.post(Uri.parse(api + 'pay/createorder'),body: json,headers: headers).then((value) {
+print(value);
+var options = {
+  'key': '<YOUR_KEY_ID>',
+  'amount': 50000, //in the smallest currency sub-unit.
+  'name': 'Acme Corp.',
+  'order_id': 'order_EMBFqjDHEEn80l', // Generate order_id using Orders API
+  'description': 'Fine T-Shirt',
+  'timeout': 60, // in seconds
+  'prefill': {
+    'contact': '9123456789',
+    'email': 'gaurav.kumar@example.com'
+  }
+};
+
+  });
+
+
+
+    // var res = await http.post(
+    //     Uri.parse("${api}users/addmembership/${user.id}/$membershipid"),
+    //     headers: headers);
+    // var result = jsonDecode(res.body);
+    // print(result);
     
   }
 }
@@ -470,7 +530,7 @@ class Monthly extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 15),
                           child: GestureDetector(
                             onTap: () {
-                              addmembership(monthly[i].id);
+                              addmembership(monthly[i].id,monthly[i].price);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -526,11 +586,32 @@ class Monthly extends StatelessWidget {
     );
   }
 
-  addmembership(int membershipid) async {
-    var res = await http.post(
-        Uri.parse("${api}users/addmembership/${user.id}/$membershipid"),
-        headers: headers);
-    var result = jsonDecode(res.body);
-    print(result);
+  addmembership(int membershipid,int amount) async {
+    print(amount);
+    final json=jsonEncode({
+"customername":user.firstname+" "+user.lastname,
+"customeremail":user.email,
+"amount":amount*100
+    });
+    http.post(Uri.parse(api + 'pay/createorder'),headers: headers,body: json).then((value) {
+      print(value.body);
+      var result=jsonDecode(value.body);
+      var options = {
+        'key': result["secretkey"],
+        'amount': amount*100, //in the smallest currency sub-unit.
+        'name': '${user.firstname} ${user.lastname}',
+        'order_id': result["razorpayorderid"], // Generate order_id using Orders API
+        'description': 'Membership id ${membershipid}',
+        'timeout': 60, // in seconds
+        'prefill': {
+
+          'email': user.email
+        }
+      };
+
+       _MembershipState._razorpay.open(options);
+
+    });
+
   }
 }
