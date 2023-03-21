@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print, use_build_context_synchronously, prefer_const_constructors
+// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print, use_build_context_synchronously, prefer_const_constructors, duplicate_ignore
 
 import 'dart:convert';
 import 'package:file_picker/file_picker.dart';

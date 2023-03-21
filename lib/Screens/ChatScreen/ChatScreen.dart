@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, must_be_immutable
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/Screens/PostJob/PostJobAndAssign.dart';
 
 import '../../api.dart';
 
@@ -111,7 +112,9 @@ setState(() {
                       Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(right: 18.0),
-                        child: SingleChildScrollView(child: Text("Hire",style: TextStyle(fontSize: 15),)),
+                        child: GestureDetector(onTap: (){
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PostJobAndAssign(),),);
+                        },child: Text("Hire",style: TextStyle(fontSize: 15),)),
                       )
               ],
             )),)

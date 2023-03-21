@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/ChatScreen/ChatList.dart';
-import 'package:perhour_flutter/Screens/FreelancerProfile/SelfProfile.dart';
 import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
@@ -166,7 +165,7 @@ class _HomeState extends State<Home> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ChatList() ),
+                                                      ChatList()),
                                             );
                                           },
                                           child: const Icon(
@@ -339,8 +338,7 @@ class _HomeState extends State<Home> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChatList(),
+                                              builder: (context) => ChatList(),
                                             ),
                                           );
                                         },
