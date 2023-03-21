@@ -10,13 +10,14 @@ class Postedd {
   String status;
   String category;
   String experience;
+
   String time;
   String? feedback;
   Postedd(this.id, this.title, this.bids, this.fulldesc, this.price, this.fixed,
-      this.category, this.experience, this.time, this.status);
+      this.category, this.experience, this.time, this.status,this.feedback);
   Postedd.fromJson(Map<dynamic, dynamic> json)
       : id = json["id"],
-  feedback=json["feedback"],
+        feedback=json["feedback"],
         title = json["title"] as String,
         bids = json["totalbids"],
         fulldesc = json["fulldescription"] as String,
@@ -32,4 +33,8 @@ class Postedd {
       return Postedd.fromJson(e);
     }).toList();
   }
+
+
+
+
 }

@@ -154,7 +154,7 @@ class _AssignedState extends State<Assigned> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
+          :  _getdeals.length==0?Container(height: MediaQuery.of(context).size.height*0.7,child: Center(child: Text("No Projects Assigned to You"),)): Column(
               children: [
                 for (int i = 0; i < _getdeals.length; i++)
                   Deliver(

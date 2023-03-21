@@ -40,7 +40,7 @@ class _ListBidsState extends State<ListBids> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : ConstrainedBox(
+            :  ConstrainedBox(
                 constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height),
                 child: Container(
@@ -58,7 +58,7 @@ class _ListBidsState extends State<ListBids> {
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
-                      Padding(
+                      _getdeals.length==0?Container(height: MediaQuery.of(context).size.height*0.7,child: Center(child: Text("No Bids Yet"),)):        Padding(
                         padding: const EdgeInsets.only(left: 18.0, right: 20),
                         child: ListView.separated(
                           shrinkWrap: true,

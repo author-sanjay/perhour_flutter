@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Modals/Projects/Posted/Posted.dart';
 import 'package:perhour_flutter/Modals/Projects/Posted/Postedapi.dart';
+import 'package:perhour_flutter/Screens/ChatScreen/ChatScreen.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/GetDelivery.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
 import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
@@ -29,6 +30,7 @@ class _PostedState extends State<Posted> {
   void initState() {
     super.initState();
     getDeals();
+
   }
 
   Future<void> getDeals() async {
@@ -36,8 +38,9 @@ class _PostedState extends State<Posted> {
     setState(() {
       _isloading = false;
     });
-    print(_getdeals);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,7 @@ class _PostedState extends State<Posted> {
             child: Column(
               children: [
                 for (int i = 0; i < _getdeals.length; i++)
+
                   if (_getdeals[i].status == "Placed")
                     SimplePlaced(
                       id: _getdeals[i].id,
@@ -82,6 +86,7 @@ class _PostedState extends State<Posted> {
                     Assigned(
                       id: _getdeals[i].id,
                       // bidsplace: _getdeals[i].bids,
+
                       price: _getdeals[i].price,
                       status: _getdeals[i].status,
                       title: _getdeals[i].title,
@@ -103,6 +108,7 @@ class Assigned extends StatefulWidget {
     required this.price,
     required this.status,
     required this.title,
+
     super.key,
   });
 
@@ -112,11 +118,14 @@ class Assigned extends StatefulWidget {
   String status;
   int price;
 
+
   @override
   State<Assigned> createState() => _AssignedState();
 }
 
 class _AssignedState extends State<Assigned> {
+ static int id=0;
+  static String name="";
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -143,6 +152,29 @@ class _AssignedState extends State<Assigned> {
         );
       },
     );
+  }
+static bool loading=false;
+Future<void> projectdetails() async {
+    var res = await http.get(Uri.parse(api + 'projects/get/${widget.id}'),headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    setState(() {
+      _AssignedState.id=result["giventoo"];
+      _AssignedState.name=result["giventoname"];
+      _AssignedState.loading=true;
+    });
+    print(_AssignedState.id);
+
+  Navigator.push(context,MaterialPageRoute(builder: (context) => ChatScreen(id: _AssignedState.id, name: _AssignedState.name),),);
+  setState(() {
+    _AssignedState.loading=false;
+  });
+  }
+
+
+  @override void initState() {
+    super.initState();
+    _AssignedState.loading=false;
   }
 
   @override
@@ -210,19 +242,25 @@ class _AssignedState extends State<Assigned> {
           ),
           Column(
             children: [
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: kblue,
-                  borderRadius: BorderRadius.circular(10),
+              GestureDetector(
+            onTap: (){
+projectdetails();
+
+},
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: kblue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: _AssignedState.loading?Center(child: CircularProgressIndicator(),): Center(
+                      child: Text(
+                    "Chat With Freelancer",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  )),
                 ),
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: const Center(
-                    child: Text(
-                  "Chat With Freelancer",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                )),
               ),
               GestureDetector(
                 onTap: () {

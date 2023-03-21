@@ -91,7 +91,7 @@ class _ListProjectsState extends State<ListProjects> {
                               height: 10,
                             ),
                             Text(
-                              widget.getjobs[index].price.toString(),
+                              "Rs ${widget.getjobs[index].price.toString()}",
                               style:
                                   const TextStyle(fontSize: 16, color: Colors.green),
                             ),
