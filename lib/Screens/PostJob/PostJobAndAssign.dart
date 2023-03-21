@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
@@ -8,18 +9,68 @@ import 'package:perhour_flutter/Screens/ListBids/ListBids.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/api.dart';
 import 'package:http/http.dart' as http;
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PostJobAndAssign extends StatefulWidget {
-  const PostJobAndAssign({super.key});
-
+   PostJobAndAssign({required this.id,super.key});
+    int id;
   static bool hourly = true;
   @override
   State<PostJobAndAssign> createState() => _PostJobAndAssignState();
 }
 
 class _PostJobAndAssignState extends State<PostJobAndAssign> {
+
+  final snackbar = const SnackBar(content: Text("Payment Failed. Please Post The Job Again",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+  static int userid=0;
+  static int projectid=0;
+  static Razorpay _razorpay = Razorpay();
+
+  static bool _isloading=false;
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async{
+    // Do something when payment succeeds
+    print("success");
+    var res = await http.post(Uri.parse(api + 'projects/assignproject/${widget.id}/${_PostJobAndAssignState.projectid}' ),headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    Navigator.pop(context);
+
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    setState(() {
+      _PostJobAndAssignState._isloading=false;
+    });
+
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet is selected
+  }
+
+  void dispose(){
+    _razorpay.clear(); // Removes all listeners
+  }
+
+  @override void initState() {
+
+    super.initState();
+    _PostJobAndAssignState._isloading=false;
+    _PostJobAndAssignState.userid=widget.id;
+    print(_PostJobAndAssignState.userid);
+
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+
+
   static String title = "";
-  static String budget = "";
+  static int budget = 0;
   static String timelimit = "";
   static bool hourly = true;
   static String fulldescription = "";
@@ -85,9 +136,10 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                         TextFormField(
                           onChanged: (value) {
                             setState(() {
-                              _PostJobAndAssignState.budget = value;
+                              _PostJobAndAssignState.budget = int.parse(value);
                             });
                           },
+                          keyboardType: TextInputType.number,
                           decoration:
                           const InputDecoration(hintText: "Rs 5000"),
                         ),
@@ -112,6 +164,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                               _PostJobAndAssignState.timelimit = value;
                             });
                           },
+                          keyboardType: TextInputType.number,
                           decoration:
                           const InputDecoration(hintText: "30 Days"),
                         ),
@@ -400,6 +453,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                       left: 20.0, right: 20, top: 20, bottom: 10),
                   child: GestureDetector(
                     onTap: () {
+
                       postJobAndAssign();
                     },
                     child: Container(
@@ -408,7 +462,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                       decoration: BoxDecoration(
                           color: kblue,
                           borderRadius: BorderRadius.circular(10)),
-                      child: const Center(
+                      child: _PostJobAndAssignState._isloading ?Center(child: CircularProgressIndicator(color: Colors.white,),): Center(
                         child: Text(
                           "Post and Assign",
                           style: TextStyle(
@@ -429,6 +483,9 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
   }
 
   void postJobAndAssign() async {
+    setState(() {
+      _PostJobAndAssignState._isloading=true;
+    });
     var verify = verifycategory();
     if (!verify) {
       setState(() {
@@ -446,20 +503,46 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
     final json = jsonEncode({
       "title": _PostJobAndAssignState.title,
       "fulldescription": _PostJobAndAssignState.fulldescription,
-      "price": int.parse(_PostJobAndAssignState.budget),
+      "price": _PostJobAndAssignState.budget,
       "timelimit": int.parse(_PostJobAndAssignState.timelimit),
       "fixed": !_PostJobAndAssignState.hourly,
       "category": _PostJobAndAssignState.category,
       "experience": exp
     });
 
-    var res = await http.post(Uri.parse(api + 'projects/add/' + user.id),
-        headers: headers, body: json);
-    var result = jsonDecode(res.body);
-    print(result);
-    if (res.statusCode == 200) {
+    http.post(Uri.parse(api + 'projects/add/' + user.id),
+        headers: headers, body: json).then((value) {
+          print(value.body);
+          print(_PostJobAndAssignState.budget *100);
+          var res=jsonDecode(value.body);
+          _PostJobAndAssignState.projectid=res["id"];
+          final json=jsonEncode({
+            "customername":user.firstname+" "+user.lastname,
+            "customeremail":user.email,
+            "amount":res["price"] *100
+          });
+          http.post(Uri.parse(api + 'pay/createorder'),headers: headers,body: json).then((value) {
+            print(value.body);
+            var result=jsonDecode(value.body);
+            var options = {
+              'key': result["secretkey"],
+              'amount': res["price"] *100, //in the smallest currency sub-unit.
+              'name': '${user.firstname} ${user.lastname}',
+              'order_id': result["razorpayorderid"], // Generate order_id using Orders API
+              'description': 'This amount will be stored with us until you release the payment. In case you dont get the desired work, You will get the refund. Please dont worry about it',
+              'timeout': 60, // in seconds
+              'prefill': {
 
-    }
+                'email': user.email
+              }
+            };
+
+            _PostJobAndAssignState._razorpay.open(options);
+
+          });
+        }
+        );
+
   }
 }
 

@@ -113,7 +113,7 @@ setState(() {
                       Padding(
                         padding: const EdgeInsets.only(right: 18.0),
                         child: GestureDetector(onTap: (){
-                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PostJobAndAssign(),),);
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PostJobAndAssign(id: widget.id),),);
                         },child: Text("Hire",style: TextStyle(fontSize: 15),)),
                       )
               ],
