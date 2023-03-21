@@ -20,6 +20,8 @@ class Membership extends StatefulWidget {
 }
 
 class _MembershipState extends State<Membership> {
+  final snackbar = const SnackBar(content: Text("Payment Error. Please Try after Some Time",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+  static int membershipid=0;
 
  static Razorpay _razorpay = Razorpay();
 
@@ -40,12 +42,22 @@ class _MembershipState extends State<Membership> {
 
 
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async{
     // Do something when payment succeeds
+    print("success");
+    print(_MembershipState.membershipid);
+    var res = await http.post(
+        Uri.parse("${api}users/addmembership/${user.id}/${_MembershipState.membershipid}"),
+        headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    Navigator.pop(context);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
+    print("Fail");
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -353,7 +365,7 @@ void dispose(){
   }
 }
 
-class Yearly extends StatelessWidget {
+class Yearly extends StatefulWidget {
   Yearly({
     required this.yearly,
     super.key,
@@ -365,6 +377,11 @@ class Yearly extends StatelessWidget {
   final Random random;
 
   @override
+  State<Yearly> createState() => _YearlyState();
+}
+
+class _YearlyState extends State<Yearly> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0),
@@ -375,18 +392,18 @@ class Yearly extends StatelessWidget {
             padding: const EdgeInsets.only(left: 50.0),
             child: Row(
               children: [
-                for (int i = 0; i < yearly.length; i++)
-                  yearly[i].monthly
+                for (int i = 0; i < widget.yearly.length; i++)
+                  widget.yearly[i].monthly
                       ? Container()
                       : Padding(
                           padding: const EdgeInsets.only(right: 15),
                           child: GestureDetector(
                             onTap: () {
-                              addmembership(yearly[i].id,yearly[i].price);
+                              addmembership(widget.yearly[i].id,widget.yearly[i].price);
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: coolors[random.nextInt(5)],
+                                  color: widget.coolors[widget.random.nextInt(5)],
                                   borderRadius: BorderRadius.circular(10)),
                               width: MediaQuery.of(context).size.width * 0.5,
                               height: MediaQuery.of(context).size.height * 0.4,
@@ -397,7 +414,7 @@ class Yearly extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         top: 38.0, left: 20, right: 20),
                                     child: Text(
-                                      yearly[i].title,
+                                      widget.yearly[i].title,
                                       style: const TextStyle(
                                         fontSize: 16,
                                       ),
@@ -407,7 +424,7 @@ class Yearly extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         top: 5.0, left: 20, right: 20),
                                     child: Text(
-                                      "@${yearly[i].price}",
+                                      "@${widget.yearly[i].price}",
                                       style: const TextStyle(
                                         fontSize: 20,
                                       ),
@@ -424,7 +441,7 @@ class Yearly extends StatelessWidget {
                                     ),
                                   ),
                                   Benifits(
-                                    benifits: yearly[i].benefits,
+                                    benifits: widget.yearly[i].benefits,
                                   )
                                 ],
                               ),
@@ -440,36 +457,35 @@ class Yearly extends StatelessWidget {
   }
 
   addmembership(int membershipid,int amount) async {
+    _MembershipState.membershipid=membershipid;
+
+    print(amount);
     final json=jsonEncode({
       "customername":user.firstname+" "+user.lastname,
       "customeremail":user.email,
-      "amount":amount
+      "amount":amount*100
     });
-  http.post(Uri.parse(api + 'pay/createorder'),body: json,headers: headers).then((value) {
-print(value);
-var options = {
-  'key': '<YOUR_KEY_ID>',
-  'amount': 50000, //in the smallest currency sub-unit.
-  'name': 'Acme Corp.',
-  'order_id': 'order_EMBFqjDHEEn80l', // Generate order_id using Orders API
-  'description': 'Fine T-Shirt',
-  'timeout': 60, // in seconds
-  'prefill': {
-    'contact': '9123456789',
-    'email': 'gaurav.kumar@example.com'
-  }
-};
+    http.post(Uri.parse(api + 'pay/createorder'),headers: headers,body: json).then((value) {
+      print(value.body);
+      var result=jsonDecode(value.body);
+      var options = {
+        'key': result["secretkey"],
+        'amount': amount*100, //in the smallest currency sub-unit.
+        'name': '${user.firstname} ${user.lastname}',
+        'order_id': result["razorpayorderid"], // Generate order_id using Orders API
+        'description': 'Membership id ${membershipid}',
+        'timeout': 60, // in seconds
+        'prefill': {
 
-  });
+          'email': user.email
+        }
+      };
+
+      _MembershipState._razorpay.open(options);
+
+    });
 
 
-
-    // var res = await http.post(
-    //     Uri.parse("${api}users/addmembership/${user.id}/$membershipid"),
-    //     headers: headers);
-    // var result = jsonDecode(res.body);
-    // print(result);
-    
   }
 }
 
@@ -501,7 +517,7 @@ class Benifits extends StatelessWidget {
   }
 }
 
-class Monthly extends StatelessWidget {
+class Monthly extends StatefulWidget {
   Monthly({
     required this.monthly,
     super.key,
@@ -514,6 +530,11 @@ class Monthly extends StatelessWidget {
   final Random random;
 
   @override
+  State<Monthly> createState() => _MonthlyState();
+}
+
+class _MonthlyState extends State<Monthly> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0),
@@ -524,17 +545,17 @@ class Monthly extends StatelessWidget {
             padding: const EdgeInsets.only(left: 50.0),
             child: Row(
               children: [
-                for (int i = 0; i < monthly.length; i++)
-                  monthly[i].monthly
+                for (int i = 0; i < widget.monthly.length; i++)
+                  widget.monthly[i].monthly
                       ? Padding(
                           padding: const EdgeInsets.only(right: 15),
                           child: GestureDetector(
                             onTap: () {
-                              addmembership(monthly[i].id,monthly[i].price);
+                              addmembership(widget.monthly[i].id,widget.monthly[i].price);
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: coolors[random.nextInt(5)],
+                                  color: widget.coolors[widget.random.nextInt(5)],
                                   borderRadius: BorderRadius.circular(10)),
                               width: MediaQuery.of(context).size.width * 0.5,
                               height: MediaQuery.of(context).size.height * 0.4,
@@ -545,7 +566,7 @@ class Monthly extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         top: 38.0, left: 20, right: 20),
                                     child: Text(
-                                      monthly[i].title,
+                                      widget.monthly[i].title,
                                       style: const TextStyle(
                                         fontSize: 16,
                                       ),
@@ -555,7 +576,7 @@ class Monthly extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         top: 5.0, left: 20, right: 20),
                                     child: Text(
-                                      "@${monthly[i].price}",
+                                      "@${widget.monthly[i].price}",
                                       style: const TextStyle(
                                         fontSize: 20,
                                       ),
@@ -571,7 +592,7 @@ class Monthly extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Benifits(benifits: monthly[i].benefits)
+                                  Benifits(benifits: widget.monthly[i].benefits)
                                 ],
                               ),
                             ),
@@ -587,6 +608,7 @@ class Monthly extends StatelessWidget {
   }
 
   addmembership(int membershipid,int amount) async {
+    _MembershipState.membershipid=membershipid;
     print(amount);
     final json=jsonEncode({
 "customername":user.firstname+" "+user.lastname,
