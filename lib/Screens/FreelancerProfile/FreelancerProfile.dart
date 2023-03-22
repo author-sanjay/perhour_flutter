@@ -307,7 +307,7 @@ class Reviews extends StatelessWidget {
             padding: const EdgeInsets.only(left: 18.0, right: 20),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Feedbackshow(Projectname: getdeals[index].title,review: getdeals[index].feedback,givenby: getdeals[index].givenby,username: "${user.firstname} ${user.lastname}",stars: getdeals[index].rating),),);
+                Navigator.push(context,MaterialPageRoute(builder: (context) => Feedbackshow(Projectname: getdeals[index].title,review: getdeals[index].feedback.toString(),givenby: getdeals[index].givenby,username: "${user.firstname} ${user.lastname}",stars: getdeals[index].rating),),);
 
               },
               child: Container(

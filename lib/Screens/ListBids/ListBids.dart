@@ -76,6 +76,7 @@ class _ListBidsState extends State<ListBids> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => BidsDetails(
+                                        username: _getdeals[index].username,
                                         description: _getdeals[index].desc,
                                         price: _getdeals[index].price,
                                         time: _getdeals[index].time,

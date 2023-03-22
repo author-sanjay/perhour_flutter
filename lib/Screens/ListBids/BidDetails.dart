@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/Screens/ChatScreen/ChatScreen.dart';
 import 'package:perhour_flutter/api.dart';
 
 class BidsDetails extends StatefulWidget {
@@ -15,6 +16,7 @@ class BidsDetails extends StatefulWidget {
       required this.projectid,
       required this.revisions,
       required this.userid,
+        required this.username,
       super.key});
   int projectid;
   int time;
@@ -22,6 +24,7 @@ class BidsDetails extends StatefulWidget {
   String description;
   int revisions;
   int userid;
+  String username;
 
   @override
   State<BidsDetails> createState() => _BidsDetailsState();
@@ -29,6 +32,8 @@ class BidsDetails extends StatefulWidget {
 
 class _BidsDetailsState extends State<BidsDetails> {
   static String photo = "";
+  static String namee="";
+  static String username="";
   Future<void> name() async {
     var res = await http.get(Uri.parse(api + 'users/getuser/${widget.userid}'),
         headers: headers);
@@ -37,7 +42,11 @@ class _BidsDetailsState extends State<BidsDetails> {
     setState(() {
       if (result["photo"] != null) {
         photo = result["photo"];
+
+
       }
+      namee=result["firstname"];
+      username=result["username"];
     });
   }
 
@@ -80,14 +89,14 @@ class _BidsDetailsState extends State<BidsDetails> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
                         child: photo.length > 0
-                            ? Image(image: NetworkImage(photo))
+                            ? CircleAvatar(backgroundImage: NetworkImage(photo),radius: MediaQuery.of(context).size.width*0.1,)
                             : const Image(
                                 image: AssetImage("assets/images/Man2.png")),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8.0),
                         child: Text(
-                          "Freelancer Name",
+                          "${namee.toUpperCase()}",
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -136,21 +145,26 @@ class _BidsDetailsState extends State<BidsDetails> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.1,
-                                right: MediaQuery.of(context).size.width * 0.1,
-                                top: 8,
-                                bottom: 8),
-                            decoration: BoxDecoration(
-                                color: kblue,
-                                borderRadius: BorderRadius.circular(10)),
-                            // width: MediaQuery.of(context).size.width * 0.8,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ChatScreen(id: widget.userid, name: username),),);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width * 0.1,
+                                  right: MediaQuery.of(context).size.width * 0.1,
+                                  top: 8,
+                                  bottom: 8),
+                              decoration: BoxDecoration(
+                                  color: kblue,
+                                  borderRadius: BorderRadius.circular(10)),
+                              // width: MediaQuery.of(context).size.width * 0.8,
 
-                            child: const Text(
-                              "Chat With Freelancer",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                              child: const Text(
+                                "Chat With Freelancer",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

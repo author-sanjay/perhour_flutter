@@ -12,7 +12,7 @@ class Asssigned {
   String experience;
   String time;
   double rating;
-  String feedback;
+  String? feedback;
   String givenby;
   Asssigned(this.id, this.title, this.bids, this.fulldesc, this.price,
       this.fixed, this.category, this.experience, this.time, this.status, this.rating,this.feedback, this.givenby);
@@ -25,9 +25,9 @@ class Asssigned {
         category = json["category"] as String,
         fixed = json["fixed"],
         experience = json["experience"] as String,
-        time = json["timelimit"] as String,
+        time = json["deliverydate"] as String,
         status = json["status"] as String,
-  rating=json["feedbackstars"],
+  rating=json["feedbackstars"] ,
   feedback=json["feedback"]
   ,givenby=json["givenbyy"];
 

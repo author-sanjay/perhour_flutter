@@ -158,8 +158,9 @@ class _AssignedState extends State<Assigned> {
               children: [
                 for (int i = 0; i < _getdeals.length; i++)
                   Deliver(
-                    deadline: "23-10-2001",
+                    deadline: _getdeals[i].time,
                     id: _getdeals[i].id,
+                    jd: _getdeals[i].fulldesc,
                     price: _getdeals[i].price,
                     status: _getdeals[i].status,
                     title: _getdeals[i].title,
@@ -176,6 +177,7 @@ class Deliver extends StatefulWidget {
     required this.id,
     required this.price,
     required this.status,
+    required this.jd,
     required this.title,
     super.key,
   });
@@ -184,6 +186,7 @@ class Deliver extends StatefulWidget {
   int id;
   int price;
   String deadline;
+  String jd;
 
   @override
   State<Deliver> createState() => _DeliverState();
@@ -220,7 +223,7 @@ class _DeliverState extends State<Deliver> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const DeliverProject(),
+                                builder: (context) =>  DeliverProject(deadline: widget.deadline,id: widget.id.toString(), title: widget.title, jd: widget.jd),
                               ),
                             );
                           },
