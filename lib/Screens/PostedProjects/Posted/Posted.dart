@@ -429,7 +429,7 @@ class _CheckdeliveryState extends State<Checkdelivery> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const GetDelivery(),
+              builder: (context) =>  GetDelivery(id: widget.id),
             ),
           );
         },
@@ -458,7 +458,7 @@ class _CheckdeliveryState extends State<Checkdelivery> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const GetDelivery(),
+                              builder: (context) =>  GetDelivery(id: widget.id),
                             ),
                           );
                         },

@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Screens/ChatScreen/ChatScreen.dart';
+import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/api.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class BidsDetails extends StatefulWidget {
   BidsDetails(
@@ -31,6 +33,56 @@ class BidsDetails extends StatefulWidget {
 }
 
 class _BidsDetailsState extends State<BidsDetails> {
+  final snackbar = const SnackBar(content: Text("Payment Error. Please Try after Some Time",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+
+
+
+
+static  Razorpay _razorpay =new Razorpay();
+
+
+
+
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async{
+    // Do something when payment succeeds
+    print("1234");
+    var res = await http.post(
+        Uri.parse(api + "projects/assignproject/${widget.userid}/${widget.projectid}"),
+        headers: headers);
+    print(res.statusCode);
+    print(res.body);
+    var result = jsonDecode(res.body);
+    print(result);
+
+
+  }
+
+
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+    print("Fail");
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
+  }
+
+
+
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet is selected
+  }
+
+
+
+  void dispose(){
+    _razorpay.clear(); // Removes all listeners
+  }
+
+
+
+
   static String photo = "";
   static String namee="";
   static String username="";
@@ -53,7 +105,11 @@ class _BidsDetailsState extends State<BidsDetails> {
   @override
   void initState() {
     super.initState();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     name();
+
   }
 
   @override
@@ -132,7 +188,7 @@ class _BidsDetailsState extends State<BidsDetails> {
                             ),
                             const Spacer(),
                             Text(
-                              "Rs ${widget.time} Days",
+                              "Rs ${widget.price}",
                               style: const TextStyle(
                                   fontSize: 18, color: Colors.green),
                             )
@@ -207,15 +263,34 @@ class _BidsDetailsState extends State<BidsDetails> {
     );
   }
 
-  assignproject(int user, int project) async {
+  assignproject(int userr, int project) async {
     print(project);
+    final json=jsonEncode({
+      "customername":user.firstname+" "+user.lastname,
+      "customeremail":user.email,
+      "amount":widget.price*100
+    });
+    http.post(Uri.parse(api + 'pay/createorder'),headers: headers,body: json).then((value) {
+      print(value.body);
+      var result=jsonDecode(value.body);
+      var options = {
+        'key': result["secretkey"],
+        'amount': widget.price*100, //in the smallest currency sub-unit.
+        'name': '${user.firstname} ${user.lastname}',
+        'order_id': result["razorpayorderid"], // Generate order_id using Orders API
+        'description': 'Project ${widget.projectid} Assigned ',
+        'timeout': 60, // in seconds
+        'prefill': {
 
-    var res = await http.post(
-        Uri.parse(api + "projects/assignproject/$user/$project"),
-        headers: headers);
-    print(res.statusCode);
-    var result = jsonDecode(res.body);
-    print(result);
-    // if(res.statusCode)
+          'email': user.email
+        }
+      };
+
+      _BidsDetailsState._razorpay.open(options);
+
+    });
+
+
+
   }
 }
