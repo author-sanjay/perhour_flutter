@@ -61,7 +61,7 @@ class CancelContract extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 18.0),
                       child: GestureDetector(
                         onTap: () {
-                          // ignore: todo
+
                           //TODO
                           // Navigator.pushReplacement(
                           //   context,

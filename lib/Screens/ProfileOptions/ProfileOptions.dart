@@ -252,7 +252,30 @@ class ProfileOptions extends StatelessWidget {
                                             "assets/images/Wallet1.png"))),
                                 Spacer(),
                                 Text(
-                                  "Payments",
+                                  "Wallet",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Spacer(),
+                                Icon(Icons.chevron_right_sharp)
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width:
+                                    MediaQuery.of(context).size.width * 0.1,
+                                    child: Icon(Icons.lock)),
+                                Spacer(),
+                                Text(
+                                  "Reset Password",
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 Spacer(),

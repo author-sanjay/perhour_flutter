@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/DeliverProject/CancelContract.dart';
 import 'package:http/http.dart' as http;
+import 'package:perhour_flutter/Screens/DeliverProject/SendFeedback.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../api.dart';
@@ -23,8 +24,40 @@ class GetDelivery extends StatefulWidget {
 }
 
 class _GetDeliveryState extends State<GetDelivery> {
+
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('SuccessFul'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('If You wish to not continue with project, you can contact support and get your project delivered by us before deadline (NO EXTRA COST). '),
+                // Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   final dio = Dio();
   final snackbar = const SnackBar(content: Text("File Downloaded. Please check your file System",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+  final accept = const SnackBar(content: Text("Project Completed!",style: TextStyle(color: Colors.white),),backgroundColor: Colors.green,);
   static String deliverlink="";
   static String title="";
   static String jd="";
@@ -77,6 +110,7 @@ class _GetDeliveryState extends State<GetDelivery> {
                 ),
 
                     Column(
+
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,30 +192,31 @@ class _GetDeliveryState extends State<GetDelivery> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: kblue,
-                                borderRadius: BorderRadius.circular(10)),
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: const Center(
-                                child: Text(
-                              "Request Review",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            )),
+                          child:
+                          GestureDetector(
+                            onTap: (){
+                              requestreview(widget.id);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: kblue,
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: const Center(
+                                  child: Text(
+                                "Request Review",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.white),
+                              )),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => SendFeedBack(desc: ),
-                              //   ),
-                              // );
+                             acceptproject(widget.id);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10),
@@ -300,6 +335,23 @@ class _GetDeliveryState extends State<GetDelivery> {
       }
     }
     return false;
+  }
+
+   requestreview(int id) async{
+      var res = await http.post(Uri.parse(api + 'projects/revview/${id}' ),headers: headers);
+      var result = jsonDecode(res.body);
+      print(result);
+
+      _showMyDialog();
+
+   }
+
+  acceptproject(int id) async {
+    var res = await http.post(Uri.parse(api + 'projects/complete/${id}' ),headers: headers);
+    var result = jsonDecode(res.body);
+    print(result);
+    ScaffoldMessenger.of(context).showSnackBar(accept);
+    Navigator.push(context,MaterialPageRoute(builder: (context) => SendFeedBack(id: id, desc: _GetDeliveryState.jd, title: _GetDeliveryState.title),),);
   }
 
 
