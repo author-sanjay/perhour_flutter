@@ -58,7 +58,7 @@ class _LatestJobsState extends State<LatestJobs> {
                             padding: EdgeInsets.all(48.0),
                             child: Center(
                               child: Text(
-                                  "Oops, We have not projects right now. Please try again in an hour"),
+                                  "Oops, We have no projects right now. Please try again in an hour"),
                             ),
                           )
                         : ListProjects(

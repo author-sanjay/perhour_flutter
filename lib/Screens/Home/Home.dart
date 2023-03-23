@@ -1,15 +1,19 @@
 // ignore_for_file: file_names, unnecessary_new, prefer_const_constructors, avoid_print
 
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Screens/ChatScreen/ChatList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/LatestJobs.dart';
+import 'package:perhour_flutter/Screens/Home/Components/Searchlist.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
 import 'package:perhour_flutter/Screens/ProfileOptions/ProfileOptions.dart';
+import 'package:perhour_flutter/api.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,6 +29,8 @@ class _HomeState extends State<Home> {
     const Color.fromRGBO(211, 56, 35, 1),
     const Color.fromRGBO(208, 4, 212, 1),
   ];
+
+  static String searchquery="";
 
   @override
   void initState() {
@@ -219,16 +225,31 @@ class _HomeState extends State<Home> {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 8.0),
-                                                child: TextFormField(
-                                                  decoration:
-                                                      const InputDecoration(
-                                                          hintText:
-                                                              "Search Category"),
+                                                child:
+                                                    TextFormField(
+                                                      onChanged: (v){
+                                                        setState(() {
+                                                          _HomeState.searchquery=v;
+                                                          print(_HomeState.searchquery);
+                                                        });
+                                                      },
+                                                      onFieldSubmitted: (v){
+                                                        if(_HomeState.searchquery.length>0){
+                                                        Navigator.push(context,MaterialPageRoute(builder: (context) => Searchlist(search: _HomeState.searchquery),),);}
+                                                      },
+
+                                                      decoration:
+                                                          const InputDecoration(
+                                                              hintText:
+                                                                  "Search Projects"),
+                                                    ),
+                                                    // Icon(Icons.search)
+
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
+
                                       ],
                                     ),
                                   ),
@@ -403,7 +424,7 @@ class _HomeState extends State<Home> {
                                               child: TextFormField(
                                                 decoration: const InputDecoration(
                                                     hintText:
-                                                        "Search Project Title"),
+                                                        "Search Project "),
                                               ),
                                             ),
                                           ),
@@ -434,4 +455,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+
 }
