@@ -10,6 +10,7 @@ import 'package:perhour_flutter/Screens/ManageSupport/ManageSupport.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
+import 'package:perhour_flutter/Screens/ResetPassword/ResetPassword.dart';
 import 'package:perhour_flutter/Screens/Wallet/Wallet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -263,7 +264,7 @@ class ProfileOptions extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => ResetPassword(),),);
                           },
                           child: Container(
                             padding: EdgeInsets.only(top: 30),
