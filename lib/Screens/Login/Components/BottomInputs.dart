@@ -170,6 +170,7 @@ class _BottomInputsState extends State<BottomInputs> {
         user.country = result["country"].toString();
         user.address = result["address"].toString();
         user.firstname = result["firstname"].toString();
+        user.referralcode=result["referralcode"].toString();
         user.lastname = result["lastname"].toString();
         user.username = result["username"].toString();
         user.membershipid = result["membershipid"];

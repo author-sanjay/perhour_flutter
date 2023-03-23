@@ -49,6 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
           user.id = result["id"].toString();
           user.country = result["country"].toString();
           user.address = result["address"].toString();
+          user.referralcode=result["referralcode"].toString();
           user.firstname = result["firstname"].toString();
           user.lastname = result["lastname"].toString();
           user.role = result["role"];

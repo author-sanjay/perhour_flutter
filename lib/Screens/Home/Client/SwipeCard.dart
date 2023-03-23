@@ -49,7 +49,7 @@ class _SwipeCardsState extends State<SwipeCards> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   for(int i=0;i<_getdeals.length;i++)
-                    ProfileCard(id: _getdeals[i].id,colorss: widget.colorss, random: widget.random,name: _getdeals[i].name, photo: _getdeals[i].photo!=null?_getdeals[i].photo.toString():"none", rates: _getdeals[i].rate.toString(),tag: _getdeals[i].tagline),
+                    ProfileCard(id: _getdeals[i].id,colorss: widget.colorss, random: widget.random,name: _getdeals[i].name.toString(), photo: _getdeals[i].photo!=null?_getdeals[i].photo.toString():"none", rates: _getdeals[i].rate.toString(),tag: _getdeals[i].tagline.toString()),
 
                 ],
               ),

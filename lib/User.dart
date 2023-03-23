@@ -16,6 +16,7 @@ class Users extends ChangeNotifier {
   String photo = "";
   String? ifsc = "";
   String? role="";
+  String referralcode="";
   String billingaddress = "";
   int bidsleft = 0;
   double stars = 0;

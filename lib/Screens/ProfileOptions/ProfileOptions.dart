@@ -10,6 +10,7 @@ import 'package:perhour_flutter/Screens/ManageSupport/ManageSupport.dart';
 import 'package:perhour_flutter/Screens/Membership/Membership.dart';
 import 'package:perhour_flutter/Screens/PostJob/PostJob.dart';
 import 'package:perhour_flutter/Screens/PostedProjects/PostedProjects.dart';
+import 'package:perhour_flutter/Screens/Refer/Refer.dart';
 import 'package:perhour_flutter/Screens/ResetPassword/ResetPassword.dart';
 import 'package:perhour_flutter/Screens/Wallet/Wallet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -319,6 +320,37 @@ class ProfileOptions extends StatelessWidget {
                                     Spacer(),
                                     Text(
                                       "Reset Password",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    Spacer(),
+                                    Icon(Icons.chevron_right_sharp)
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Refer(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(top: 30),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: Icon(
+                                        Icons.handshake,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      "Refer & Earn",
                                       style: TextStyle(fontSize: 18),
                                     ),
                                     Spacer(),

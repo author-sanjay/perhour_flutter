@@ -103,11 +103,11 @@ class _SearchFreelancerState extends State<SearchFreelancer> {
 
                               Padding(
                                 padding: const EdgeInsets.only(left:8.0),
-                                child: Text(_getdeals[index].name.toUpperCase(),style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                                child: Text(_getdeals[index].name.toString().toUpperCase(),style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left:8.0),
-                                child: Text(_getdeals[index].tagline.toUpperCase(),style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400),),
+                                child: Text(_getdeals[index].tagline.toString().toUpperCase(),style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400),),
                               ),
                             ],
                           ),

@@ -4,9 +4,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
+import 'package:perhour_flutter/Modals/Users/Usermodelapi.dart';
+import 'package:perhour_flutter/Modals/Users/Usertop3.dart';
 import 'package:perhour_flutter/Modals/Wallettxns/Txnapi.dart';
 import 'package:perhour_flutter/Modals/Wallettxns/Txnmodel.dart';
 import 'package:perhour_flutter/Screens/Login/Components/RegisterDetails.dart';
+import 'package:perhour_flutter/Screens/Refer/Refer.dart';
 import 'package:perhour_flutter/Screens/Wallet/JobDetailsClosed.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Screens/Withdraw/Withdraw.dart';
@@ -77,31 +80,36 @@ class _WalletState extends State<Wallet> {
                       ),
                     ),
                     child: Column(
+
                       children: [
                         Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(38.0),
-                              child: Column(
-                                children: [
-                                  Wallet.earning
-                                      ? Column(
-                                          children: [
-                                            const Text("Total Earning"),
-                                            Text(
-                                              "Rs ${_WalletState.walletid}",
-                                              style: const TextStyle(
-                                                fontSize: 18,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width*0.3,
+                                child: Column(
+                                  children: [
+                                    Wallet.earning
+                                        ? Column(
+                                            children: [
+                                              const Text("Total Earning"),
+                                              Text(
+                                                "Rs ${_WalletState.walletid}",
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        )
-                                      : Column(
-                                          children: [
-                                            const Text("Referral Earnings"),
-                                          ],
-                                        ),
-                                ],
+                                            ],
+                                          )
+                                        : Column(
+                                            children: [
+                                              const Text("Your Referrals",style: TextStyle(fontSize: 16),),
+
+                                            ],
+                                          ),
+                                  ],
+                                ),
                               ),
                             ),
                             const Spacer(),
@@ -242,7 +250,31 @@ class _WalletState extends State<Wallet> {
                                   "Project Earnings",
                                   style: TextStyle(fontSize: 18),
                                 )
-                              : const Text("Referrals"),
+                              :  Row(
+                                children: [
+                                  Text("Referrals",style: TextStyle(fontSize: 18),),
+                                  Spacer(),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context,MaterialPageRoute(builder: (context) => Refer(),),);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all( 10),
+                                      decoration: BoxDecoration(
+                                          color: kblue,
+                                          borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      child: Text(
+                                        "Refer More",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                           Wallet.earning
                               ? const TxnList()
                               : const ReferralList()
@@ -260,73 +292,107 @@ class _WalletState extends State<Wallet> {
   }
 }
 
-class ReferralList extends StatelessWidget {
+class ReferralList extends StatefulWidget {
   const ReferralList({
     super.key,
   });
 
   @override
+  State<ReferralList> createState() => _ReferralListState();
+}
+
+class _ReferralListState extends State<ReferralList> {
+
+  bool _isloading = true;
+  late List<User3> _getdeals;
+  @override
+  void initState() {
+    super.initState();
+    getDeals();
+
+  }
+
+  Future<void> getDeals() async {
+    _getdeals = await Userapi.getreferrals();
+    setState(() {
+      _isloading = false;
+    });
+    print(_getdeals);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.separated(
-        shrinkWrap: true,
-        itemCount: 20,
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        separatorBuilder: (_, __) => const Divider(),
-        itemBuilder: (context, int index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: GestureDetector(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      10,
+    return _isloading
+        ?Center(child:
+    CircularProgressIndicator(),
+    ):
+    SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height*0.6),
+        child: _getdeals.length==0?Center(child: Text("No Referrals"),): ListView.separated(
+          shrinkWrap: true,
+          itemCount: _getdeals.length,
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (_, __) => const Divider(),
+          itemBuilder: (context, int index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
+              child: GestureDetector(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        10,
+                      ),
                     ),
                   ),
-                ),
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 10, bottom: 10),
-                // color: Colors.white,
-                child: Row(
-                  children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Sanjay Kumar",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500),
-                          ),
-                        ],
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 10, bottom: 10),
+                  // color: Colors.white,
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:  [
+                            Text(
+                              "${_getdeals[index].name}",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Rs 10000",
-                            style: TextStyle(fontSize: 16, color: Colors.green),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                      const Spacer(),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:  [
+                            Text(
+                              "Rs ${_getdeals[index].contri}",
+                              style: TextStyle(fontSize: 14, color: Colors.green),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
+
+
 }
 
 class TxnList extends StatefulWidget {

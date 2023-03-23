@@ -89,11 +89,11 @@ class _FreelancersListState extends State<FreelancersList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${_getdeals[index].name.toUpperCase()}",
+                                  "${_getdeals[index].name.toString().toUpperCase()}",
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 Text(
-                                  "${_getdeals[index].tagline.toUpperCase()}",
+                                  "${_getdeals[index].tagline.toString().toUpperCase()}",
                                   style: TextStyle(fontSize: 12),
                                 )
                               ],
