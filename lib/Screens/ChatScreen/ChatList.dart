@@ -21,9 +21,7 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   static Stream? chats;
   getusergroups() async {
-    await DatabaseService(uid: user.id)
-        .getusergroups()
-        .then((snapshot) {
+    await DatabaseService(uid: user.id).getusergroups().then((snapshot) {
       print(snapshot);
       setState(() {
         chats = snapshot;
@@ -31,23 +29,31 @@ class _ChatListState extends State<ChatList> {
       });
     });
   }
-  @override void initState() {super.initState();getusergroups();}
+
+  @override
+  void initState() {
+    super.initState();
+    getusergroups();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ConstrainedBox(
-        constraints:BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width,
+        constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
             minHeight: MediaQuery.of(context).size.height),
         child: Container(
           color: backgroundwhite,
           width: MediaQuery.of(context).size.width,
-          child:
-            Column(children: [
-              Topbar(title: "Chats",),
+          child: Column(
+            children: [
+              Topbar(
+                title: "Chats",
+              ),
               ChatLists()
-            ],),
+            ],
+          ),
         ),
       ),
     );
@@ -62,12 +68,10 @@ class ChatLists extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all( 15),
-        // width: MediaQuery.of(context).size.width,
-        child: chatlist()
-
-      );
-
+      padding: EdgeInsets.all(15),
+      // width: MediaQuery.of(context).size.width,
+      child: chatlist(),
+    );
   }
 
   chatlist() {
@@ -80,35 +84,37 @@ class ChatLists extends StatelessWidget {
           if (snapshot.data['chatswith'] != null) {
             if (snapshot.data['chatswith'].length != 0) {
               // return
-              return  Expanded(
+              return Expanded(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height*0.8,
+                  height: MediaQuery.of(context).size.height * 0.8,
                   child: ListView.builder(
-                      itemCount: snapshot.data['chatswith'].length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var re=snapshot.data['chatswith'][index].split("_");
+                    itemCount: snapshot.data['chatswith'].length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var re = snapshot.data['chatswith'][index].split("_");
 
-                        return Container(
-                          // padding: EdgeInsets.all(20),
-                          child: SingleChatTile(id: int.parse(re[0]) , username: re[1],)
-                        );
-                      },
-                    ),
+                      return Container(
+                        // padding: EdgeInsets.all(20),
+                        child: SingleChatTile(
+                          id: int.parse(re[0]),
+                          username: re[1],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               );
-                // child: ListView.separated(
-                //   itemCount: snapshot.data['groups'].length,
-                //   itemBuilder: (context, index) {
-                //     int reverseIndex =
-                //         snapshot.data['groups'].length - index + 1;
-                //     return GroupTile(
-                //         groupId: getId(snapshot.data['groups'][reverseIndex]),
-                //         groupName:
-                //             getName(snapshot.data['groups'][reverseIndex]),
-                //         userName: snapshot.data['fullName']);
-                //   },
-                // ),
-
+              // child: ListView.separated(
+              //   itemCount: snapshot.data['groups'].length,
+              //   itemBuilder: (context, index) {
+              //     int reverseIndex =
+              //         snapshot.data['groups'].length - index + 1;
+              //     return GroupTile(
+              //         groupId: getId(snapshot.data['groups'][reverseIndex]),
+              //         groupName:
+              //             getName(snapshot.data['groups'][reverseIndex]),
+              //         userName: snapshot.data['fullName']);
+              //   },
+              // ),
             } else {
               return nochat();
             }
@@ -124,7 +130,8 @@ class ChatLists extends StatelessWidget {
       },
     );
   }
-  }
+}
+
 nochat() {
   return Center(
     child: Padding(
@@ -132,7 +139,6 @@ nochat() {
       child: Column(
         children: [
           Text("Sorry You dont have any chat"),
-
         ],
       ),
     ),
@@ -140,8 +146,9 @@ nochat() {
 }
 
 class SingleChatTile extends StatefulWidget {
-   SingleChatTile({
-    required this.id, required this.username,
+  SingleChatTile({
+    required this.id,
+    required this.username,
     super.key,
   });
   int id;
@@ -152,27 +159,31 @@ class SingleChatTile extends StatefulWidget {
 }
 
 class _SingleChatTileState extends State<SingleChatTile> {
-  static String photo="";
-  static String name="";
+  static String photo = "";
+  static String name = "";
   Future<void> finduser() async {
     print(user.id);
-print(widget.username);
-    var res = await http.get(Uri.parse("${api}users/findbyusername/${widget.username}" ),headers: headers);
+    print(widget.username);
+    var res = await http.get(
+        Uri.parse("${api}users/findbyusername/${widget.username}"),
+        headers: headers);
     var result = jsonDecode(res.body);
     print(res.body);
-    if(result["photo"]!=null){
-    setState(() {
-      _SingleChatTileState.photo=result["photo"];
-    });
-    }else{
-      _SingleChatTileState.photo="";
+    if (result["photo"] != null) {
+      setState(() {
+        _SingleChatTileState.photo = result["photo"];
+      });
+    } else {
+      _SingleChatTileState.photo = "";
     }
     setState(() {
-      _SingleChatTileState.name=result["firstname"];
+      _SingleChatTileState.name = result["firstname"];
     });
     print(_SingleChatTileState.photo);
   }
-  @override void initState() {
+
+  @override
+  void initState() {
     super.initState();
     finduser();
   }
@@ -182,28 +193,48 @@ print(widget.username);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: GestureDetector(
-        onTap: (){
-          Navigator.push(context,MaterialPageRoute(builder: (context) => ChatScreen(id: widget.id,name: "${_SingleChatTileState.name}"),),);
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                  id: widget.id, name: "${_SingleChatTileState.name}"),
+            ),
+          );
         },
-        child: Container(width: MediaQuery.of(context).size.width*0.8, decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-          padding: EdgeInsets.all( 15),
-          child: Row(children: [
-
-            _SingleChatTileState.photo.length>0? CircleAvatar(
-              backgroundImage: NetworkImage(_SingleChatTileState.photo),
-              radius: MediaQuery.of(context).size.width*0.08,):
-            CircleAvatar(
-              backgroundImage: AssetImage("assets/images/Man2.png"),
-              radius: MediaQuery.of(context).size.width*0.08,),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
-              child: Column(
-                children: [
-                  Text("${_SingleChatTileState.name.toUpperCase()}",style: TextStyle(fontSize: 18),),
-                ],
-              ),
-            )
-          ],),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
+          ),
+          padding: EdgeInsets.all(15),
+          child: Row(
+            children: [
+              _SingleChatTileState.photo.length > 0
+                  ? CircleAvatar(
+                      backgroundImage: NetworkImage(_SingleChatTileState.photo),
+                      radius: MediaQuery.of(context).size.width * 0.08,
+                    )
+                  : CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/Man2.png"),
+                      radius: MediaQuery.of(context).size.width * 0.08,
+                    ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      "${_SingleChatTileState.name.toUpperCase()}",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

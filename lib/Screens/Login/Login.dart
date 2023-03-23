@@ -25,9 +25,13 @@ class _LoginState extends State<Login> {
             children: [
               Container(
                 decoration: const BoxDecoration(
-                    color: kblue,
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(50))),
+                  color: kblue,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(
+                      50,
+                    ),
+                  ),
+                ),
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: Column(
                   children: [
@@ -123,7 +127,7 @@ class _LoginState extends State<Login> {
                           ),
                     const SizedBox(
                       height: 30,
-                    )
+                    ),
                   ],
                 ),
               ),

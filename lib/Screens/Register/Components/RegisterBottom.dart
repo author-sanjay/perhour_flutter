@@ -15,11 +15,26 @@ class RegisterBottom extends StatefulWidget {
 }
 
 class _RegisterBottomState extends State<RegisterBottom> {
-  final snackbar = SnackBar(content: Text("Email cant be null"));
-  final passwordsnackbar = SnackBar(content: Text("Password cant be null"));
-  final invalidemail = SnackBar(content: Text("Invalid Email"));
-  final invalidepassword =
-      SnackBar(content: Text("Please Create a strong password"));
+  final snackbar = SnackBar(
+    content: Text(
+      "Email cant be null",
+    ),
+  );
+  final passwordsnackbar = SnackBar(
+    content: Text(
+      "Password cant be null",
+    ),
+  );
+  final invalidemail = SnackBar(
+    content: Text(
+      "Invalid Email",
+    ),
+  );
+  final invalidepassword = SnackBar(
+    content: Text(
+      "Please Create a strong password",
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,10 +67,13 @@ class _RegisterBottomState extends State<RegisterBottom> {
           Container(
             padding: const EdgeInsets.only(top: 5, left: 50, right: 50),
             child: const Flexible(
-                child: Text(
-              "By signing in you agree with our T&Cs and privacy policies",
-              style: TextStyle(fontSize: 12),
-            )),
+              child: Text(
+                "By signing in you agree with our T&Cs and privacy policies",
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 28.0),
@@ -72,18 +90,24 @@ class _RegisterBottomState extends State<RegisterBottom> {
                 // );
               },
               child: Container(
-                  decoration: BoxDecoration(
-                      color: kblue, borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: const Center(
-                      child: Text(
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
+                padding: const EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: const Center(
+                  child: Text(
                     "Register",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
-                  ))),
+                  ),
+                ),
+              ),
             ),
           ),
         ],

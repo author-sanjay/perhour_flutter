@@ -22,13 +22,31 @@ class BottomInputs extends StatefulWidget {
 class _BottomInputsState extends State<BottomInputs> {
   static String email = "";
   static String password = "";
-  final snackbar = const SnackBar(content: Text("Email cant be null"));
-  final wrongdetails = const SnackBar(content: Text("Invalid Email Or Password"));
-  final passwordsnackbar =
-      const SnackBar(content: Text("Password cant be null"));
-  final invalidemail = const SnackBar(content: Text("Invalid Email"));
-  final invalidepassword =
-      const SnackBar(content: Text("Please Create a strong password"));
+  final snackbar = const SnackBar(
+    content: Text(
+      "Email cant be null",
+    ),
+  );
+  final wrongdetails = const SnackBar(
+    content: Text(
+      "Invalid Email Or Password",
+    ),
+  );
+  final passwordsnackbar = const SnackBar(
+    content: Text(
+      "Password cant be null",
+    ),
+  );
+  final invalidemail = const SnackBar(
+    content: Text(
+      "Invalid Email",
+    ),
+  );
+  final invalidepassword = const SnackBar(
+    content: Text(
+      "Please Create a strong password",
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,10 +80,11 @@ class _BottomInputsState extends State<BottomInputs> {
           Container(
             padding: const EdgeInsets.only(top: 5, left: 50, right: 50),
             child: const Flexible(
-                child: Text(
-              "By signing in you agree with our T&Cs and privacy policies",
-              style: TextStyle(fontSize: 12),
-            )),
+              child: Text(
+                "By signing in you agree with our T&Cs and privacy policies",
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 28.0),
@@ -80,18 +99,24 @@ class _BottomInputsState extends State<BottomInputs> {
                 // );
               },
               child: Container(
-                  decoration: BoxDecoration(
-                      color: kblue, borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: const Center(
-                      child: Text(
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
+                padding: const EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: const Center(
+                  child: Text(
                     "Login in",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
-                  ))),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -131,42 +156,42 @@ class _BottomInputsState extends State<BottomInputs> {
               "${api}users/login/${_BottomInputsState.email}/${_BottomInputsState.password}"),
           headers: headers);
 
-if(res.body.isNotEmpty) {
-  var result = jsonDecode(res.body);
-  print(result);
-  final SharedPreferences sharedPreferences =
-  await SharedPreferences.getInstance();
-  sharedPreferences.setString("uid", result["id"].toString());
-  sharedPreferences.setString(
-      "name", result["firstname"] + result["lastname"]);
-  sharedPreferences.setString("email", result["email"]);
-  user.email = result["email"];
-  user.id = result["id"].toString();
-  user.country = result["country"].toString();
-  user.address = result["address"].toString();
-  user.firstname = result["firstname"].toString();
-  user.lastname = result["lastname"].toString();
-  user.username = result["username"].toString();
-  user.membershipid = result["membershipid"];
-  user.about = result["about"];
-  user.rate=result["rates"];
-  user.stars=result["star"];
-  user.role=result["role"];
-  if(result["photo"]!=null){
-    user.photo=result["photo"];
-  }
+      if (res.body.isNotEmpty) {
+        var result = jsonDecode(res.body);
+        print(result);
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString("uid", result["id"].toString());
+        sharedPreferences.setString(
+            "name", result["firstname"] + result["lastname"]);
+        sharedPreferences.setString("email", result["email"]);
+        user.email = result["email"];
+        user.id = result["id"].toString();
+        user.country = result["country"].toString();
+        user.address = result["address"].toString();
+        user.firstname = result["firstname"].toString();
+        user.lastname = result["lastname"].toString();
+        user.username = result["username"].toString();
+        user.membershipid = result["membershipid"];
+        user.about = result["about"];
+        user.rate = result["rates"];
+        user.stars = result["star"];
+        user.role = result["role"];
+        if (result["photo"] != null) {
+          user.photo = result["photo"];
+        }
 
-  user.bidsleft=result["bidsleft"];
-  // user.membershipexpiry=result["membershipexpiry"].toString();
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const Home(),
-    ),
-  );
-}else{
-ScaffoldMessenger.of(context).showSnackBar(wrongdetails);
-}
+        user.bidsleft = result["bidsleft"];
+        // user.membershipexpiry=result["membershipexpiry"].toString();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Home(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(wrongdetails);
+      }
     }
   }
 }

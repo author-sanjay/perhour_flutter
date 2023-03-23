@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print, use_build_context_synchronously
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print, use_build_context_synchronously, must_be_immutable
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -10,62 +10,67 @@ import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PostJobAndAssign extends StatefulWidget {
-   PostJobAndAssign({required this.id,super.key});
-    int id;
+  PostJobAndAssign({required this.id, super.key});
+  int id;
   static bool hourly = true;
   @override
   State<PostJobAndAssign> createState() => _PostJobAndAssignState();
 }
 
 class _PostJobAndAssignState extends State<PostJobAndAssign> {
-
-  final snackbar = const SnackBar(content: Text("Payment Failed. Please Post The Job Again",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
-  static int userid=0;
-  static int projectid=0;
+  final snackbar = const SnackBar(
+    content: Text(
+      "Payment Failed. Please Post The Job Again",
+      style: TextStyle(color: Colors.white),
+    ),
+    backgroundColor: Colors.red,
+  );
+  static int userid = 0;
+  static int projectid = 0;
   static Razorpay _razorpay = Razorpay();
 
-  static bool _isloading=false;
+  static bool _isloading = false;
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) async{
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     // Do something when payment succeeds
     print("success");
-    var res = await http.post(Uri.parse(api + 'projects/assignproject/${widget.id}/${_PostJobAndAssignState.projectid}' ),headers: headers);
+    var res = await http.post(
+        Uri.parse(api +
+            'projects/assignproject/${widget.id}/${_PostJobAndAssignState.projectid}'),
+        headers: headers);
     var result = jsonDecode(res.body);
     print(result);
     Navigator.pop(context);
-
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
     setState(() {
-      _PostJobAndAssignState._isloading=false;
+      _PostJobAndAssignState._isloading = false;
     });
-
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
   }
 
-  void dispose(){
+  void dispose() {
+    super.dispose();
     _razorpay.clear(); // Removes all listeners
   }
 
-  @override void initState() {
-
+  @override
+  void initState() {
     super.initState();
-    _PostJobAndAssignState._isloading=false;
-    _PostJobAndAssignState.userid=widget.id;
+    _PostJobAndAssignState._isloading = false;
+    _PostJobAndAssignState.userid = widget.id;
     print(_PostJobAndAssignState.userid);
 
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
-
-
 
   static String title = "";
   static int budget = 0;
@@ -80,7 +85,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
           child: Container(
             color: backgroundwhite,
             child: Column(
@@ -98,7 +103,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, right: 20, top: 30),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 30),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +127,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, right: 20, top: 30),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 30),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +144,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                           },
                           keyboardType: TextInputType.number,
                           decoration:
-                          const InputDecoration(hintText: "Rs 5000"),
+                              const InputDecoration(hintText: "Rs 5000"),
                         ),
                       ],
                     ),
@@ -147,7 +152,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, right: 20, top: 30),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 30),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +169,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                           },
                           keyboardType: TextInputType.number,
                           decoration:
-                          const InputDecoration(hintText: "30 Days"),
+                              const InputDecoration(hintText: "30 Days"),
                         ),
                       ],
                     ),
@@ -172,7 +177,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, right: 20, top: 30),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 30),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,11 +203,13 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: PostJobAndAssign.hourly
-                                            ? kblue
-                                            : backgroundwhite,
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
+                                      color: PostJobAndAssign.hourly
+                                          ? kblue
+                                          : backgroundwhite,
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
                                     padding: const EdgeInsets.only(
                                         left: 20,
                                         right: 20,
@@ -221,7 +228,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                                 ),
                                 SizedBox(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.1,
+                                      MediaQuery.of(context).size.width * 0.1,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -233,27 +240,27 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                                     });
                                   },
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          color: PostJobAndAssign.hourly
-                                              ? backgroundwhite
-                                              : kblue),
-                                      padding: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: Text(
-                                        "Fixed",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: PostJobAndAssign.hourly
-                                              ? Colors.black
-                                              : Colors.white,
-                                        ),
-                                      )),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: PostJobAndAssign.hourly
+                                            ? backgroundwhite
+                                            : kblue),
+                                    padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: Text(
+                                      "Fixed",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color: PostJobAndAssign.hourly
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -265,7 +272,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, right: 20, top: 30),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 30),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,18 +290,22 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      if (_PostJobAndAssignState.experience != 0) {
+                                      if (_PostJobAndAssignState.experience !=
+                                          0) {
                                         _PostJobAndAssignState.experience = 0;
                                       }
                                     });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: _PostJobAndAssignState.experience == 0
-                                            ? kblue
-                                            : backgroundwhite,
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
+                                      color:
+                                          _PostJobAndAssignState.experience == 0
+                                              ? kblue
+                                              : backgroundwhite,
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
                                     padding: const EdgeInsets.only(
                                         left: 10,
                                         right: 10,
@@ -304,7 +315,9 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                                       "Beginner",
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: _PostJobAndAssignState.experience == 0
+                                          color: _PostJobAndAssignState
+                                                      .experience ==
+                                                  0
                                               ? Colors.white
                                               : Colors.black,
                                           fontWeight: FontWeight.w300),
@@ -315,65 +328,75 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      if (_PostJobAndAssignState.experience != 1) {
+                                      if (_PostJobAndAssignState.experience !=
+                                          1) {
                                         _PostJobAndAssignState.experience = 1;
                                       }
                                     });
                                   },
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          color: _PostJobAndAssignState.experience == 1
-                                              ? kblue
-                                              : backgroundwhite),
-                                      padding: const EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: Text(
-                                        "Intermediate",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: _PostJobAndAssignState.experience == 1
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      )),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color:
+                                            _PostJobAndAssignState.experience ==
+                                                    1
+                                                ? kblue
+                                                : backgroundwhite),
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: Text(
+                                      "Intermediate",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color:
+                                            _PostJobAndAssignState.experience ==
+                                                    1
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 const Spacer(),
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      if (_PostJobAndAssignState.experience != 2) {
+                                      if (_PostJobAndAssignState.experience !=
+                                          2) {
                                         _PostJobAndAssignState.experience = 2;
                                       }
                                     });
                                   },
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          color: _PostJobAndAssignState.experience == 2
-                                              ? kblue
-                                              : backgroundwhite),
-                                      padding: const EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: Text(
-                                        "Expert",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: _PostJobAndAssignState.experience == 2
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      )),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color:
+                                            _PostJobAndAssignState.experience ==
+                                                    2
+                                                ? kblue
+                                                : backgroundwhite),
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: Text(
+                                      "Expert",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color:
+                                            _PostJobAndAssignState.experience ==
+                                                    2
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -385,7 +408,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, right: 20, top: 30),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 30),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -402,7 +425,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                           },
                           decoration: const InputDecoration(
                               hintText:
-                              "Software / Editing / Writing / Others"),
+                                  "Software / Editing / Writing / Others"),
                         ),
                       ],
                     ),
@@ -429,7 +452,8 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                               // style: TextStyle(height: 300),
                               onChanged: (value) {
                                 setState(() {
-                                  _PostJobAndAssignState.fulldescription = value;
+                                  _PostJobAndAssignState.fulldescription =
+                                      value;
                                 });
                               },
                               minLines: 5,
@@ -451,24 +475,32 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
                       left: 20.0, right: 20, top: 20, bottom: 10),
                   child: GestureDetector(
                     onTap: () {
-
                       postJobAndAssign();
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
-                          color: kblue,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: _PostJobAndAssignState._isloading ?Center(child: CircularProgressIndicator(color: Colors.white,),): Center(
-                        child: Text(
-                          "Post and Assign",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white),
+                        color: kblue,
+                        borderRadius: BorderRadius.circular(
+                          10,
                         ),
                       ),
+                      child: _PostJobAndAssignState._isloading
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : Center(
+                              child: Text(
+                                "Post and Assign",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white),
+                              ),
+                            ),
                     ),
                   ),
                 )
@@ -482,7 +514,7 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
 
   void postJobAndAssign() async {
     setState(() {
-      _PostJobAndAssignState._isloading=true;
+      _PostJobAndAssignState._isloading = true;
     });
     var verify = verifycategory();
     if (!verify) {
@@ -508,39 +540,40 @@ class _PostJobAndAssignState extends State<PostJobAndAssign> {
       "experience": exp
     });
 
-    http.post(Uri.parse(api + 'projects/add/' + user.id),
-        headers: headers, body: json).then((value) {
-          print(value.body);
-          print(_PostJobAndAssignState.budget *100);
-          var res=jsonDecode(value.body);
-          _PostJobAndAssignState.projectid=res["id"];
-          final json=jsonEncode({
-            "customername":user.firstname+" "+user.lastname,
-            "customeremail":user.email,
-            "amount":res["price"] *100
-          });
-          http.post(Uri.parse(api + 'pay/createorder'),headers: headers,body: json).then((value) {
-            print(value.body);
-            var result=jsonDecode(value.body);
-            var options = {
-              'key': result["secretkey"],
-              'amount': res["price"] *100, //in the smallest currency sub-unit.
-              'name': '${user.firstname} ${user.lastname}',
-              'order_id': result["razorpayorderid"], // Generate order_id using Orders API
-              'description': 'This amount will be stored with us until you release the payment. In case you dont get the desired work, You will get the refund. Please dont worry about it',
-              'timeout': 60, // in seconds
-              'prefill': {
+    http
+        .post(Uri.parse(api + 'projects/add/' + user.id),
+            headers: headers, body: json)
+        .then((value) {
+      print(value.body);
+      print(_PostJobAndAssignState.budget * 100);
+      var res = jsonDecode(value.body);
+      _PostJobAndAssignState.projectid = res["id"];
+      final json = jsonEncode({
+        "customername": user.firstname + " " + user.lastname,
+        "customeremail": user.email,
+        "amount": res["price"] * 100
+      });
+      http
+          .post(Uri.parse(api + 'pay/createorder'),
+              headers: headers, body: json)
+          .then((value) {
+        print(value.body);
+        var result = jsonDecode(value.body);
+        var options = {
+          'key': result["secretkey"],
+          'amount': res["price"] * 100, //in the smallest currency sub-unit.
+          'name': '${user.firstname} ${user.lastname}',
+          'order_id':
+              result["razorpayorderid"], // Generate order_id using Orders API
+          'description':
+              'This amount will be stored with us until you release the payment. In case you dont get the desired work, You will get the refund. Please dont worry about it',
+          'timeout': 60, // in seconds
+          'prefill': {'email': user.email}
+        };
 
-                'email': user.email
-              }
-            };
-
-            _PostJobAndAssignState._razorpay.open(options);
-
-          });
-        }
-        );
-
+        _PostJobAndAssignState._razorpay.open(options);
+      });
+    });
   }
 }
 

@@ -80,11 +80,13 @@ class _SendFeedBackState extends State<SendFeedBack> {
                           );
                         },
                         child: Container(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            child: const Image(
-                                image: AssetImage("assets/images/Man2.png"))),
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: const Image(
+                            image: AssetImage("assets/images/Man2.png"),
+                          ),
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Container(
@@ -112,8 +114,9 @@ class _SendFeedBackState extends State<SendFeedBack> {
                           width: MediaQuery.of(context).size.width * 0.9,
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: const Text("File Path"),
                         ),
                         Padding(
@@ -144,42 +147,42 @@ class _SendFeedBackState extends State<SendFeedBack> {
                           ),
                         ),
                         Container(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Your Feedback",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Container(
-                                    // color: kblue,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.1,
-                                    child: TextField(
-                                      onChanged: (value) {
-                                        setState(() {
-                                          SendFeedBack.feedback = value;
-                                        });
-                                      },
-                                      // style: TextStyle(height: 300),
-                                      minLines: 5,
-                                      maxLines: 100,
-                                      decoration: const InputDecoration(
-                                        hintText:
-                                            "Overall I rate this freelancer as...",
-                                        contentPadding: EdgeInsets.all(8),
-                                        border: OutlineInputBorder(),
-                                      ),
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Your Feedback",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Container(
+                                  // color: kblue,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      setState(() {
+                                        SendFeedBack.feedback = value;
+                                      });
+                                    },
+                                    // style: TextStyle(height: 300),
+                                    minLines: 5,
+                                    maxLines: 100,
+                                    decoration: const InputDecoration(
+                                      hintText:
+                                          "Overall I rate this freelancer as...",
+                                      contentPadding: EdgeInsets.all(8),
+                                      border: OutlineInputBorder(),
                                     ),
                                   ),
                                 ),
-                              ],
-                            )),
+                              ),
+                            ],
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
                           child: GestureDetector(
@@ -189,22 +192,24 @@ class _SendFeedBackState extends State<SendFeedBack> {
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  color: kblue,
-                                  borderRadius: BorderRadius.circular(10)),
+                                color: kblue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               width: MediaQuery.of(context).size.width * 0.9,
                               child: const Center(
-                                  child: Text(
-                                "Submit",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              )),
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

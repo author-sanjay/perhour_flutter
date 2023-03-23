@@ -34,37 +34,39 @@ class _LatestJobsState extends State<LatestJobs> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
-        child: Container(
-          child: Expanded(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    "Latest Jobs",
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
+      padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
+      child: Container(
+        child: Expanded(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  "Latest Jobs",
+                  style: TextStyle(
+                    fontSize: 15,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  _isloading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : _getdeals.isEmpty
-                          ? const Padding(
-                              padding: EdgeInsets.all(48.0),
-                              child: Center(
-                                  child: Text(
-                                      "Oops, We have not projects right now. Please try again in an hour")),
-                            )
-                          : ListProjects(
-                              getjobs: _getdeals,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                _isloading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : _getdeals.isEmpty
+                        ? const Padding(
+                            padding: EdgeInsets.all(48.0),
+                            child: Center(
+                              child: Text(
+                                  "Oops, We have not projects right now. Please try again in an hour"),
                             ),
-                ]),
-          ),
-        ));
+                          )
+                        : ListProjects(
+                            getjobs: _getdeals,
+                          ),
+              ]),
+        ),
+      ),
+    );
   }
 }

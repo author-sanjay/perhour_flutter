@@ -11,10 +11,12 @@ class ProfileCard extends StatelessWidget {
   ProfileCard({
     super.key,
     required this.id,
-    required this.name, required this.photo, required this.rates, required this.tag,
+    required this.name,
+    required this.photo,
+    required this.rates,
+    required this.tag,
     required this.colorss,
     required this.random,
-
   });
   int id;
   String name;
@@ -45,8 +47,11 @@ class ProfileCard extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.7,
           height: MediaQuery.of(context).size.height * 0.2,
           decoration: BoxDecoration(
-              color: colorss[random.nextInt(3)],
-              borderRadius: BorderRadius.circular(10)),
+            color: colorss[random.nextInt(3)],
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -54,16 +59,25 @@ class ProfileCard extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 18.0, left: 28),
                 child: Row(
                   children: [
-                    photo!="none" ? CircleAvatar(backgroundImage: NetworkImage(user.photo),radius: MediaQuery.of(context).size.width*0.08,):Container(
-                      height: 60,
-                      width: 60,
-                      child: Image(image: AssetImage("assets/images/Man2.png")),
-                    ),
+                    photo != "none"
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(user.photo),
+                            radius: MediaQuery.of(context).size.width * 0.08,
+                          )
+                        : Container(
+                            height: 60,
+                            width: 60,
+                            child: Image(
+                              image: AssetImage(
+                                "assets/images/Man2.png",
+                              ),
+                            ),
+                          ),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Container(
-                        width: MediaQuery.of(context).size.width*0.4,
+                        width: MediaQuery.of(context).size.width * 0.4,
                         child: Text(
                           "Rs ${rates}/hr ",
                           style: TextStyle(fontSize: 20, color: Colors.white),

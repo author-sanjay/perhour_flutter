@@ -28,10 +28,13 @@ class RegisterBottom extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 5, left: 50, right: 50),
             child: const Flexible(
-                child: Text(
-              "By signing in you agree with our T&Cs and privacy policies",
-              style: TextStyle(fontSize: 12),
-            )),
+              child: Text(
+                "By signing in you agree with our T&Cs and privacy policies",
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 28.0),
@@ -46,18 +49,25 @@ class RegisterBottom extends StatelessWidget {
                 // );
               },
               child: Container(
-                  decoration: BoxDecoration(
-                      color: kblue, borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: const Center(
-                      child: Text(
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
+                padding: const EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: const Center(
+                  child: Text(
                     "Registerr",
                     style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                  ))),
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],

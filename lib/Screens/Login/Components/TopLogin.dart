@@ -8,7 +8,6 @@ class TopLogin extends StatefulWidget {
     super.key,
   });
 
-
   @override
   State<TopLogin> createState() => _TopLoginState();
 }
@@ -18,8 +17,13 @@ class _TopLoginState extends State<TopLogin> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          color: kblue,
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(50))),
+        color: kblue,
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(
+            50,
+          ),
+        ),
+      ),
       height: MediaQuery.of(context).size.height * 0.6,
       child: Column(
         children: [

@@ -59,8 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
           user.about = result["about"].toString();
           user.rate = result["rates"];
           user.stars = result["star"];
-          if(result["photo"]!=null){
-            user.photo=result["photo"];
+          if (result["photo"] != null) {
+            user.photo = result["photo"];
           }
 
           Navigator.pushReplacement(
@@ -87,11 +87,15 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             children: [
               Container(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.2,
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.2,
+                ),
+                child: const Image(
+                  image: AssetImage(
+                    "assets/images/PerHourlogo.png",
                   ),
-                  child: const Image(
-                      image: AssetImage("assets/images/PerHourlogo.png"))),
+                ),
+              ),
               Container(
                 padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.05,

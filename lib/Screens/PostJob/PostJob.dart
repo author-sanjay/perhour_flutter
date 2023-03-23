@@ -147,11 +147,13 @@ class _PostJobState extends State<PostJob> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: PostJob.hourly
-                                            ? kblue
-                                            : backgroundwhite,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                      color: PostJob.hourly
+                                          ? kblue
+                                          : backgroundwhite,
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
                                     padding: const EdgeInsets.only(
                                         left: 20,
                                         right: 20,
@@ -182,27 +184,27 @@ class _PostJobState extends State<PostJob> {
                                     });
                                   },
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: PostJob.hourly
-                                              ? backgroundwhite
-                                              : kblue),
-                                      padding: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: Text(
-                                        "Fixed",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: PostJob.hourly
-                                              ? Colors.black
-                                              : Colors.white,
-                                        ),
-                                      )),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: PostJob.hourly
+                                            ? backgroundwhite
+                                            : kblue),
+                                    padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: Text(
+                                      "Fixed",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color: PostJob.hourly
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -239,11 +241,13 @@ class _PostJobState extends State<PostJob> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: _PostJobState.experience == 0
-                                            ? kblue
-                                            : backgroundwhite,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                      color: _PostJobState.experience == 0
+                                          ? kblue
+                                          : backgroundwhite,
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
                                     padding: const EdgeInsets.only(
                                         left: 10,
                                         right: 10,
@@ -270,27 +274,27 @@ class _PostJobState extends State<PostJob> {
                                     });
                                   },
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: _PostJobState.experience == 1
-                                              ? kblue
-                                              : backgroundwhite),
-                                      padding: const EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: Text(
-                                        "Intermediate",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: _PostJobState.experience == 1
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      )),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: _PostJobState.experience == 1
+                                            ? kblue
+                                            : backgroundwhite),
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: Text(
+                                      "Intermediate",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color: _PostJobState.experience == 1
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 const Spacer(),
                                 GestureDetector(
@@ -302,27 +306,27 @@ class _PostJobState extends State<PostJob> {
                                     });
                                   },
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: _PostJobState.experience == 2
-                                              ? kblue
-                                              : backgroundwhite),
-                                      padding: const EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: Text(
-                                        "Expert",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: _PostJobState.experience == 2
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      )),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: _PostJobState.experience == 2
+                                            ? kblue
+                                            : backgroundwhite),
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: Text(
+                                      "Expert",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color: _PostJobState.experience == 2
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -406,8 +410,11 @@ class _PostJobState extends State<PostJob> {
                       padding: const EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
-                          color: kblue,
-                          borderRadius: BorderRadius.circular(10)),
+                        color: kblue,
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                      ),
                       child: const Center(
                         child: Text(
                           "Post",

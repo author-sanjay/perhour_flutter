@@ -46,13 +46,14 @@ class _JobDetailsState extends State<JobDetails> {
                   color: kblue,
                   padding: const EdgeInsets.only(top: 20),
                   child: const Center(
-                      child: Text(
-                    "Job Details",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                  )),
+                    child: Text(
+                      "Job Details",
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -84,19 +85,24 @@ class _JobDetailsState extends State<JobDetails> {
                           },
                           child: Container(
                             decoration: const BoxDecoration(
-                                color: kblue,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                              color: kblue,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  10,
+                                ),
+                              ),
+                            ),
                             width: MediaQuery.of(context).size.width,
                             padding: const EdgeInsets.all(10),
                             child: const Center(
-                                child: Text(
-                              "Apply",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w300),
-                            )),
+                              child: Text(
+                                "Apply",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
                           ),
                         ),
                       )
@@ -144,9 +150,13 @@ class _DeadlinesState extends State<Deadlines> {
                       fontSize: 12, fontWeight: FontWeight.w300),
                 ),
                 const Spacer(),
-                Text("Project Type: ${widget.type}",
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w300))
+                Text(
+                  "Project Type: ${widget.type}",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
               ],
             ),
           ),

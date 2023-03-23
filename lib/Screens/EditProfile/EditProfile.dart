@@ -96,7 +96,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void update() async {
     final json = jsonEncode({
-"photo":user.photo,
+      "photo": user.photo,
       "phone": _EditDetailsState.phonenumber,
       "address": _EditDetailsState.address,
       "withdrawltype": _EditDetailsState.withdrawltype,
@@ -138,9 +138,14 @@ class _EditDetailsState extends State<EditDetails> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(
+                30,
+              ),
+            ),
+          ),
           height: MediaQuery.of(context).size.height * 0.7,
           child: Padding(
             padding: const EdgeInsets.only(top: 38.0, left: 30, right: 3),
@@ -281,31 +286,31 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-          child: GestureDetector(
-            onTap: (() async {
-              final results =
-              await FilePicker.platform.pickFiles(
-                allowMultiple: false,
-                type: FileType.image,
-              );
-              if (results == null) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(
+        child: GestureDetector(
+          onTap: (() async {
+            final results = await FilePicker.platform.pickFiles(
+              allowMultiple: false,
+              type: FileType.image,
+            );
+            if (results == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
                   content: Text("File not selected"),
-                ));
-                return null;
-              } else {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(
+                ),
+              );
+              return null;
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
                   content: Text("File selected"),
-                ));
-              }
-              final path = results.files.single.path;
-              final filename = results.files.single.name;
-              // ignore: avoid_print
-              storage
-                  .uploadfile(path!, filename)
-                  .then(((result) {
+                ),
+              );
+            }
+            final path = results.files.single.path;
+            final filename = results.files.single.name;
+            // ignore: avoid_print
+            storage.uploadfile(path!, filename).then(
+              ((result) {
                 // deals("", "", "", "", "", "", 0, widget.photourl!);
 
                 setState(() {
@@ -315,31 +320,26 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                   user.photo = result;
                   // updatephoto(result);
                 });
-
-              }));
-            }),
-        child: user.photo.isNotEmpty?
-        CircleAvatar(
-          backgroundImage: NetworkImage(user.photo),
-          radius: MediaQuery.of(context).size.width * 0.2,
-        )
-                  :CircleAvatar(
-          backgroundImage: AssetImage("assets/images/Man2.png"),
-          radius: MediaQuery.of(context).size.width * 0.2,
+              }),
+            );
+          }),
+          child: user.photo.isNotEmpty
+              ? CircleAvatar(
+                  backgroundImage: NetworkImage(user.photo),
+                  radius: MediaQuery.of(context).size.width * 0.2,
+                )
+              : CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/Man2.png"),
+                  radius: MediaQuery.of(context).size.width * 0.2,
+                ),
         ),
-      )),
+      ),
     );
   }
 
-
-
-
-
-  void updatephoto(String photo) async{
+  void updatephoto(String photo) async {
     final json = jsonEncode({
-
       "photo": _EditDetailsState.phonenumber,
-
     });
 
     var res = await http.post(Uri.parse('${api}users/update'),

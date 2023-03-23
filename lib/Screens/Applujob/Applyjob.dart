@@ -31,8 +31,8 @@ class _ApplyJobState extends State<ApplyJob> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: ConstrainedBox(
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(context).size.height),
           child: Container(
@@ -87,11 +87,13 @@ class _ApplyJobState extends State<ApplyJob> {
                       )
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          )),
-    ));
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -133,9 +135,9 @@ class _BidInputsState extends State<BidInputs> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-      children: [
-        Container(
+      child: Column(
+        children: [
+          Container(
             padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,10 +160,11 @@ class _BidInputsState extends State<BidInputs> {
                       hintText: "Rs 500",
                     ),
                   ),
-                )
+                ),
               ],
-            )),
-        Container(
+            ),
+          ),
+          Container(
             padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,8 +193,9 @@ class _BidInputsState extends State<BidInputs> {
                   ),
                 ),
               ],
-            )),
-        Container(
+            ),
+          ),
+          Container(
             padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,10 +218,11 @@ class _BidInputsState extends State<BidInputs> {
                       hintText: "20 Days",
                     ),
                   ),
-                )
+                ),
               ],
-            )),
-        Container(
+            ),
+          ),
+          Container(
             padding: const EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,69 +246,76 @@ class _BidInputsState extends State<BidInputs> {
                       hintText: "5",
                     ),
                   ),
-                )
-              ],
-            )),
-        user.bidsleft > 0
-            ? Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: GestureDetector(
-                  onTap: () {
-                    if (user.bidsleft > 0) {
-                      postbid(widget.id);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(bids);
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: kblue, borderRadius: BorderRadius.circular(10)),
-                    // color: kblue,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    // padding: EdgeInsets.only(top: 20),
-                    child: const Center(
-                        child: Text(
-                      "Propose Bid",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    )),
-                  ),
                 ),
-              )
-            : Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: GestureDetector(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(bids);
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Not enough bids left"),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: kblue,
-                            borderRadius: BorderRadius.circular(10)),
-                        // color: kblue,
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        // padding: EdgeInsets.only(top: 20),
-                        child: const Center(
-                            child: Text(
+              ],
+            ),
+          ),
+          user.bidsleft > 0
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (user.bidsleft > 0) {
+                        postbid(widget.id);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(bids);
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kblue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      // color: kblue,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      // padding: EdgeInsets.only(top: 20),
+                      child: const Center(
+                        child: Text(
                           "Propose Bid",
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
                               fontWeight: FontWeight.w300),
-                        )),
+                        ),
                       ),
-                    ],
+                    ),
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(bids);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Not enough bids left"),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: kblue,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          // color: kblue,
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          // padding: EdgeInsets.only(top: 20),
+                          child: const Center(
+                            child: Text(
+                              "Propose Bid",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              )
-      ],
-    ));
+        ],
+      ),
+    );
   }
 
   void postbid(int projectid) async {

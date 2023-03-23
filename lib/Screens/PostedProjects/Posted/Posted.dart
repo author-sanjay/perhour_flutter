@@ -30,7 +30,6 @@ class _PostedState extends State<Posted> {
   void initState() {
     super.initState();
     getDeals();
-
   }
 
   Future<void> getDeals() async {
@@ -39,8 +38,6 @@ class _PostedState extends State<Posted> {
       _isloading = false;
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +52,6 @@ class _PostedState extends State<Posted> {
             child: Column(
               children: [
                 for (int i = 0; i < _getdeals.length; i++)
-
                   if (_getdeals[i].status == "Placed")
                     SimplePlaced(
                       id: _getdeals[i].id,
@@ -74,7 +70,9 @@ class _PostedState extends State<Posted> {
                     )
                   else if (_getdeals[i].status == "Completed")
                     Feedback(
-                      feedback: _getdeals[i].feedback==null?"":_getdeals[i].feedback.toString(),
+                      feedback: _getdeals[i].feedback == null
+                          ? ""
+                          : _getdeals[i].feedback.toString(),
                       id: _getdeals[i].id,
                       bidsplace: _getdeals[i].bids,
                       price: _getdeals[i].price,
@@ -102,13 +100,11 @@ class _PostedState extends State<Posted> {
 
 class Assigned extends StatefulWidget {
   Assigned({
-
     required this.id,
     required this.deliverydate,
     required this.price,
     required this.status,
     required this.title,
-
     super.key,
   });
 
@@ -118,14 +114,13 @@ class Assigned extends StatefulWidget {
   String status;
   int price;
 
-
   @override
   State<Assigned> createState() => _AssignedState();
 }
 
 class _AssignedState extends State<Assigned> {
- static int id=0;
-  static String name="";
+  static int id = 0;
+  static String name = "";
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -153,28 +148,36 @@ class _AssignedState extends State<Assigned> {
       },
     );
   }
-static bool loading=false;
-Future<void> projectdetails() async {
-    var res = await http.get(Uri.parse(api + 'projects/get/${widget.id}'),headers: headers);
+
+  static bool loading = false;
+  Future<void> projectdetails() async {
+    var res = await http.get(Uri.parse(api + 'projects/get/${widget.id}'),
+        headers: headers);
     var result = jsonDecode(res.body);
     print(result);
     setState(() {
-      _AssignedState.id=result["giventoo"];
-      _AssignedState.name=result["giventoname"];
-      _AssignedState.loading=true;
+      _AssignedState.id = result["giventoo"];
+      _AssignedState.name = result["giventoname"];
+      _AssignedState.loading = true;
     });
     print(_AssignedState.id);
 
-  Navigator.push(context,MaterialPageRoute(builder: (context) => ChatScreen(id: _AssignedState.id, name: _AssignedState.name),),);
-  setState(() {
-    _AssignedState.loading=false;
-  });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ChatScreen(id: _AssignedState.id, name: _AssignedState.name),
+      ),
+    );
+    setState(() {
+      _AssignedState.loading = false;
+    });
   }
 
-
-  @override void initState() {
+  @override
+  void initState() {
     super.initState();
-    _AssignedState.loading=false;
+    _AssignedState.loading = false;
   }
 
   @override
@@ -182,7 +185,11 @@ Future<void> projectdetails() async {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
       width: MediaQuery.of(context).size.width * 0.9,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: Column(
@@ -193,11 +200,14 @@ Future<void> projectdetails() async {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Text(
-                        widget.title,
-                        style: const TextStyle(fontSize: 18),
-                      )),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Text(
+                      widget.title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -224,11 +234,15 @@ Future<void> projectdetails() async {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      child: const Text(
-                        "Assigned",
-                        style: TextStyle(fontSize: 14, color: Colors.red),
-                      )),
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: const Text(
+                      "Assigned",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
@@ -243,10 +257,9 @@ Future<void> projectdetails() async {
           Column(
             children: [
               GestureDetector(
-            onTap: (){
-projectdetails();
-
-},
+                onTap: () {
+                  projectdetails();
+                },
                 child: Container(
                   margin: const EdgeInsets.only(top: 10),
                   padding: const EdgeInsets.all(10),
@@ -255,11 +268,19 @@ projectdetails();
                     borderRadius: BorderRadius.circular(10),
                   ),
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: _AssignedState.loading?Center(child: CircularProgressIndicator(),): Center(
-                      child: Text(
-                    "Chat With Freelancer",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  )),
+                  child: _AssignedState.loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Center(
+                          child: Text(
+                            "Chat With Freelancer",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                 ),
               ),
               GestureDetector(
@@ -275,10 +296,14 @@ projectdetails();
                   ),
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: const Center(
-                      child: Text(
-                    "Revoke Project",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  )),
+                    child: Text(
+                      "Revoke Project",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -344,33 +369,40 @@ class _FeedbackState extends State<Feedback> {
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
+          ),
           child: Row(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: Text(
-                        "${widget.title}",
-                        style: const TextStyle(fontSize: 18),
-                      )),
-              widget.feedback.isEmpty?
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kblue),
-                      padding: const EdgeInsets.only(
-                          left: 15, right: 15, top: 8, bottom: 8),
-                      child: const Text(
-                        "Send Feedback",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      "${widget.title}",
+                      style: const TextStyle(fontSize: 18),
                     ),
-                  ):Container(),
+                  ),
+                  widget.feedback.isEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: kblue),
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 15, top: 8, bottom: 8),
+                            child: const Text(
+                              "Send Feedback",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
               const Spacer(),
@@ -378,11 +410,15 @@ class _FeedbackState extends State<Feedback> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      child: Text(
-                        "${widget.status}",
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
-                      )),
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: Text(
+                      "${widget.status}",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
@@ -429,7 +465,7 @@ class _CheckdeliveryState extends State<Checkdelivery> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  GetDelivery(id: widget.id),
+              builder: (context) => GetDelivery(id: widget.id),
             ),
           );
         },
@@ -439,41 +475,52 @@ class _CheckdeliveryState extends State<Checkdelivery> {
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
+          ),
           child: Row(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: Text(
-                        "${widget.title}",
-                        style: const TextStyle(fontSize: 18),
-                      )),
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      "${widget.title}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>  GetDelivery(id: widget.id),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kblue),
-                          padding: const EdgeInsets.only(
-                              left: 15, right: 15, top: 8, bottom: 8),
-                          child: const Text(
-                            "Check Delivery",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GetDelivery(id: widget.id),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: kblue),
+                        padding: const EdgeInsets.only(
+                            left: 15, right: 15, top: 8, bottom: 8),
+                        child: const Text(
+                          "Check Delivery",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
                           ),
                         ),
-                      ))
+                      ),
+                    ),
+                  )
                 ],
               ),
               const Spacer(),
@@ -481,11 +528,15 @@ class _CheckdeliveryState extends State<Checkdelivery> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      child: Text(
-                        "${widget.status}",
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
-                      )),
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: Text(
+                      "${widget.status}",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text(
@@ -538,7 +589,11 @@ class _SimplePlacedState extends State<SimplePlaced> {
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+        ),
         width: MediaQuery.of(context).size.width * 0.9,
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
@@ -548,11 +603,14 @@ class _SimplePlacedState extends State<SimplePlaced> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      "${widget.title}",
-                      style: const TextStyle(fontSize: 18),
-                    )),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Text(
+                    "${widget.title}",
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
@@ -567,11 +625,15 @@ class _SimplePlacedState extends State<SimplePlaced> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
-                      "${widget.status}",
-                      style: const TextStyle(fontSize: 14, color: Colors.red),
-                    )),
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: Text(
+                    "${widget.status}",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Text(

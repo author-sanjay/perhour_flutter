@@ -13,7 +13,6 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  static String currentpassword="";
   static String newpassword="";
   static String confirmpassword="";
   final snackbar = const SnackBar(content: Text("Password Dont match. Please Try again",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);

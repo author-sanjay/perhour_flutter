@@ -18,7 +18,7 @@ class BidsDetails extends StatefulWidget {
       required this.projectid,
       required this.revisions,
       required this.userid,
-        required this.username,
+      required this.username,
       super.key});
   int projectid;
   int time;
@@ -33,59 +33,47 @@ class BidsDetails extends StatefulWidget {
 }
 
 class _BidsDetailsState extends State<BidsDetails> {
-  final snackbar = const SnackBar(content: Text("Payment Error. Please Try after Some Time",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+  final snackbar = const SnackBar(
+    content: Text(
+      "Payment Error. Please Try after Some Time",
+      style: TextStyle(color: Colors.white),
+    ),
+    backgroundColor: Colors.red,
+  );
 
+  static Razorpay _razorpay = new Razorpay();
 
-
-
-static  Razorpay _razorpay =new Razorpay();
-
-
-
-
-
-  void _handlePaymentSuccess(PaymentSuccessResponse response) async{
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     // Do something when payment succeeds
     print("1234");
     var res = await http.post(
-        Uri.parse(api + "projects/assignproject/${widget.userid}/${widget.projectid}"),
+        Uri.parse(api +
+            "projects/assignproject/${widget.userid}/${widget.projectid}"),
         headers: headers);
     print(res.statusCode);
     print(res.body);
     var result = jsonDecode(res.body);
     print(result);
-
-
   }
-
-
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     print("Fail");
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
-
   }
-
-
-
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
   }
 
-
-
-  void dispose(){
+  void dispose() {
+    super.dispose();
     _razorpay.clear(); // Removes all listeners
   }
 
-
-
-
   static String photo = "";
-  static String namee="";
-  static String username="";
+  static String namee = "";
+  static String username = "";
   Future<void> name() async {
     var res = await http.get(Uri.parse(api + 'users/getuser/${widget.userid}'),
         headers: headers);
@@ -94,11 +82,9 @@ static  Razorpay _razorpay =new Razorpay();
     setState(() {
       if (result["photo"] != null) {
         photo = result["photo"];
-
-
       }
-      namee=result["firstname"];
-      username=result["username"];
+      namee = result["firstname"];
+      username = result["username"];
     });
   }
 
@@ -109,7 +95,6 @@ static  Razorpay _razorpay =new Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     name();
-
   }
 
   @override
@@ -145,9 +130,15 @@ static  Razorpay _razorpay =new Razorpay();
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
                         child: photo.length > 0
-                            ? CircleAvatar(backgroundImage: NetworkImage(photo),radius: MediaQuery.of(context).size.width*0.1,)
+                            ? CircleAvatar(
+                                backgroundImage: NetworkImage(photo),
+                                radius: MediaQuery.of(context).size.width * 0.1,
+                              )
                             : const Image(
-                                image: AssetImage("assets/images/Man2.png")),
+                                image: AssetImage(
+                                  "assets/images/Man2.png",
+                                ),
+                              ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 8.0),
@@ -167,8 +158,11 @@ static  Razorpay _razorpay =new Razorpay();
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -202,24 +196,34 @@ static  Razorpay _razorpay =new Razorpay();
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
                           child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ChatScreen(id: widget.userid, name: username),),);
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatScreen(
+                                      id: widget.userid, name: username),
+                                ),
+                              );
                             },
                             child: Container(
                               padding: EdgeInsets.only(
                                   left: MediaQuery.of(context).size.width * 0.1,
-                                  right: MediaQuery.of(context).size.width * 0.1,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.1,
                                   top: 8,
                                   bottom: 8),
                               decoration: BoxDecoration(
-                                  color: kblue,
-                                  borderRadius: BorderRadius.circular(10)),
+                                color: kblue,
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                              ),
                               // width: MediaQuery.of(context).size.width * 0.8,
 
                               child: const Text(
                                 "Chat With Freelancer",
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
                               ),
                             ),
                           ),
@@ -239,8 +243,11 @@ static  Razorpay _razorpay =new Razorpay();
                                   top: 8,
                                   bottom: 8),
                               decoration: BoxDecoration(
-                                  color: kblue,
-                                  borderRadius: BorderRadius.circular(10)),
+                                color: kblue,
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                              ),
                               // width: MediaQuery.of(context).size.width * 0.8,
 
                               child: const Text(
@@ -250,11 +257,11 @@ static  Razorpay _razorpay =new Razorpay();
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -265,32 +272,28 @@ static  Razorpay _razorpay =new Razorpay();
 
   assignproject(int userr, int project) async {
     print(project);
-    final json=jsonEncode({
-      "customername":user.firstname+" "+user.lastname,
-      "customeremail":user.email,
-      "amount":widget.price*100
+    final json = jsonEncode({
+      "customername": user.firstname + " " + user.lastname,
+      "customeremail": user.email,
+      "amount": widget.price * 100
     });
-    http.post(Uri.parse(api + 'pay/createorder'),headers: headers,body: json).then((value) {
+    http
+        .post(Uri.parse(api + 'pay/createorder'), headers: headers, body: json)
+        .then((value) {
       print(value.body);
-      var result=jsonDecode(value.body);
+      var result = jsonDecode(value.body);
       var options = {
         'key': result["secretkey"],
-        'amount': widget.price*100, //in the smallest currency sub-unit.
+        'amount': widget.price * 100, //in the smallest currency sub-unit.
         'name': '${user.firstname} ${user.lastname}',
-        'order_id': result["razorpayorderid"], // Generate order_id using Orders API
+        'order_id':
+            result["razorpayorderid"], // Generate order_id using Orders API
         'description': 'Project ${widget.projectid} Assigned ',
         'timeout': 60, // in seconds
-        'prefill': {
-
-          'email': user.email
-        }
+        'prefill': {'email': user.email}
       };
 
       _BidsDetailsState._razorpay.open(options);
-
     });
-
-
-
   }
 }

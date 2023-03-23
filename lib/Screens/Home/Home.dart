@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, unnecessary_new, prefer_const_constructors, avoid_print
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:perhour_flutter/Screens/ChatScreen/ChatList.dart';
@@ -38,24 +37,28 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Random random = new Random();
     return Scaffold(
-        body: SingleChildScrollView(
-      child: SafeArea(
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: ConstrainedBox(
-        constraints:
-            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-        child: Container(
-          color: backgroundwhite,
-          child: Expanded(
-              child: Home.work
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                          Container(
+            constraints:
+                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+            child: Container(
+              color: backgroundwhite,
+              child: Expanded(
+                child: Home.work
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            Container(
                               decoration: const BoxDecoration(
-                                  color: kblue,
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(20),
-                                      bottomRight: Radius.circular(20))),
+                                color: kblue,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(
+                                    20,
+                                  ),
+                                ),
+                              ),
                               width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.only(bottom: 20),
                               child: Column(
@@ -164,8 +167,9 @@ class _HomeState extends State<Home> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChatList()),
+                                                builder: (context) =>
+                                                    ChatList(),
+                                              ),
                                             );
                                           },
                                           child: const Icon(
@@ -201,45 +205,52 @@ class _HomeState extends State<Home> {
                                               const EdgeInsets.only(top: 18.0),
                                           child: Center(
                                             child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 30, right: 30),
-                                                // padding: EdgeInsets.only(bottom: 20),
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0),
-                                                  child: TextFormField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            hintText:
-                                                                "Search Category"),
+                                              margin: const EdgeInsets.only(
+                                                  left: 30, right: 30),
+                                              // padding: EdgeInsets.only(bottom: 20),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                    10,
                                                   ),
-                                                )),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8.0),
+                                                child: TextFormField(
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          hintText:
+                                                              "Search Category"),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
-                              )),
-                          const Category(),
-                          const LatestJobs()
-                        ])
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
+                              ),
+                            ),
+                            const Category(),
+                            const LatestJobs()
+                          ])
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
                             decoration: const BoxDecoration(
-                                color: kblue,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(20),
-                                    bottomRight: Radius.circular(20))),
+                              color: kblue,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(
+                                  20,
+                                ),
+                              ),
+                            ),
                             width: MediaQuery.of(context).size.width,
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Column(
@@ -375,45 +386,52 @@ class _HomeState extends State<Home> {
                                             const EdgeInsets.only(top: 18.0),
                                         child: Center(
                                           child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 30, right: 30),
-                                              // padding: EdgeInsets.only(bottom: 20),
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(10))),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: TextFormField(
-                                                  decoration:
-                                                      const InputDecoration(
-                                                          hintText:
-                                                              "Search Category"),
+                                            margin: const EdgeInsets.only(
+                                                left: 30, right: 30),
+                                            // padding: EdgeInsets.only(bottom: 20),
+                                            decoration: const BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                  10,
                                                 ),
-                                              )),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
+                                              child: TextFormField(
+                                                decoration: const InputDecoration(
+                                                    hintText:
+                                                        "Search Project Title"),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
-                            )),
-                        SwipeCards(colorss: colorss, random: random),
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(top: 18.0, left: 20, bottom: 20),
-                          child: Text(
-                            "Our Recommendation",
-                            style: TextStyle(fontSize: 18),
+                            ),
                           ),
-                        ),
-                        const FreelancersList(),
-                      ],
-                    )),
+                          SwipeCards(colorss: colorss, random: random),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                                top: 18.0, left: 20, bottom: 20),
+                            child: Text(
+                              "Our Recommendation",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          const FreelancersList(),
+                        ],
+                      ),
+              ),
+            ),
+          ),
         ),
-      )),
-    ));
+      ),
+    );
   }
 }

@@ -29,76 +29,84 @@ class _PostedProjectsState extends State<PostedProjects> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    color: kblue,
-                    padding: const EdgeInsets.only(top: 45, bottom: 20),
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  color: kblue,
+                  padding: const EdgeInsets.only(top: 45, bottom: 20),
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.22),
                     child: Container(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.22),
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (!PostedProjects.assigned) {
-                                    PostedProjects.assigned = true;
-                                  }
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: PostedProjects.assigned
-                                        ? Colors.white
-                                        : kblue,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
-                                padding:
-                                    const EdgeInsets.only(right: 10, left: 10),
-                                child: Text(
-                                  "Assigned",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w300,
-                                      color: PostedProjects.assigned
-                                          ? kblue
-                                          : Colors.white),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (!PostedProjects.assigned) {
+                                  PostedProjects.assigned = true;
+                                }
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: PostedProjects.assigned
+                                    ? Colors.white
+                                    : kblue,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(
+                                    10,
+                                  ),
                                 ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (PostedProjects.assigned) {
-                                  setState(() {
-                                    PostedProjects.assigned = false;
-                                  });
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 10),
+                              child: Text(
+                                "Assigned",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300,
                                     color: PostedProjects.assigned
                                         ? kblue
-                                        : Colors.white,
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Text(
-                                  "Posted",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w300,
-                                      color: PostedProjects.assigned
-                                          ? Colors.white
-                                          : kblue),
-                                ),
+                                        : Colors.white),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (PostedProjects.assigned) {
+                                setState(() {
+                                  PostedProjects.assigned = false;
+                                });
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: PostedProjects.assigned
+                                    ? kblue
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                              ),
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Text(
+                                "Posted",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300,
+                                    color: PostedProjects.assigned
+                                        ? Colors.white
+                                        : kblue),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 20.0, right: 20, top: 30),
@@ -154,19 +162,26 @@ class _AssignedState extends State<Assigned> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          :  _getdeals.length==0?Container(height: MediaQuery.of(context).size.height*0.7,child: Center(child: Text("No Projects Assigned to You"),)): Column(
-              children: [
-                for (int i = 0; i < _getdeals.length; i++)
-                  Deliver(
-                    deadline: _getdeals[i].time,
-                    id: _getdeals[i].id,
-                    jd: _getdeals[i].fulldesc,
-                    price: _getdeals[i].price,
-                    status: _getdeals[i].status,
-                    title: _getdeals[i].title,
-                  )
-              ],
-            ),
+          : _getdeals.length == 0
+              ? Container(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: Center(
+                    child: Text("No Projects Assigned to You"),
+                  ),
+                )
+              : Column(
+                  children: [
+                    for (int i = 0; i < _getdeals.length; i++)
+                      Deliver(
+                        deadline: _getdeals[i].time,
+                        id: _getdeals[i].id,
+                        jd: _getdeals[i].fulldesc,
+                        price: _getdeals[i].price,
+                        status: _getdeals[i].status,
+                        title: _getdeals[i].title,
+                      )
+                  ],
+                ),
     );
   }
 }
@@ -199,7 +214,11 @@ class _DeliverState extends State<Deliver> {
       padding: const EdgeInsets.only(top: 18.0),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+        ),
         width: MediaQuery.of(context).size.width * 0.9,
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
@@ -209,11 +228,14 @@ class _DeliverState extends State<Deliver> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      widget.title,
-                      style: TextStyle(fontSize: 18),
-                    )),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Text(
+                    widget.title,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
                 widget.status == "Cancelled" || widget.status == "Completed"
                     ? Container()
                     : Padding(
@@ -223,7 +245,11 @@ class _DeliverState extends State<Deliver> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>  DeliverProject(deadline: widget.deadline,id: widget.id.toString(), title: widget.title, jd: widget.jd),
+                                builder: (context) => DeliverProject(
+                                    deadline: widget.deadline,
+                                    id: widget.id.toString(),
+                                    title: widget.title,
+                                    jd: widget.jd),
                               ),
                             );
                           },
@@ -235,11 +261,14 @@ class _DeliverState extends State<Deliver> {
                                 left: 15, right: 15, top: 8, bottom: 8),
                             child: const Text(
                               "Deliver",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ))
+                        ),
+                      )
               ],
             ),
             const Spacer(),
@@ -247,11 +276,15 @@ class _DeliverState extends State<Deliver> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
-                      widget.status,
-                      style: TextStyle(fontSize: 14, color: Colors.red),
-                    )),
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: Text(
+                    widget.status,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Container(
@@ -269,10 +302,13 @@ class _DeliverState extends State<Deliver> {
                         width: MediaQuery.of(context).size.width * 0.3,
                         child: Text(
                           "Deadline: ${widget.deadline}",
-                          style: TextStyle(fontSize: 11),
-                        ))
+                          style: TextStyle(
+                            fontSize: 11,
+                          ),
+                        ),
+                      )
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -291,7 +327,11 @@ class AssignedProject extends StatelessWidget {
       padding: const EdgeInsets.only(top: 18.0),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+        ),
         width: MediaQuery.of(context).size.width * 0.9,
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
@@ -301,11 +341,14 @@ class AssignedProject extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: const Text(
-                      "App Development",
-                      style: TextStyle(fontSize: 18),
-                    )),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: const Text(
+                    "App Development",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Text(
@@ -320,11 +363,15 @@ class AssignedProject extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: const Text(
-                      "Assigned",
-                      style: TextStyle(fontSize: 14, color: Colors.red),
-                    )),
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: const Text(
+                    "Assigned",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.only(top: 18.0),
                   child: Text(

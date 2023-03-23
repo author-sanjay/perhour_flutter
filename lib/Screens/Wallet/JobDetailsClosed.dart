@@ -6,21 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:perhour_flutter/Colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/api.dart';
+
 class JobDetailsClosed extends StatefulWidget {
-  JobDetailsClosed({required this.id,super.key});
-int id;
+  JobDetailsClosed({required this.id, super.key});
+  int id;
   @override
   State<JobDetailsClosed> createState() => _JobDetailsClosedState();
 }
 
 class _JobDetailsClosedState extends State<JobDetailsClosed> {
-  static String name="";
-  static String cat="";
-  static String jd="";
-  static int price=0;
-  static String deadline="";
-  static String exp="";
-  static bool type=true;
+  static String name = "";
+  static String cat = "";
+  static String jd = "";
+  static int price = 0;
+  static String deadline = "";
+  static String exp = "";
+  static bool type = true;
   Future<void> jdd() async {
     print(widget.id);
     var res = await http.get(Uri.parse(api + "projects/get/${widget.id}"),
@@ -30,17 +31,21 @@ class _JobDetailsClosedState extends State<JobDetailsClosed> {
     setState(() {
       print(result);
       _JobDetailsClosedState.name = result["title"];
-      _JobDetailsClosedState.jd = result["fulldescription"] ;
+      _JobDetailsClosedState.jd = result["fulldescription"];
       _JobDetailsClosedState.price = result["price"];
       _JobDetailsClosedState.cat = result["category"];
       _JobDetailsClosedState.type = result["fixed"];
-      _JobDetailsClosedState.exp= result["experience"];
-      _JobDetailsClosedState.deadline = result["timelimit"] ;
-     print(_JobDetailsClosedState.deadline);
+      _JobDetailsClosedState.exp = result["experience"];
+      _JobDetailsClosedState.deadline = result["timelimit"];
+      print(_JobDetailsClosedState.deadline);
     });
   }
 
-  @override void initState() {super.initState();jdd(); }
+  @override
+  void initState() {
+    super.initState();
+    jdd();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +64,15 @@ class _JobDetailsClosedState extends State<JobDetailsClosed> {
                   color: kblue,
                   padding: const EdgeInsets.only(top: 20),
                   child: const Center(
-                      child: Text(
-                    "Job Details",
-                    style: TextStyle(
+                    child: Text(
+                      "Job Details",
+                      style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                  )),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -101,16 +108,28 @@ class Deadlines extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 20),
             child: Row(
-              children:  [
+              children: [
                 Text(
                   "Deadline: ${_JobDetailsClosedState.deadline} Days",
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w300),
                 ),
                 const Spacer(),
-                _JobDetailsClosedState.type?
-                const Text("Project Type: Fixed",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300)):const Text("Project Type: Hourly",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300))
+                _JobDetailsClosedState.type
+                    ? const Text(
+                        "Project Type: Fixed",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      )
+                    : const Text(
+                        "Project Type: Hourly",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      )
               ],
             ),
           ),
@@ -135,7 +154,7 @@ class Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width*0.9,
+      width: MediaQuery.of(context).size.width * 0.9,
       padding: const EdgeInsets.only(top: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +210,7 @@ class Pricings extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children:  [
+              children: [
                 const Text(
                   "Budget",
                   style: TextStyle(

@@ -22,16 +22,16 @@ class RegisterDetails extends StatefulWidget {
 }
 
 class _RegisterDetailsState extends State<RegisterDetails> {
-  final _dbServices=DBServices();
-  static String tagline="";
+  final _dbServices = DBServices();
+  static String tagline = "";
   static String firstname = "";
   static String lastname = "";
   static String dob = "";
   static String address = "";
   static String country = "";
-  static String about="";
+  static String about = "";
   static String username = "";
-  static double rate=0;
+  static double rate = 0;
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,11 @@ class _RegisterDetailsState extends State<RegisterDetails> {
 
   @override
   Widget build(BuildContext context) {
-    const snakbar = SnackBar(content: Text("Username Not available"));
+    const snakbar = SnackBar(
+      content: Text(
+        "Username Not available",
+      ),
+    );
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -48,13 +52,13 @@ class _RegisterDetailsState extends State<RegisterDetails> {
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(context).size.height),
           child: Container(
-              color: backgroundwhite,
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                  child: Column(
+            color: backgroundwhite,
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top:58.0),
+                    padding: const EdgeInsets.only(top: 58.0),
                     child: const Text("Just Need Few More Details"),
                   ),
                   Padding(
@@ -113,7 +117,6 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                                 const InputDecoration(hintText: "DD/MM/YYYY"),
                           ),
                         ),
-
                         const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text("About You"),
@@ -131,8 +134,7 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                             minLines: 5,
                             maxLines: 100,
                             decoration: const InputDecoration(
-                              hintText:
-                              "I am a ...",
+                              hintText: "I am a ...",
                               contentPadding: EdgeInsets.all(8),
                               border: OutlineInputBorder(),
                             ),
@@ -168,8 +170,8 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                                 _RegisterDetailsState.tagline = value;
                               });
                             },
-                            decoration:
-                            const InputDecoration(hintText: "UX/UI Designer"),
+                            decoration: const InputDecoration(
+                                hintText: "UX/UI Designer"),
                           ),
                         ),
                         const Padding(
@@ -182,11 +184,12 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                           child: TextFormField(
                             onChanged: (value) {
                               setState(() {
-                                _RegisterDetailsState.rate = double.parse(value) ;
+                                _RegisterDetailsState.rate =
+                                    double.parse(value);
                               });
                             },
                             decoration:
-                            const InputDecoration(hintText: "Rs 1000/hour"),
+                                const InputDecoration(hintText: "Rs 1000/hour"),
                             keyboardType: TextInputType.number,
                           ),
                         ),
@@ -233,11 +236,15 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                                     verifyusername();
                                   },
                                   child: Container(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(
+                                      10,
+                                    ),
                                     decoration: BoxDecoration(
-                                        color: kblue,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                      color: kblue,
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
                                     // width: MediaQuery.of(context).size.width * 0.3,
                                     child: const Text(
                                       "Available?",
@@ -266,8 +273,11 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: kblue,
-                            borderRadius: BorderRadius.circular(10)),
+                          color: kblue,
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                        ),
                         child: const Text(
                           "Start Earnig",
                           style: TextStyle(fontSize: 14, color: Colors.white),
@@ -276,7 +286,9 @@ class _RegisterDetailsState extends State<RegisterDetails> {
                     ),
                   )
                 ],
-              ))),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -292,12 +304,12 @@ class _RegisterDetailsState extends State<RegisterDetails> {
 
     // var result = res.body;
     // print(result);
-    if(res.body=="true"){
+    if (res.body == "true") {
       print("helo");
       setState(() {
-        RegisterDetails.available=true;
+        RegisterDetails.available = true;
       });
-    }else{
+    } else {
       print(res.body);
     }
   }
@@ -312,9 +324,9 @@ class _RegisterDetailsState extends State<RegisterDetails> {
       "email": widget.email,
       "username": _RegisterDetailsState.username,
       "password": widget.password,
-      "rates":_RegisterDetailsState.rate,
-      "headline":_RegisterDetailsState.tagline,
-      "about":_RegisterDetailsState.about
+      "rates": _RegisterDetailsState.rate,
+      "headline": _RegisterDetailsState.tagline,
+      "about": _RegisterDetailsState.about
     });
     var res = await http.post(Uri.parse('${api}users/add'),
         headers: headers, body: json);
@@ -322,7 +334,8 @@ class _RegisterDetailsState extends State<RegisterDetails> {
     print(jsonDecode(res.body));
     if (res.statusCode == 200) {
       var result = jsonDecode(res.body);
-      _dbServices.inituserdatawithphoto(result["id"], result["firstname"]+result["lastname"], result["email"]);
+      _dbServices.inituserdatawithphoto(result["id"],
+          result["firstname"] + result["lastname"], result["email"]);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
