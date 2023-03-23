@@ -26,4 +26,15 @@ class Userapi {
     }
     return User3.dealsfromapi(_temp);
   }
+
+
+  static Future<List<User3>> search(String str) async {
+    var res = await http.post(Uri.parse("${api}users/searchfreelancer/${str}"),
+        headers: headers);
+    List _temp = [];
+    for (var i in jsonDecode(res.body)) {
+      _temp.add(i);
+    }
+    return User3.dealsfromapi(_temp);
+  }
 }

@@ -7,6 +7,7 @@ import 'package:perhour_flutter/Colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:perhour_flutter/Screens/ChatScreen/ChatList.dart';
 import 'package:perhour_flutter/Screens/Home/Client/FreelancersList.dart';
+import 'package:perhour_flutter/Screens/Home/Client/SearchFreelancer.dart';
 import 'package:perhour_flutter/Screens/Home/Client/SwipeCard.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/Category.dart';
 import 'package:perhour_flutter/Screens/Home/Components/Freelancer/LatestJobs.dart';
@@ -422,6 +423,14 @@ class _HomeState extends State<Home> {
                                               padding: const EdgeInsets.only(
                                                   left: 8.0),
                                               child: TextFormField(
+                                                onChanged: (v){
+                                                  setState(() {
+                                                    _HomeState.searchquery=v;
+                                                  });
+                                                },
+                                                onFieldSubmitted: (v){
+                                                  Navigator.push(context,MaterialPageRoute(builder: (context) => SearchFreelancer(st: _HomeState.searchquery),),);
+                                                },
                                                 decoration: const InputDecoration(
                                                     hintText:
                                                         "Search Project "),
