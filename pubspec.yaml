@@ -41,6 +41,8 @@ dependencies:
   firebase_auth:
   firebase_core:
   firebase_storage:
+  firebase_messaging:
+  flutter_local_notifications:
   file_picker:
   cloud_firestore:
   chat_app_plugin: ^0.0.5
